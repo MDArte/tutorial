@@ -2,55 +2,142 @@
 
 Nesta seção detalharemos o processo de preparação do ambiente de desenvolvimento com o AndroMDA, onde serão enumeradas as ferramentas utilizadas e seus respectivos procedimentos de instalação. 
 Ferramentas necessárias:
-Máquina Virtual Java - JDK
-JBoss (versão 4.2.3-GA)
-Maven (versão 1.0.2) 
-Magic Draw (versão 9.5)
-Eclipse Indigo (versão 3.7.1)
+\begin{itemize}
+  \item Máquina Virtual Java - JDK
+  \item JBoss (versão 4.2.3-GA)
+  \item Maven (versão 1.0.2) 
+  \item Magic Draw (versão 9.5)
+  \item Eclipse Indigo (versão 3.7.1)
+\end{itemize}
 
 \section{JDK}
 
 É necessário que o JDK esteja instalado no computador. O download pode ser feito em http://java.sun.com/ ou utilizando algum repositório, como mostra abaixo:
+
+\begin{lstlisting}[language=bash]
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java6-installer
+\end{lstlisting}
 
 \section{JBoss}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+É necessário que o JBoss esteja instalado no computador. O download pode ser feito em h\hypertarget{ttp://www.jboss.com/}{ttp://www.jboss.com/}. Após a instalação do JBoss, é necessário configurar a variável \texttt{JBOSS\_HOME}, a qual deve especificar o caminho de instalação do JBoss. Esse caminho para o JBoss é necessário para a instalação de aplicações (deployment).
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Neste tutorial será considerado que o jboss estará instalado na pasta abaixo.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\begin{lstlisting}[language=bash]
+/home/<user>/Work/programs/jboss
+\end{lstlisting}
+
+\section{Maven}
+O Maven\footnote{\hypertarget{http://maven.apache.org/}{http://maven.apache.org/}} é uma ferramenta de automação e gerenciamento de projetos. O download pode ser feito através do endereço \hypertarget{http://maven.apache.org/start/download.html}{http://maven.apache.org/start/download.html} e sua instalação consiste em descompactar o arquivo obtido em um diretório local. 
+
+A versão compatível é a 1.02. O Maven, durante sua execução, faz acesso a repositórios remotos, de onde poderão ser obtidos diversos artefatos necessários às tarefas de automação. Por exemplo bibliotecas (arquivos \texttt{*.jar}) necessárias para compilação e execução de um projeto podem ser automaticamente obtidas. 
+
+Para especificar o repositório que o Maven deve acessar é necessário criar um arquivo, chamado \texttt{build.properties}, no diretório home do usuário, por exemplo \texttt{/home/<usuario>}. 
+
+Abaixo temos exemplos do arquivo build.properties para uso com repositórios externos, em repositório externo que possui um proxy para acesso à internet, e com um repositório proxy configurado na rede local. 
+
+1. Repositórios remoto quando não é necessário utilizar proxy para acesso à internet: 
+
+\begin{lstlisting}[language=bash]
+maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven 
+\end{lstlisting}
+
+2. Repositórios remoto quando é necessário utilizar proxy para acesso à internet. No exemplo, o IP do proxy é \texttt{10.0.2.15}: 
+
+\begin{lstlisting}[language=bash]
+maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven maven.proxy.host=10.0.2.15 
+maven.proxy.port=8080 
+\end{lstlisting}
+
+3. Repositório proxy na rede local. O repositório proxy contém as bibliotecas \texttt{*.jar} que o Maven poderia requisitar no repositório remoto na Internet. Esse repositório deverá ser utilizado quando não é possível ou não é desejável o acesso ao repositório remoto:
+
+\begin{verbatim}
+maven.repo.remote=http://<host>:<port> 
+\end{verbatim}
+
+Onde \texttt{<host>} é o nome da máquina utilizada como proxy e \texttt{<port>} é o número da porta do serviço do proxy. Por exemplo: \texttt{maven.repo.remote=http://146.164.34.92/repositorio/}
+
+É importante observar que o Maven, de acordo com as tarefas executadas, irá fazer o download dos artefatos necessários e guardá-los em um cache local na estação de trabalho em um diretório chamado \texttt{.maven} localizado no diretório home de cada usuário da estação. 
+
+Para evitar o acesso a servidores na Internet é possível a instalação de um proxy específico do Maven na rede local. Neste tutorial de configuração, não abordaremos a configuração desse proxy.
+
+Neste tutorial será considerado que o jboss estará instalado na pasta abaixo.
+
+\begin{verbatim}
+/home/<user>/Work/programs/maven
+\end{verbatim}
+
+\section{Varíaveis de Ambiente}
+
+Adicionar no final do arquivo \texttt{/home/<usuario>/.bashrc} o seguinte código: 
+
+\begin{lstlisting}[language=bash]
+if [ -f ~/.bashrc_mdarte ]; then
+ . ~/.bashrc_mdarte
+fi
+\end{lstlisting}
+
+Criar o script onde ficará todas as variáveis do ambiente. 
+
+\begin{lstlisting}[language=bash]
+touch ~/.bashrc_mdarte
+\end{lstlisting}
+	
+Editar o arquivo \texttt{/home/<usuario>/.bashrc\_mdarte} adicionando os seguintes valores. 
+
+\begin{lstlisting}[language=bash]
+#MDArte Configurations
+
+export MAVEN_OPTS=-Xmx1024m
+
+export JAVA_HOME=/usr/lib/jvm/java-6-oracle/
+
+if [ -d ~/Work/programs/maven ] ; then
+  export MAVEN_HOME=~/Work/programs/maven
+fi
+
+if [ -d ~/Work/programs/maven ] ; then
+ export PATH=\$PATH:~/Work/programs/maven/bin
+fi
+
+if [ -d ~/Work/programs/jboss ] ; then
+  export JBOSS_HOME=~/Work/programs/jboss
+fi
+\end{lstlisting}
+
+Após será necessário reiniciar a sessão do usuário para essas variáveis estarem no sistema ou utilizar o seguinte comando abaixo.
+
+\begin{lstlisting}[language=bash]
+source ~/.bashrc
+\end{lstlisting}
+
+\section{MDArte}
+
+O MDArte, na verdade, não é um aplicativo, mas sim um conjunto de bibliotecas de classes. Em nosso processo de desenvolvimento, utilizaremos o MDArte como um plugin do Maven. O Maven, por sua vez, possui um mecanismo próprio para obtenção de plugins. Através de parâmetros na linha de comando podemos especificar ao Maven qual plugin queremos instalar e ele se encarrega de buscar este plugin no(s) repositório(s) para o(s) qual(is) estiver configurado. 
+
+No caso do plugin do MDArte, o seguinte comando deve ser executado para a instalação (ao copiar o comando, verificar se foi copiado corretamente, inclusive os hifens): 
+
+\begin{lstlisting}[language=bash]
+maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin-coppetec -Dversion=3.1.1.3.4.19-RC2
+\end{lstlisting}
+	
+Após a execução desse comando o Maven terá instalado o plugin do AndroMDA no cache local do usuário e tarefas referentes ao MDArte poderão ser executadas através do Maven. 
+
+Eventualmente, dependendo das tarefas executadas, o Maven poderá buscar outros artefatos nos repositórios, contudo isso será feito de forma transparente e automática.
+
+\section{MagicDraw}
+
+O download do MagicDraw pode ser feito em http://www.magicdraw.com. 
+
+O MagicDraw é uma ferramenta para modelagem em UML e é recomendada para uso com o MDArte devido a seu suporte a diagramas de atividade, utilizados pelo cartucho BPM4Struts. Ainda, para que os modelos sejam corretamente utilizados pelo MDArte eles deverão conter estereótipos específicos, disponíveis através de um profile fornecido com o MDArte, que será mostrado com mais detalhes na seção “Iniciando o projeto no MagicDraw”.
+
+\section{Eclipse}
+
+O download do Eclipse pode ser feito em http://www.eclipse.org/. 
+
+Durante a geração de um projeto, o MDArte gerará automaticamente os arquivos de configuração \texttt{.project} e \texttt{.classpath} de um projeto Eclipse. Esses arquivos podem ser usados diretamente para importação do projeto ao Eclipse. O \texttt{.classpath} é o arquivo onde será indicado as bibliotecas para o eclipse que serão utilizados pelo projeto. Assim, o eclipse saberá completar as informações automaticamente. Já o \texttt{.project} é uma descrição das opções do projeto.
 
 Citation of Einstein paper~\cite{Einstein}.
-
-\section{Second section}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\subsection{First subsection}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\subsection{Second subsection}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\chapter{Results}
-
-\section{Third section}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\section{Fourth section}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-\appendix
-
-\chapter{Additional}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
