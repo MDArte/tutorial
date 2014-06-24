@@ -167,6 +167,33 @@ arquivo project.properties do ControleAcesso para configurar o tipo de Banco de 
 utilziado, conforme realizado com o projeto SistemaAcademico. Note que a propriedade
 dataSource.name está definida como ControleAcessoDS.
 Novamente, precisaremos criar um arquivo de configuração do Banco de Dados, localizado
-no diretório JBOSS\_HOME/server/default/deploy/. O nome do arquivo deve seguir a
-mesma formatação mencionada, terminando em -ds.xml (ex.: aplicacoes-ds.xml), podendo estar no mesmo
+no diretório JBOSS\_HOME/server/default/deploy/ . O nome do arquivo deve seguir
+a mesma formatação mencionada, terminando em -ds.xml (ex.: aplicacoes-ds.xml), podendo estar no mesmo
 arquivo com as configurações do projeto SistemaAcademico.
+
+Exemplo:
+
+\begin{lstlisting}[language=xml]
+<local-tx-datasource>
+	<jndi-name>controleAcessoDS</jndi-name>
+	<use-java-context>true</use-java-context>
+	<connection-url>jdbc:postgresql://127.0.0.1:5432/controleacesso</connection-url> 
+	<driver-class>org.postgresql.Driver</driver-class>
+		<user-name>usuario</user-name>
+		<password>senha</password>
+	<!--<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>-->
+</local-tx-datasource>
+\end{lstlisting}
+
+Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de dados
+do projeto SistemaAcademico, definida pela tag <connection-url>. Agora, execute os seguinte
+comandos, na raiz do projeto ControleAcesso, para gerar, compilar e copiar os pacotes para o
+diretório JBOSS\_HOME/server/default/deploy/:
+
+\begin{lstlisting}[language=bash]
+maven mda -Dprojeto=ca-core
+cd common
+maven jar:install deploy
+cd ../core/cd
+maven jar:install deploy
+\end{lstlisting}
