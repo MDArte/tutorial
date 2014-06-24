@@ -132,17 +132,22 @@ SistemaAcademico Policy
 	<authentication>
 		<login-module code="org.jboss.security.ClientLoginModule"
 			flag="required">
-			<module-option name="multi-threaded">true</module-option>
+			<module-option name="multi-threaded">true
+				</module-option>
 		</login-module>
-		<login-module code="accessControl.LoginModuleImpl" flag="required">
-			<module-option name="dsJndiName">java:/controleacessoDS</module-option>
-			<module-option name="unauthenticatedIdentity">guest</module-option>
-			<module-option
-				name="principalClass">accessControl.PrincipalImpl</module-option>
-			<module-option name="hashEncoding">hex</module-option>
+		<login-module code="accessControl.LoginModuleImpl" 
+			flag="required">
+			<module-option name="dsJndiName">java:/controleacessoDS
+				</module-option>
+			<module-option name="unauthenticatedIdentity">guest
+				</module-option>
+			<module-option name="principalClass">
+				accessControl.PrincipalImpl</module-option> 
+			<module-option name="hashEncoding">hex</module-option> 
 			<module-option name="hashAlgorithm">md5</module-option>
 			<module-option name="principalsQuery">
-				select SENHA from OP_C_A where LOGIN=?</module-option>
+				select SENHA from OP_C_A where LOGIN=?
+				</module-option>
 			<module-option name="rolesQuery">
 				select OP_PF.PF_OP_C_A_FK, 'Roles'
 				12from OP_C_A, OP_C_A_PF_OP_C_A OP_PF
@@ -175,13 +180,16 @@ Exemplo:
 
 \begin{lstlisting}[language=xml]
 <local-tx-datasource>
-	<jndi-name>controleAcessoDS</jndi-name>
+	<jndi-name>controleacessoDS</jndi-name>
 	<use-java-context>true</use-java-context>
-	<connection-url>jdbc:postgresql://127.0.0.1:5432/controleacesso</connection-url> 
+	<connection-url>jdbc:postgresql://127.0.0.1:5432/controleacesso
+		</connection-url> 
 	<driver-class>org.postgresql.Driver</driver-class>
-		<user-name>usuario</user-name>
-		<password>senha</password>
-	<!--<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>-->
+	<user-name>usuario</user-name>
+	<password>senha</password>
+	<!--<exception-sorter-class-name>
+		org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+		</exception-sorter-class-name>-->
 </local-tx-datasource>
 \end{lstlisting}
 
@@ -197,3 +205,60 @@ maven jar:install deploy
 cd ../core/cd
 maven jar:install deploy
 \end{lstlisting}
+
+\section{Modelando o nosso primeiro projeto}
+
+Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o
+quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
+
+Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do
+MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto,
+SistemaAcademico.xml no caminho
+<Diretório-do-Projeto>/mda/src/uml/.
+
+\subsection{Modelando a camada de domínio}
+Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão entidades e
+estarão associadas a algum modo de persistência. Essas classes deverão conter o estereótipo
+«Entity» e os atributos que serão persistidos. Todas as classes de entidade devem obrigatoriamente
+estar no pacote <PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
+Atualmente, estamos utilizando framework Hibernate para esta camada. 
+
+Neste exemplo, especificamente, iremos também marcar nossas entidades com o
+estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja
+gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o
+mesmo diretamente.
+
+\begin{enumerate}
+	\item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
+Dentro da estrutura, crie o pacote “cd”.
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
+		\end{figure}
+	\item Clique com o botão direito do mouse no pacote “cd” e selecione a opção New Diagram .
+Em seguida, selecione Class Diagram.
+		
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=400pt,height=60pt]{imgs/tutorial-mdarte-0001.png}
+		\end{figure}
+	
+	\item Indique o nome desejado para diagrama (ex: Entidades).
+	
+	\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
+	sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
+	
+	\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e
+clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O
+campo Visibility deve ser public. Não é necessário modelar o atributo id, pois
+ele é gerado automaticamente.
+
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
+		\end{figure}
+		
+	A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT
+NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são
+gerados como NOT NULL.
+\end{enumerate}
