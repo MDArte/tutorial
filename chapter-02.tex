@@ -214,7 +214,7 @@ quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
 Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do
 MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto,
 SistemaAcademico.xml no caminho
-<Diretório-do-Projeto>/mda/src/uml/.
+<DiretorioProjeto>/mda/src/uml/.
 
 \subsection{Modelando a camada de domínio}
 Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão entidades e
@@ -230,13 +230,13 @@ mesmo diretamente.
 
 \begin{enumerate}
 	\item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
-Dentro da estrutura, crie o pacote “cd”.
+	Dentro da estrutura, crie o pacote “cd”.
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
 		\end{figure}
 	\item Clique com o botão direito do mouse no pacote “cd” e selecione a opção New Diagram .
-Em seguida, selecione Class Diagram.
+	Em seguida, selecione Class Diagram.
 		
 		\begin{figure}[!htb]
 			\centering
@@ -248,22 +248,23 @@ Em seguida, selecione Class Diagram.
 	\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
 	sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
 	
-	\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e
-clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O
-campo Visibility deve ser public. Não é necessário modelar o atributo id, pois
-ele é gerado automaticamente.
+	\item Crie os atributos na classe Estudante (matricula, nome) selecionando a
+	aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação
+	do atributo matricula. O campo Visibility deve ser public. Não é necessário
+	modelar o atributo id, pois ele é gerado automaticamente.
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
 		\end{figure}
 		
-	A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT
-NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são
-gerados como NOT NULL.
+		A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
+	obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão,
+	todos os atributos são gerados como NOT NULL.
 
-	\item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada código deve
-ser único, ou seja, não pode haver duas matrículas iguais. Abra a especificação do atributo
-matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+	\item Coloque o estereótipo «Unique» no atributo matricula para indicar que
+	cada código deve ser único, ou seja, não pode haver duas matrículas iguais.
+	Abra a especificação do atributo matricula e selecione a aba Stereotypes. Nessa
+	aba selecione o estereótipo «Unique».
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
@@ -306,6 +307,7 @@ matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Un
 	\item A associação será de 1 para muitos. Assim, clique duas vezes na
 	associação e irá aparecer a tela de especificação. Edite os campos Multiplicity
 	definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+	
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
@@ -320,7 +322,7 @@ matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Un
 			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
 		\end{figure}
 		
-	O resultado final será:
+	O resultado final será: \hfill
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
@@ -328,6 +330,82 @@ matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Un
 	
 	\item No diretório da aplicação, execute o comando maven para validar o modelo
 	e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
-	ser “BUILD SUCCESFULL”.
+	ser “BUILD SUCCESFULL”. Observe que dois novos arquivos xml terão sido criados
+	no caminho <DiretorioProjeto>/mda/src/uml/ com os nomes
+	sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com
+	os crud default gerados pelo MDArte.
 
+\end{enumerate}
+
+\subsection{Criando o Banco de Dados}
+
+Durante a execução do comando maven, todas as classes são criadas automaticamente.
+Além disso, também é gerado o código SQL de criação de tabelas do Banco de Dados. O script
+SQL pode ser encontrado em <DiretorioProjeto>/core/cd/target/schema-create.sql. Abrindo o
+arquivo é possível notar a presença de comandos de crição das tabelas ESTUDANTE e CURSO.
+
+Execute o conteúdo do arquivo no Banco de Dados utilizado.
+
+Como exemplificação dos casos de usos que serão elaborados por este documento, execute o
+seguinte script SQL para criar a base inicial. Note que o script foi escrito
+para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
+
+\begin{lstlisting}[language=sql]
+INSERT INTO CURSO (ID, HIBERNATE_VERSION, CODIGO, NOME) VALUES
+	(nextval('curso_seq'), 0, '001', 'Curso 1'),
+	(nextval('curso_seq'), 0, '002', 'Curso 2');
+
+INSERT INTO ESTUDANTE (ID, MATRICULA, NOME, CURSO_FK) VALUES
+	(nextval('estudante_seq'), '0001', 'Estudante 1', 1),
+	(nextval('estudante_seq'), '0002', 'Estudante 2', 2),
+	(nextval('estudante_seq'), '0003', 'Estudante 3', 1),
+	(nextval('estudante_seq'), '0004', 'Estudante 4', 1);
+\end{lstlisting}
+
+\subsection{Modelando a camada de serviços}
+
+Na camada de serviço serão implementadas as classes responsáveis pela lógica de
+negócio da aplicação. As classes especificadas se tornarão os serviços (API) da
+aplicação. Os serviços definidos no modelo se tornarão disponíveis através de
+Session Beans.
+
+Os Session Beans são componentes de negócio. A lógica de negócio dos componentes
+EJB se encontram nestes componentes. Existem dois tipos de Componentes Session
+Bean, o Stateless Session Bean e o Stateful Session Beans. O Stateless é um
+componente de negócio que não mantém conversação com o usuário, não há garantia
+que chamadas sucessivas de métodos remotos vão ser feitas no mesmo objeto. O
+Stateful é um componente que mantêm estado, com ele temos a garantia que
+chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão
+processadas por um mesmo objeto.
+
+Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes
+beans precisam ter o estereótipo «Service». Todas as classes de serviço devem
+estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido
+para o projeto.
+
+\begin{enumerate}
+	\item Crie um pacote <PacoteProjeto>.cs.estudante. Clique então com o botão
+  	direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
+  	«ModuloServico» e clique em Apply. O resultado será:
+  		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+		\end{figure} 
+	
+	\item Crie um diagrama de classe dentro do pacote estudante, com o nome que
+	desejar.
+	
+	\item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A
+	classe EstudanteHandler deve ficar como na figura abaixo.
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0009.png}
+		\end{figure} 
+	
+	\item Crie uma classe com nome EstudanteException e estereótipo
+	«ApplicationException».
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0010.png}
+		\end{figure}
 \end{enumerate}
