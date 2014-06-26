@@ -252,7 +252,6 @@ Em seguida, selecione Class Diagram.
 clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O
 campo Visibility deve ser public. Não é necessário modelar o atributo id, pois
 ele é gerado automaticamente.
-
 		\begin{figure}[!htb]
 			\centering
 			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
@@ -261,4 +260,74 @@ ele é gerado automaticamente.
 	A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT
 NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são
 gerados como NOT NULL.
+
+	\item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada código deve
+ser único, ou seja, não pode haver duas matrículas iguais. Abra a especificação do atributo
+matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
+		\end{figure}
+	
+	\item Coloque os estereótipos «Entity» e «Manageable» na classe Estudante.
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
+		\end{figure}
+	
+	Para cada entidade, também podem ser atribuídos valores etiquetados para
+	agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor
+	etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no
+	Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores
+	etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que
+	determina que o atributo será o identificador do objeto (possível chave
+	primária) e «Entity» que determina que o valor do atributo deverá ser único.
+	Como exemplo de valores etiquetados temos @andromda.persistence.column que
+	define o nome da coluna a ser criada no Banco de Dados e
+	@andromda.persistence.column.lenght que define o tamanho da coluna.
+
+	\item No mesmo diagrama de classes, crie outra classe. Clique com o botão
+	direto sobre a classe e selecione a opção Specification. Defina o nome da
+	classe como “Curso”.
+	
+	\item Crie os atributos na classe Curso (codigo, nome) selecionando a  aba
+	Attributes e clicando no botão Add. O campo Visibility deve ser public, assim
+	como feito anteriormente.
+
+	\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
+	código deve ser único. Abra a especificação do atributo codigo e selecione a
+	aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+	
+	\item Coloque o estereótipo «Entity» na classe.
+	
+	\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
+	puxe uma relação Association de uma classe para outra.
+	
+	\item A associação será de 1 para muitos. Assim, clique duas vezes na
+	associação e irá aparecer a tela de especificação. Edite os campos Multiplicity
+	definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
+		\end{figure}
+	
+	\item A associação deve ser dupla, tanto Estudante quanto Curso devem ser
+	visíveis. Dessa forma, mantenha a checkbox Navigable marcada na associação para
+	as duas classes. Para isso, clique no botão “...” (reticências) da tela
+	anterior.
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
+		\end{figure}
+		
+	O resultado final será:
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
+		\end{figure}
+	
+	\item No diretório da aplicação, execute o comando maven para validar o modelo
+	e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
+	ser “BUILD SUCCESFULL”.
+
 \end{enumerate}
