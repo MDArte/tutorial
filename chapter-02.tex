@@ -360,23 +360,14 @@ A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao 
 
 \item Agora faça o mesmo para criar um modulo de serviço para a classe Estudante.
 	
-\item No diretório da aplicação, execute o comando maven para validar o modelo
-e gerar as classes de serviço. O resultado apresentado deve ser “BUILD
-SUCCESSFULL”.
+\item No diretório da aplicação, execute o comando maven para validar o modelo e gerar as classes de serviço. O resultado apresentado deve ser “BUILD SUCCESSFULL”.
 \end{enumerate}
 
 \section{Implementando as classes de controle dos cruds gerados}
-Nessa seção vamos implementar as classes de controle dos casos de uso gerados.
-Para isso, abriremos os arquivos <nomeCasoDeUso>ControleImpl.java. Esses
-arquivos são pontos de implementação onde deve ser concentrado todo o código que
-se queira adicionar manualmente às classes de controle. Como tais arquivos só
-são gerados caso ainda não existam, o código colocado neles não será
-sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos
-arquivos <nomeCasoDeUso>Controle.java .
 
-De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do
-MDArte, iremos implementar respectivamente os seguintes código nos seguintes
-arquivos, que devem portanto ser abertos no Eclipse ou em outra IDE desejada:
+Nessa seção vamos implementar as classes de controle dos casos de uso gerados. Para isso, abriremos os arquivos <nomeCasoDeUso>ControleImpl.java. Esses arquivos são pontos de implementação onde deve ser concentrado todo o código que se queira adicionar manualmente às classes de controle. Como tais arquivos só são gerados caso ainda não existam, o código colocado neles não será sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos arquivos <nomeCasoDeUso>Controle.java .
+
+De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do MDArte, iremos implementar respectivamente os seguintes código nos seguintes arquivos, que devem portanto ser abertos no Eclipse ou em outra IDE desejada:
 
 \begin{enumerate}
 \item ConsultaEstudanteControleImpl.java :
@@ -545,9 +536,9 @@ public final void carregaCurso(br.mdarte.exemplo.academico.web.geral.detalharCur
 \end{enumerate}
 
 Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
+
 \begin{lstlisting}[language=bash]
 maven compile deploy
 \end{lstlisting}
 
-Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então
-no navegador o resultado do nosso sistema.
+Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então no navegador o resultado do nosso sistema.
