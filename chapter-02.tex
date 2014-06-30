@@ -24,8 +24,7 @@ Sistema Academico\\
 sistemaacademico\\
 \textbf{Please enter a version for your project (i.e. 1.0):}\\
 1.0\\
-\textbf{Please enter the base package name for your J2EE project (i.e.
-br.mdarte.exemplo.academico):}\\
+\textbf{Please enter the base package name for your J2EE project (i.e. br.mdarte.exemplo.academico):}\\
 br.mdarte.exemplo.academico\\
 \textbf{Would you like to enable security? (enter 'yes' or 'no')?}\\
 yes\\
@@ -219,11 +218,13 @@ Diagram.Em seguida, selecione Class Diagram.
 	
 \item No diagrama de classe, crie uma nova classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
 	
-\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O campo Visibility deve ser public. Não é necessário modelar o atributo id, pois ele é gerado automaticamente.
+\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O campo Visibility deve ser public. Não é necessário modelar o atributo id, pois ele é gerado automaticamente. Como mostra a Figura~\ref{config_parametro}.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
+	\caption{Configuração do parâmetro matrícula da classe Estudante.}
+	\label{config_parametro}
 \end{figure}
 		
 A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são gerados como NOT NULL.
