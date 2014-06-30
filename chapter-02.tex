@@ -65,38 +65,42 @@ da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. A
 propriedades do arquivo de configuração para cada um dos Bancos de Dados
 
 \begin{itemize}
-	\item [Oracle] \hfill
-		\begin{itemize}
-			\item
-			dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/hsqldb.jar
-			\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-			\item sql.mappings=Oracle9i
-			\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-		\end{itemize}
-	\item [SQLServer] \hfill
-		\begin{itemize}
-			\item
-			dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/hsqldb.jar
-			\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-			\item sql.mappings=Oracle9i
-			\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-		\end{itemize} 
-	\item [Postgres] \hfill
-  		\begin{itemize}
-			\item
-			dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/hsqldb.jar
-			\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-			\item sql.mappings=Oracle9i
-			\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-		\end{itemize}
-	\item [MySQL] \hfill
-		\begin{itemize}
-			\item
-			dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/hsqldb.jar
-			\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-			\item sql.mappings=Oracle9i
-			\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-		\end{itemize}
+\item [Oracle] \hfill
+\begin{itemize}
+\item
+dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/ojdbc14.jar
+\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
+\item sql.mappings=Oracle9i
+\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
+\end{itemize}
+\item [SQLServer] \hfill
+\begin{itemize}
+\item
+dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/jtds-1.1.jar
+\item dataSource.driver.class=net.sourceforge.jtds.jdbc.Driver
+\item sql.mappings=MSSQL
+\item hibernate.db.dialect=org.hibernate.dialect.SQLServerDialect
+\end{itemize} 
+\item [Postgres] \hfill
+\begin{itemize}
+\item
+dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/postgresql-8.1-
+405.jdbc3.jar
+\item dataSource.driver.class=org.postgresql.Driver
+\item defaultHibernateGeneratorClass=sequence
+\item sql.mappings=PostgreSQL
+\item hibernate.db.dialect=PostgreSQLDialect
+\end{itemize}
+\item [MySQL] \hfill
+\begin{itemize}
+\item
+dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/mysql-connector-java-
+5.1.6-bin.jar
+\item dataSource.driver.class=com.mysql.jdbc.Driver
+\item defaultHibernateGeneratorClass=native
+\item sql.mappings=MySQL
+\item hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+\end{itemize}
 \end{itemize}
 
 Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do Banco de
@@ -108,21 +112,28 @@ Exemplo (usando banco Postgres):
 <local-tx-datasource>
 	<jndi-name>sistemaacademicoDS</jndi-name>
 	<use-java-context>true</use-java-context>
-	<connection-url>jdbc:postgresql://127.0.0.1:5432/sistemaacademico</connection-url> 
+	<connection-url>
+		jdbc:postgresql://127.0.0.1:5432/sistemaacademico
+	</connection-url> 
 	<driver-class>org.postgresql.Driver</driver-class>
 		<user-name>usuario</user-name>
 		<password>senha</password>
-	<!--<exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>-->
-</local-tx-datasource>
+<!--
+	<exception-sorter-class-name>
+		org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+	</exception-sorter-class-name>
+-->
+	</local-tx-datasource>
 \end{lstlisting}
 
-Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que
-deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou
+Repare que no exemplo anterior, o nome do Data Source é
+sistemaacademicoDS, que deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou
 seja `sistemaacademicoDS`.
 
-Além disso, é necessário alterar o arquivo login-config.xml, localizado no
-diretório JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando o
+Além disso, o arquivo login-config.xml, localizado no diretório
+JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando-se a ele o
 seguinte trecho:
+
 
 \begin{lstlisting}[language=xml]
 <!--
@@ -188,8 +199,8 @@ Exemplo:
 	<user-name>usuario</user-name>
 	<password>senha</password>
 	<!--<exception-sorter-class-name>
-		org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
-		</exception-sorter-class-name>-->
+	org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+	</exception-sorter-class-name>-->
 </local-tx-datasource>
 \end{lstlisting}
 
@@ -229,111 +240,117 @@ gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o
 mesmo diretamente.
 
 \begin{enumerate}
-	\item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
-	Dentro da estrutura, crie o pacote “cd”.
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
-		\end{figure}
-	\item Clique com o botão direito do mouse no pacote “cd” e selecione a opção New Diagram .
-	Em seguida, selecione Class Diagram.
+\item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
+Dentro da estrutura, crie o pacote “cd”.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
+\end{figure}
+\item Clique com o botão direito do mouse no pacote “cd” e selecione a opção New
+Diagram.Em seguida, selecione Class Diagram.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=400pt,height=60pt]{imgs/tutorial-mdarte-0001.png}
+\end{figure}
+	
+\item Indique o nome desejado para diagrama (ex: Entidades).
+	
+\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
+sobre a classe e selecione a opção Specification. Defina o nome da classe como
+“Estudante”.
+	
+\item Crie os atributos na classe Estudante (matricula, nome) selecionando a
+aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação
+do atributo matricula. O campo Visibility deve ser public. Não é necessário
+modelar o atributo id, pois ele é gerado automaticamente.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
+\end{figure}
 		
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=400pt,height=60pt]{imgs/tutorial-mdarte-0001.png}
-		\end{figure}
-	
-	\item Indique o nome desejado para diagrama (ex: Entidades).
-	
-	\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
-	sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
-	
-	\item Crie os atributos na classe Estudante (matricula, nome) selecionando a
-	aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação
-	do atributo matricula. O campo Visibility deve ser public. Não é necessário
-	modelar o atributo id, pois ele é gerado automaticamente.
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
-		\end{figure}
-		
-		A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
-	obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão,
-	todos os atributos são gerados como NOT NULL.
+	A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
+obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório.
+Por padrão, todos os atributos são gerados como NOT NULL.
 
-	\item Coloque o estereótipo «Unique» no atributo matricula para indicar que
-	cada código deve ser único, ou seja, não pode haver duas matrículas iguais.
-	Abra a especificação do atributo matricula e selecione a aba Stereotypes. Nessa
-	aba selecione o estereótipo «Unique».
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
-		\end{figure}
+\item Coloque o estereótipo «Unique» no atributo matricula para indicar que
+cada código deve ser único, ou seja, não pode haver duas matrículas iguais.
+Abra a especificação do atributo matricula e selecione a aba Stereotypes. Nessa
+aba selecione o estereótipo «Unique».
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
+\end{figure}
 	
-	\item Coloque os estereótipos «Entity» e «Manageable» na classe Estudante.
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
-		\end{figure}
+\item Coloque os estereótipos «Entity» e «Manageable» na classe Estudante.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
+\end{figure}
 	
 	Para cada entidade, também podem ser atribuídos valores etiquetados para
-	agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor
-	etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no
-	Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores
-	etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que
-	determina que o atributo será o identificador do objeto (possível chave
-	primária) e «Entity» que determina que o valor do atributo deverá ser único.
-	Como exemplo de valores etiquetados temos @andromda.persistence.column que
-	define o nome da coluna a ser criada no Banco de Dados e
-	@andromda.persistence.column.lenght que define o tamanho da coluna.
+agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor
+etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no
+Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores
+etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que
+determina que o atributo será o identificador do objeto (possível chave
+primária) e «Entity» que determina que o valor do atributo deverá ser único.
+Como exemplo de valores etiquetados temos @andromda.persistence.column que
+define o nome da coluna a ser criada no Banco de Dados e
+@andromda.persistence.column.lenght que define o tamanho da coluna.
 
-	\item No mesmo diagrama de classes, crie outra classe. Clique com o botão
-	direto sobre a classe e selecione a opção Specification. Defina o nome da
-	classe como “Curso”.
+\item No mesmo diagrama de classes, crie outra classe. Clique com o botão
+direto sobre a classe e selecione a opção Specification. Defina o nome da
+classe como “Curso”.
 	
-	\item Crie os atributos na classe Curso (codigo, nome) selecionando a  aba
-	Attributes e clicando no botão Add. O campo Visibility deve ser public, assim
-	como feito anteriormente.
+\item Crie os atributos na classe Curso (codigo, nome) selecionando a  aba
+Attributes e clicando no botão Add. O campo Visibility deve ser public, assim
+como feito anteriormente.
 
-	\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
-	código deve ser único. Abra a especificação do atributo codigo e selecione a
-	aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
+código deve ser único. Abra a especificação do atributo codigo e selecione a
+aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
 	
-	\item Coloque o estereótipo «Entity» na classe.
+\item Coloque o estereótipo «Entity» na classe.
 	
-	\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
-	puxe uma relação Association de uma classe para outra.
+\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
+puxe uma relação Association de uma classe para outra.
 	
-	\item A associação será de 1 para muitos. Assim, clique duas vezes na
-	associação e irá aparecer a tela de especificação. Edite os campos Multiplicity
-	definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+\item A associação será de 1 para muitos. Assim, clique duas vezes na
+associação e irá aparecer a tela de especificação. Edite os campos Multiplicity
+definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
+\end{figure}
 	
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
-		\end{figure}
-	
-	\item A associação deve ser dupla, tanto Estudante quanto Curso devem ser
-	visíveis. Dessa forma, mantenha a checkbox Navigable marcada na associação para
-	as duas classes. Para isso, clique no botão “...” (reticências) da tela
-	anterior.
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
-		\end{figure}
+\item A associação deve ser dupla, tanto Estudante quanto Curso devem ser
+visíveis. Dessa forma, mantenha a checkbox Navigable marcada na associação para
+as duas classes. Para isso, clique no botão “...” (reticências) da tela
+anterior.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
+\end{figure}
 		
-	O resultado final será: \hfill
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
-		\end{figure}
+O resultado final será: \hfill
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
+\end{figure}
 	
-	\item No diretório da aplicação, execute o comando maven para validar o modelo
-	e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
-	ser “BUILD SUCCESFULL”. Observe que dois novos arquivos xml terão sido criados
-	no caminho <DiretorioProjeto>/mda/src/uml/ com os nomes
-	sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com
-	os crud default gerados pelo MDArte.
+\item No diretório da aplicação, execute o comando maven para validar o modelo
+e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
+ser “BUILD SUCCESFULL”. 
+	
+\item Observe que dois novos arquivos xml terão sido criados no caminho
+<DiretorioProjeto>/mda/src/uml/ com os nomes sistemaacademico-geral-Curso.xml e
+sistemaacademico-geral-Estudante.xml , com os crud default gerados pelo MDArte.
+Para compilar e gerarmos estes módulos separados executaremos os comandos:
+	
+\begin{lstlisting}[language=bash]
+maven mda -Dprojeto=sistemaacademico-geral-Estudante
+maven mda -Dprojeto=sistemaacademico-geral-Curso
+\end{lstlisting}
 
 \end{enumerate}
 
@@ -384,28 +401,249 @@ estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido
 para o projeto.
 
 \begin{enumerate}
-	\item Crie um pacote <PacoteProjeto>.cs.estudante. Clique então com o botão
-  	direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
-  	«ModuloServico» e clique em Apply. O resultado será:
-  		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
-		\end{figure} 
+\item Crie um pacote <PacoteProjeto>.cs.estudante. Clique então com o botão
+direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
+ «ModuloServico» e clique em Apply. O resultado será:
+ \begin{figure}[!htb]
+	\centering
+	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+\end{figure} 
 	
-	\item Crie um diagrama de classe dentro do pacote estudante, com o nome que
-	desejar.
+\item Crie um diagrama de classe dentro do pacote estudante, com o nome que
+desejar.
 	
-	\item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A
-	classe EstudanteHandler deve ficar como na figura abaixo.
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0009.png}
-		\end{figure} 
+\item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A
+classe EstudanteHandler deve ficar como na figura abaixo.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0009.png}
+\end{figure} 
 	
-	\item Crie uma classe com nome EstudanteException e estereótipo
-	«ApplicationException».
-		\begin{figure}[!htb]
-			\centering
-			\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0010.png}
-		\end{figure}
+\item Crie uma classe com nome EstudanteException e estereótipo
+«ApplicationException».
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0010.png}
+\end{figure}
+	
+\item Arraste para o diagrama de classes recém criado no pacote estudante a
+classe Estudante.
+	
+\item Crie uma relação de dependência entre as classes EstudanteHandler e
+Estudante, assim como entre EstudanteHandler e EstudanteException. Para isso,
+utilize a opção do MagicDraw ilustrada na figura abaixo. Clique na opção,
+depois clique na classe, ou método, de origem e arraste a seta até a classe
+destino.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=110pt,height=90pt]{imgs/tutorial-mdarte-0012.png}
+\end{figure}
+
+\item Verifique se o diagrama está como a figura abaixo.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=300pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
+\end{figure}
+
+\item A dependência entre EstudanteHandler e EstudanteException fará com que
+todos os métodos de EstudanteHandler possam lançar a exceção EstudanteException.
+Se a dependência tivesse sido entre algum método de EstudanteHandler e não com a
+própria classe, somente o método com dependência poderia lançar a exceção.
+
+A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao
+banco na classe de serviço.
+
+\item Agora faça o mesmo para criar um modulo de serviço para a classe
+Estudante.
+	
+\item No diretório da aplicação, execute o comando maven para validar o modelo
+e gerar as classes de serviço. O resultado apresentado deve ser “BUILD
+SUCCESSFULL”.
 \end{enumerate}
+
+\section{Implementando as classes de controle dos cruds gerados}
+Nessa seção vamos implementar as classes de controle dos casos de uso gerados.
+Para isso, abriremos os arquivos <nomeCasoDeUso>ControleImpl.java. Esses
+arquivos são pontos de implementação onde deve ser concentrado todo o código que
+se queira adicionar manualmente às classes de controle. Como tais arquivos só
+são gerados caso ainda não existam, o código colocado neles não será
+sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos
+arquivos <nomeCasoDeUso>Controle.java .
+
+De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do
+MDArte, iremos implementar respectivamente os seguintes código nos seguintes
+arquivos, que devem portanto ser abertos no Eclipse ou em outra IDE desejada:
+
+\begin{enumerate}
+\item ConsultaEstudanteControleImpl.java :
+\begin{lstlisting}[language=java]
+public final void consultaEstudante(
+	br.mdarte.exemplo.academico.web.geral.consultarEstudante.
+	ConsultaEstudanteForm form, ViewContainer container
+	) throws Exception {
+    	
+    Integer paginacao =
+    	((Double)container.getAttribute(Constantes.PARAMETRO_PAGINA))
+    	.intValue();
+		
+    EstudanteVO vo = new EstudanteVO();
+    	
+    vo.setNome(form.getNome());
+    vo.setMatricula(form.getMatricula());
+    	
+    // nothing to be done for this operation, there are no properties that
+    //can be set 
+        
+    Collection estudantes =
+    	ServiceLocator.instance().getEstudanteHandlerBI()
+    	.manipulaEstudante(new EstudanteImpl(), 
+    	new FilterAction(vo, paginacao));
+    	
+    form.setEstudantes(estudantes);
+}
+\end{lstlisting}
+		
+\item MantemEstudanteControleImpl.java :
+\begin{lstlisting}[language=java]
+public final void carregaCurso(
+	br.mdarte.exemplo.academico.web.geral.manterCurso.CarregaCursoForm 
+	form, ViewContainer container) throws Exception {
+
+    Curso c = new CursoImpl();
+    	
+    c.setId(form.getId());
+    	
+    c = (Curso)ServiceLocator.instance().getCursoHandlerBI()
+    	.selectCurso(c).get(0);
+
+    form.setNome(c.getNome());
+    form.setId(c.getId());
+    form.setCodigo(c.getCodigo());
+    	
+}
+    	
+public final void salvaCurso(
+	br.mdarte.exemplo.academico.web.geral.manterCurso.SalvaCursoForm 
+	form, ViewContainer container) throws Exception {
+
+    Curso c = new CursoImpl();
+
+	c.setId(form.getId());
+	c.setCodigo(form.getCodigo()); 
+	c.setNome(form.getNome());
+
+	ServiceLocator.instance().getCursoHandlerBI()
+		.insertOrUpdateCurso(c);
+    	
+}
+\end{lstlisting}
+
+\item DetalhaEstudanteControleImpl.java:
+\begin{lstlisting}[language=java]
+public final void carregaEstudante(
+	br.mdarte.exemplo.academico.web.geral.detalharEstudante
+	.CarregaEstudanteForm form, ViewContainer container) 
+	throws Exception {
+	
+	Estudante e = new EstudanteImpl();
+    	
+   	e.setId(form.getId());
+    	
+   	e = (Estudante) ServiceLocator.instance().getEstudanteHandlerBI()
+   		.selectEstudante(e).get(0);
+
+   	form.setNome(e.getNome());
+   	form.setId(e.getId());
+   	form.setMatricula(e.getMatricula());
+ 	
+}
+\end{lstlisting}
+
+\item ConsultaCursoControleImpl.java :
+\begin{lstlisting}[language=java]
+public final void consultaCurso(
+	br.mdarte.exemplo.academico.web.geral.consultarCurso
+	.ConsultaCursoForm form, ViewContainer container) 
+	throws Exception {
+    		
+    Integer paginacao = 
+    	((Double)container.getAttribute(Constantes.PARAMETRO_PAGINA))
+    	.intValue();
+    		
+    CursoVO vo = new CursoVO();
+    	
+    vo.setNome(form.getNome());
+    vo.setCodigo(form.getCodigo());
+    	
+    // nothing to be done for this operation, there are no properties 
+    //that can be set
+    Collection cursos = 
+    	ServiceLocator.instance().getCursoHandlerBI().manipulaCurso(new
+    	CursoImpl(), new FilterAction(vo, paginacao));
+    	
+    form.setCursos(cursos);	
+}
+\end{lstlisting}
+
+\item MantemCursoControleImpl.java :
+\begin{lstlisting}[language=java]
+ public final void carregaCurso(
+ 	br.mdarte.exemplo.academico.web.geral.manterCurso
+ 	.CarregaCursoForm form, ViewContainer container) 
+ 	throws Exception {
+
+   	Curso c = new CursoImpl();
+    	
+   	c.setId(form.getId());
+    	
+   	c = (Curso)ServiceLocator.instance().getCursoHandlerBI()
+   		.selectCurso(c).get(0);
+    	
+   	form.setNome(c.getNome());
+   	form.setId(c.getId());
+   	form.setCodigo(c.getCodigo());
+    	
+}
+
+public final void salvaCurso(
+	br.mdarte.exemplo.academico.web.geral.manterCurso
+	.SalvaCursoForm form, ViewContainer container)
+	throws Exception {
+
+   	Curso c = new CursoImpl();
+    	
+   	c.setId(form.getId());
+    	
+   	c = (Curso)ServiceLocator.instance().getCursoHandlerBI()
+   		.selectCurso(c).get(0);
+    	
+	c.setCodigo(form.getCodigo()); 
+	c.setNome(form.getNome());
+
+	ServiceLocator.instance().getCursoHandlerBI().insertOrUpdateCurso(c);
+}
+\end{lstlisting}
+
+\item DetalhaCursoControleImpl.java :
+\begin{lstlisting}
+public final void carregaCurso(br.mdarte.exemplo.academico.web.geral.detalharCurso.CarregaCursoForm form, ViewContainer container) throws Exception {
+	Curso c = new CursoImpl();
+    	
+    c.setId(form.getId());
+    	
+    c = (Curso)ServiceLocator.instance().getCursoHandlerBI().selectCurso(c).get(0);
+
+    form.setNome(c.getNome());
+    form.setId(c.getId());
+    form.setCodigo(c.getCodigo());	
+}
+\end{lstlisting}
+\end{enumerate}
+
+Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
+\begin{lstlisting}[language=bash]
+maven compile deploy
+\end{lstlisting}
+
+Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então
+no navegador o resultado do nosso sistema.
