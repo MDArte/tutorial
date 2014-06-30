@@ -8,14 +8,13 @@ O plugin do MDArte para o Maven já possui um procedimento parametrizado para cr
 
 \begin{enumerate}
 \item Abra o terminal (command prompt) e vá para o diretório onde se deseja
-criar o projeto. Na verdade, o projeto será gerado em um subdiretório do diretório escolhido. No Windows, não
-se pode ter espaços em branco no caminho desse diretório. Exemplo de diretório inválido:
+criar o projeto. Na verdade, o projeto será gerado em um subdiretório do diretório escolhido. No Windows, não se pode ter espaços em branco no caminho desse diretório. Exemplo de diretório inválido:
+
 C:$\backslash$Documents and Settings$\backslash$MDArte.
 
 \item Digite o comando: maven andromdapp:generate
 
-\item Responda as perguntas de acordo com o seu projeto. Abaixo um exemplo com
-respostas típicas (perguntas em negrito):
+\item Responda as perguntas de acordo com o seu projeto. Abaixo um exemplo com respostas típicas (perguntas em negrito):
 
 \textbf{Please enter your first and last name (i.e. Rodrigo Salvador):} \\
 MDArte\\
@@ -48,21 +47,16 @@ yes\\
 'hypersonic' or 'mysql' or 'oracle' or 'postgres')}\\
  postgres\\
  
-\item Após receber as respostas, o MDArte criará um subdiretório onde será
- gerada a estrutura inicial do projeto. A partir desse momento chamaremos esse diretório de <DiretorioProjeto>.
+\item Após receber as respostas, o MDArte criará um subdiretório onde será gerada a estrutura inicial do projeto. A partir desse momento chamaremos esse diretório de <DiretorioProjeto>.
 
-\item Ainda no console, vá para o diretório onde está seu projeto:
-<DiretorioProjeto>.
+\item Ainda no console, vá para o diretório onde está seu projeto: <DiretorioProjeto>.
 
-\item Digite maven. Isto obrigará o Maven a obter todos os artefatos (por
-exemplo, bibliotecas) de que o projeto dependerá.
+\item Digite maven. Isto obrigará o Maven a obter todos os artefatos (por exemplo, bibliotecas) de que o projeto dependerá.
 
 \end{enumerate}
 
 \section{Configuração do Banco}
-Para se configurar o Banco de Dados é necessário modificar o arquivo project.properties
-da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. Abaixo estão as
-propriedades do arquivo de configuração para cada um dos Bancos de Dados
+Para se configurar o Banco de Dados é necessário modificar o arquivo project.properties da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração para cada um dos Bancos de Dados
 
 \begin{itemize}
 \item [Oracle] \hfill
