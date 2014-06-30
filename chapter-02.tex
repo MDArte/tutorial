@@ -59,47 +59,40 @@ yes\\
 Para se configurar o Banco de Dados é necessário modificar o arquivo project.properties da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração para cada um dos Bancos de Dados
 
 \begin{itemize}
-\item [Oracle] \hfill
-\begin{itemize}
-\item
-dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/ojdbc14.jar
-\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-\item sql.mappings=Oracle9i
-\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-\end{itemize}
-\item [SQLServer] \hfill
-\begin{itemize}
-\item
-dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/jtds-1.1.jar
-\item dataSource.driver.class=net.sourceforge.jtds.jdbc.Driver
-\item sql.mappings=MSSQL
-\item hibernate.db.dialect=org.hibernate.dialect.SQLServerDialect
-\end{itemize} 
-\item [Postgres] \hfill
-\begin{itemize}
-\item
-dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/postgresql-8.1-
-405.jdbc3.jar
-\item dataSource.driver.class=org.postgresql.Driver
-\item defaultHibernateGeneratorClass=sequence
-\item sql.mappings=PostgreSQL
-\item hibernate.db.dialect=PostgreSQLDialect
-\end{itemize}
-\item [MySQL] \hfill
-\begin{itemize}
-\item
-dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/mysql-connector-java-
-5.1.6-bin.jar
-\item dataSource.driver.class=com.mysql.jdbc.Driver
-\item defaultHibernateGeneratorClass=native
-\item sql.mappings=MySQL
-\item hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
-\end{itemize}
+	\item [Oracle] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/ojdbc14.jar
+		\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
+		\item sql.mappings=Oracle9i
+		\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
+	\end{itemize}
+	\item [SQLServer] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/jtds-1.1.jar
+		\item dataSource.driver.class=net.sourceforge.jtds.jdbc.Driver
+		\item sql.mappings=MSSQL
+		\item hibernate.db.dialect=org.hibernate.dialect.SQLServerDialect
+	\end{itemize} 
+	\item [Postgres] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/postgresql-8.1-405.jdbc3.jar
+		\item dataSource.driver.class=org.postgresql.Driver
+		\item defaultHibernateGeneratorClass=sequence
+		\item sql.mappings=PostgreSQL
+		\item hibernate.db.dialect=PostgreSQLDialect
+	\end{itemize}
+	\item [MySQL] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/mysql-connector-java-5.1.6-bin.jar
+		\item dataSource.driver.class=com.mysql.jdbc.Driver
+		\item defaultHibernateGeneratorClass=native
+		\item sql.mappings=MySQL
+		\item hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+	\end{itemize}
 \end{itemize}
 
-Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do Banco de
-Dados do JBoss, localizado no diretório JBOSS\_HOME/server/default/deploy/, com
-formação do nome terminando com -ds.xml (ex.: aplicacoes-ds.xml), que deve ter a tag <local-tx-datasource> preenchida de acordo com as informações fornecidas no arquivo <projeto>/project.properties.
+Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do Banco de Dados do JBoss, localizado no diretório JBOSS\_HOME/server/default/deploy/, com formação do nome terminando com -ds.xml (ex.: aplicacoes-ds.xml), que deve ter a tag <local-tx-datasource> preenchida de acordo com as informações fornecidas no arquivo <projeto>/project.properties.
+
 Exemplo (usando banco Postgres):
 
 \begin{lstlisting}[language=xml]
@@ -120,14 +113,9 @@ Exemplo (usando banco Postgres):
 	</local-tx-datasource>
 \end{lstlisting}
 
-Repare que no exemplo anterior, o nome do Data Source é
-sistemaacademicoDS, que deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou
-seja `sistemaacademicoDS`.
+Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou seja `sistemaacademicoDS`.
 
-Além disso, o arquivo login-config.xml, localizado no diretório
-JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando-se a ele o
-seguinte trecho:
-
+Além disso, o arquivo login-config.xml, localizado no diretório JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando-se a ele o seguinte trecho:
 
 \begin{lstlisting}[language=xml]
 <!--
@@ -163,23 +151,15 @@ SistemaAcademico Policy
 </application-policy>
 \end{lstlisting}
 
-As informações presentem nesse arquivo permitirão a aplicação do Sistema Acadêmico se
-conectar a base de dados e validar o usuário no momento de login.
+As informações presentem nesse arquivo permitirão a aplicação do Sistema Acadêmico se conectar a base de dados e validar o usuário no momento de login.
 
 \section{Controle de Acesso}
 
-Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém não é
-nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando um projeto de controle
-de acesso desenvolvido pela comunidade do MDArte.
-O projeto pode ser obtido a partir do repositório Git do MDArte,
-pelo endereço https://github.com/MDArte/controleacesso.git . Por fim, edite também o
-arquivo project.properties do ControleAcesso para configurar o tipo de Banco de Dados a ser
-utilziado, conforme realizado com o projeto SistemaAcademico. Note que a propriedade
-dataSource.name está definida como ControleAcessoDS.
-Novamente, precisaremos criar um arquivo de configuração do Banco de Dados, localizado
-no diretório JBOSS\_HOME/server/default/deploy/ . O nome do arquivo deve seguir
-a mesma formatação mencionada, terminando em -ds.xml (ex.: aplicacoes-ds.xml), podendo estar no mesmo
-arquivo com as configurações do projeto SistemaAcademico.
+Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém não é nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando um projeto de controle de acesso desenvolvido pela comunidade do MDArte.
+
+O projeto pode ser obtido a partir do repositório Git do MDArte, pelo endereço https://github.com/MDArte/controleacesso.git . Por fim, edite também o arquivo project.properties do ControleAcesso para configurar o tipo de Banco de Dados a ser utilziado, conforme realizado com o projeto SistemaAcademico. Note que a propriedade dataSource.name está definida como ControleAcessoDS.
+
+Novamente, precisaremos criar um arquivo de configuração do Banco de Dados, localizado no diretório JBOSS\_HOME/server/default/deploy/ . O nome do arquivo deve seguir a mesma formatação mencionada, terminando em -ds.xml (ex.: aplicacoes-ds.xml), podendo estar no mesmo arquivo com as configurações do projeto SistemaAcademico.
 
 Exemplo:
 
@@ -198,10 +178,7 @@ Exemplo:
 </local-tx-datasource>
 \end{lstlisting}
 
-Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de dados
-do projeto SistemaAcademico, definida pela tag <connection-url>. Agora, execute os seguinte
-comandos, na raiz do projeto ControleAcesso, para gerar, compilar e copiar os pacotes para o
-diretório JBOSS\_HOME/server/default/deploy/:
+Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de dados do projeto SistemaAcademico, definida pela tag <connection-url>. Agora, execute os seguinte comandos, na raiz do projeto ControleAcesso, para gerar, compilar e copiar os pacotes para o diretório JBOSS\_HOME/server/default/deploy/:
 
 \begin{lstlisting}[language=bash]
 maven mda -Dprojeto=ca-core
@@ -213,25 +190,16 @@ maven jar:install deploy
 
 \section{Modelando o nosso primeiro projeto}
 
-Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o
-quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
+Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
 
-Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do
-MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto,
-SistemaAcademico.xml no caminho
-<DiretorioProjeto>/mda/src/uml/.
+Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto, SistemaAcademico.xml no caminho <DiretorioProjeto>/mda/src/uml/.
 
 \subsection{Modelando a camada de domínio}
-Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão entidades e
-estarão associadas a algum modo de persistência. Essas classes deverão conter o estereótipo
-«Entity» e os atributos que serão persistidos. Todas as classes de entidade devem obrigatoriamente
-estar no pacote <PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
+Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão entidades e estarão associadas a algum modo de persistência. Essas classes deverão conter o estereótipo «Entity» e os atributos que serão persistidos. Todas as classes de entidade devem obrigatoriamente estar no pacote <PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
+
 Atualmente, estamos utilizando framework Hibernate para esta camada. 
 
-Neste exemplo, especificamente, iremos também marcar nossas entidades com o
-estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja
-gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o
-mesmo diretamente.
+Neste exemplo, especificamente, iremos também marcar nossas entidades com o estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o mesmo diretamente.
 
 \begin{enumerate}
 \item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
@@ -249,27 +217,19 @@ Diagram.Em seguida, selecione Class Diagram.
 	
 \item Indique o nome desejado para diagrama (ex: Entidades).
 	
-\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
-sobre a classe e selecione a opção Specification. Defina o nome da classe como
-“Estudante”.
+\item No diagrama de classe, crie uma nova classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
 	
-\item Crie os atributos na classe Estudante (matricula, nome) selecionando a
-aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação
-do atributo matricula. O campo Visibility deve ser public. Não é necessário
-modelar o atributo id, pois ele é gerado automaticamente.
+\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O campo Visibility deve ser public. Não é necessário modelar o atributo id, pois ele é gerado automaticamente.
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
 \end{figure}
 		
-	A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
-obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório.
-Por padrão, todos os atributos são gerados como NOT NULL.
+A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são gerados como NOT NULL.
 
-\item Coloque o estereótipo «Unique» no atributo matricula para indicar que
-cada código deve ser único, ou seja, não pode haver duas matrículas iguais.
-Abra a especificação do atributo matricula e selecione a aba Stereotypes. Nessa
-aba selecione o estereótipo «Unique».
+\item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada código deve ser único, ou seja, não pode haver duas matrículas iguais. Abra a especificação do atributo matricula e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
@@ -281,46 +241,29 @@ aba selecione o estereótipo «Unique».
 	\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
 \end{figure}
 	
-	Para cada entidade, também podem ser atribuídos valores etiquetados para
-agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor
-etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no
-Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores
-etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que
-determina que o atributo será o identificador do objeto (possível chave
-primária) e «Entity» que determina que o valor do atributo deverá ser único.
-Como exemplo de valores etiquetados temos @andromda.persistence.column que
-define o nome da coluna a ser criada no Banco de Dados e
-@andromda.persistence.column.lenght que define o tamanho da coluna.
+Para cada entidade, também podem ser atribuídos valores etiquetados para agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que determina que o atributo será o identificador do objeto (possível chave primária) e «Entity» que determina que o valor do atributo deverá ser único.
 
-\item No mesmo diagrama de classes, crie outra classe. Clique com o botão
-direto sobre a classe e selecione a opção Specification. Defina o nome da
-classe como “Curso”.
+Como exemplo de valores etiquetados temos @andromda.persistence.column que define o nome da coluna a ser criada no Banco de Dados e @andromda.persistence.column.lenght que define o tamanho da coluna.
+
+\item No mesmo diagrama de classes, crie outra classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Curso”.
 	
-\item Crie os atributos na classe Curso (codigo, nome) selecionando a  aba
-Attributes e clicando no botão Add. O campo Visibility deve ser public, assim
-como feito anteriormente.
+\item Crie os atributos na classe Curso (codigo, nome) selecionando a aba Attributes e clicando no botão Add. O campo Visibility deve ser public, assim como feito anteriormente.
 
-\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
-código deve ser único. Abra a especificação do atributo codigo e selecione a
-aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada código deve ser único. Abra a especificação do atributo codigo e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
 	
 \item Coloque o estereótipo «Entity» na classe.
 	
-\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
-puxe uma relação Association de uma classe para outra.
+\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e puxe uma relação Association de uma classe para outra.
 	
-\item A associação será de 1 para muitos. Assim, clique duas vezes na
-associação e irá aparecer a tela de especificação. Edite os campos Multiplicity
-definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+\item A associação será de 1 para muitos. Assim, clique duas vezes na associação e irá aparecer a tela de especificação. Edite os campos Multiplicity definindo valor “0..*” para a entidade Estudante e “1” para a entidade Curso.
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
 \end{figure}
 	
-\item A associação deve ser dupla, tanto Estudante quanto Curso devem ser
-visíveis. Dessa forma, mantenha a checkbox Navigable marcada na associação para
-as duas classes. Para isso, clique no botão “...” (reticências) da tela
-anterior.
+\item A associação deve ser dupla, tanto Estudante quanto Curso devem ser visíveis. Dessa forma, mantenha a checkbox Navigable marcada na associação para as duas classes. Para isso, clique no botão “...” (reticências) da tela anterior.
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
@@ -332,34 +275,26 @@ O resultado final será: \hfill
 	\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
 \end{figure}
 	
-\item No diretório da aplicação, execute o comando maven para validar o modelo
-e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
-ser “BUILD SUCCESFULL”. 
+\item No diretório da aplicação, execute o comando maven para validar o modelo e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve ser “BUILD SUCCESFULL”. 
 	
-\item Observe que dois novos arquivos xml terão sido criados no caminho
-<DiretorioProjeto>/mda/src/uml/ com os nomes sistemaacademico-geral-Curso.xml e
-sistemaacademico-geral-Estudante.xml , com os crud default gerados pelo MDArte.
+\item Observe que dois novos arquivos xml terão sido criados no caminho <DiretorioProjeto>/mda/src/uml/ com os nomes sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com os crud default gerados pelo MDArte.
+
 Para compilar e gerarmos estes módulos separados executaremos os comandos:
 	
 \begin{lstlisting}[language=bash]
-maven mda -Dprojeto=sistemaacademico-geral-Estudante
-maven mda -Dprojeto=sistemaacademico-geral-Curso
+	maven mda -Dprojeto=sistemaacademico-geral-Estudante
+	maven mda -Dprojeto=sistemaacademico-geral-Curso
 \end{lstlisting}
 
 \end{enumerate}
 
 \subsection{Criando o Banco de Dados}
 
-Durante a execução do comando maven, todas as classes são criadas automaticamente.
-Além disso, também é gerado o código SQL de criação de tabelas do Banco de Dados. O script
-SQL pode ser encontrado em <DiretorioProjeto>/core/cd/target/schema-create.sql. Abrindo o
-arquivo é possível notar a presença de comandos de crição das tabelas ESTUDANTE e CURSO.
+Durante a execução do comando maven, todas as classes são criadas automaticamente. Além disso, também é gerado o código SQL de criação de tabelas do Banco de Dados. O script SQL pode ser encontrado em <DiretorioProjeto>/core/cd/target/schema-create.sql. Abrindo o arquivo é possível notar a presença de comandos de crição das tabelas ESTUDANTE e CURSO.
 
 Execute o conteúdo do arquivo no Banco de Dados utilizado.
 
-Como exemplificação dos casos de usos que serão elaborados por este documento, execute o
-seguinte script SQL para criar a base inicial. Note que o script foi escrito
-para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
+Como exemplificação dos casos de usos que serão elaborados por este documento, execute o seguinte script SQL para criar a base inicial. Note que o script foi escrito para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
 
 \begin{lstlisting}[language=sql]
 INSERT INTO CURSO (ID, HIBERNATE_VERSION, CODIGO, NOME) VALUES
@@ -375,24 +310,11 @@ INSERT INTO ESTUDANTE (ID, MATRICULA, NOME, CURSO_FK) VALUES
 
 \subsection{Modelando a camada de serviços}
 
-Na camada de serviço serão implementadas as classes responsáveis pela lógica de
-negócio da aplicação. As classes especificadas se tornarão os serviços (API) da
-aplicação. Os serviços definidos no modelo se tornarão disponíveis através de
-Session Beans.
+Na camada de serviço serão implementadas as classes responsáveis pela lógica de negócio da aplicação. As classes especificadas se tornarão os serviços (API) da aplicação. Os serviços definidos no modelo se tornarão disponíveis através de Session Beans.
 
-Os Session Beans são componentes de negócio. A lógica de negócio dos componentes
-EJB se encontram nestes componentes. Existem dois tipos de Componentes Session
-Bean, o Stateless Session Bean e o Stateful Session Beans. O Stateless é um
-componente de negócio que não mantém conversação com o usuário, não há garantia
-que chamadas sucessivas de métodos remotos vão ser feitas no mesmo objeto. O
-Stateful é um componente que mantêm estado, com ele temos a garantia que
-chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão
-processadas por um mesmo objeto.
+Os Session Beans são componentes de negócio. A lógica de negócio dos componentes EJB se encontram nestes componentes. Existem dois tipos de Componentes Session Bean, o Stateless Session Bean e o Stateful Session Beans. O Stateless é um componente de negócio que não mantém conversação com o usuário, não há garantia que chamadas sucessivas de métodos remotos vão ser feitas no mesmo objeto. O Stateful é um componente que mantêm estado, com ele temos a garantia que chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão processadas por um mesmo objeto.
 
-Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes
-beans precisam ter o estereótipo «Service». Todas as classes de serviço devem
-estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido
-para o projeto.
+Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes beans precisam ter o estereótipo «Service». Todas as classes de serviço devem estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido para o projeto.
 
 \begin{enumerate}
 \item Crie um pacote <PacoteProjeto>.cs.estudante. Clique então com o botão
@@ -403,31 +325,24 @@ direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
 	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
 \end{figure} 
 	
-\item Crie um diagrama de classe dentro do pacote estudante, com o nome que
-desejar.
+\item Crie um diagrama de classe dentro do pacote estudante, com o nome que desejar.
 	
-\item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A
-classe EstudanteHandler deve ficar como na figura abaixo.
+\item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A classe EstudanteHandler deve ficar como na figura abaixo.
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0009.png}
 \end{figure} 
 	
-\item Crie uma classe com nome EstudanteException e estereótipo
-«ApplicationException».
+\item Crie uma classe com nome EstudanteException e estereótipo «ApplicationException».
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0010.png}
 \end{figure}
 	
-\item Arraste para o diagrama de classes recém criado no pacote estudante a
-classe Estudante.
+\item Arraste para o diagrama de classes recém criado no pacote estudante a classe Estudante.
 	
-\item Crie uma relação de dependência entre as classes EstudanteHandler e
-Estudante, assim como entre EstudanteHandler e EstudanteException. Para isso,
-utilize a opção do MagicDraw ilustrada na figura abaixo. Clique na opção,
-depois clique na classe, ou método, de origem e arraste a seta até a classe
-destino.
+\item Crie uma relação de dependência entre as classes EstudanteHandler e Estudante, assim como entre EstudanteHandler e EstudanteException. Para isso, utilize a opção do MagicDraw ilustrada na figura abaixo. Clique na opção, depois clique na classe, ou método, de origem e arraste a seta até a classe destino.
+
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=110pt,height=90pt]{imgs/tutorial-mdarte-0012.png}
@@ -439,16 +354,11 @@ destino.
 	\includegraphics[width=300pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
 \end{figure}
 
-\item A dependência entre EstudanteHandler e EstudanteException fará com que
-todos os métodos de EstudanteHandler possam lançar a exceção EstudanteException.
-Se a dependência tivesse sido entre algum método de EstudanteHandler e não com a
-própria classe, somente o método com dependência poderia lançar a exceção.
+\item A dependência entre EstudanteHandler e EstudanteException fará com que todos os métodos de EstudanteHandler possam lançar a exceção EstudanteException. Se a dependência tivesse sido entre algum método de EstudanteHandler e não com a própria classe, somente o método com dependência poderia lançar a exceção.
 
-A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao
-banco na classe de serviço.
+A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao banco na classe de serviço.
 
-\item Agora faça o mesmo para criar um modulo de serviço para a classe
-Estudante.
+\item Agora faça o mesmo para criar um modulo de serviço para a classe Estudante.
 	
 \item No diretório da aplicação, execute o comando maven para validar o modelo
 e gerar as classes de serviço. O resultado apresentado deve ser “BUILD
