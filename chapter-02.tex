@@ -55,6 +55,7 @@ yes\\
 \end{enumerate}
 
 \section{Configuração do Banco}
+
 Para se configurar o Banco de Dados é necessário modificar o arquivo project.properties da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração para cada um dos Bancos de Dados
 
 \begin{itemize}
@@ -94,61 +95,17 @@ Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do
 
 Exemplo (usando banco Postgres):
 
-\begin{lstlisting}[language=xml]
-<local-tx-datasource>
-	<jndi-name>sistemaacademicoDS</jndi-name>
-	<use-java-context>true</use-java-context>
-	<connection-url>
-		jdbc:postgresql://127.0.0.1:5432/sistemaacademico
-	</connection-url> 
-	<driver-class>org.postgresql.Driver</driver-class>
-		<user-name>usuario</user-name>
-		<password>senha</password>
-<!--
-	<exception-sorter-class-name>
-		org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
-	</exception-sorter-class-name>
--->
-	</local-tx-datasource>
-\end{lstlisting}
+\begin{framed}
+	\lstinputlisting[language=xml]{project.properties}
+\end{framed}
 
 Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou seja `sistemaacademicoDS`.
 
 Além disso, o arquivo login-config.xml, localizado no diretório JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando-se a ele o seguinte trecho:
 
-\begin{lstlisting}[language=xml]
-<!--
-SistemaAcademico Policy
--->
-<application-policy name="sistemaacademico">
-	<authentication>
-		<login-module code="org.jboss.security.ClientLoginModule"
-			flag="required">
-			<module-option name="multi-threaded">true
-				</module-option>
-		</login-module>
-		<login-module code="accessControl.LoginModuleImpl" 
-			flag="required">
-			<module-option name="dsJndiName">java:/controleacessoDS
-				</module-option>
-			<module-option name="unauthenticatedIdentity">guest
-				</module-option>
-			<module-option name="principalClass">
-				accessControl.PrincipalImpl</module-option> 
-			<module-option name="hashEncoding">hex</module-option> 
-			<module-option name="hashAlgorithm">md5</module-option>
-			<module-option name="principalsQuery">
-				select SENHA from OP_C_A where LOGIN=?
-				</module-option>
-			<module-option name="rolesQuery">
-				select OP_PF.PF_OP_C_A_FK, 'Roles'
-				12from OP_C_A, OP_C_A_PF_OP_C_A OP_PF
-				where LOGIN=? AND OP_C_A.ID = OP_PF.OP_C_A_FK
-			</module-option>
-		</login-module>
-	</authentication>
-</application-policy>
-\end{lstlisting}
+\begin{framed}
+	\lstinputlisting[language=xml]{sistemaacademico-ds.xml}
+\end{framed}
 
 As informações presentem nesse arquivo permitirão a aplicação do Sistema Acadêmico se conectar a base de dados e validar o usuário no momento de login.
 
