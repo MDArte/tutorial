@@ -1,0 +1,2 @@
+maven mda -Dprojeto=sistemaacademico-geral-Estudante
+maven mda -Dprojeto=sistemaacademico-geral-Curso

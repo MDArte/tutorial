@@ -1,0 +1,5 @@
+maven mda -Dprojeto=ca-core
+cd common
+maven jar:install deploy
+cd ../core/cd
+maven jar:install deploy
