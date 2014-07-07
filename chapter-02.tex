@@ -12,7 +12,7 @@ criar o projeto. Na verdade, o projeto será gerado em um subdiretório do diret
 
 C:$\backslash$Documents and Settings$\backslash$MDArte.
 
-\item Digite o comando: maven andromdapp:generate
+\item Digite o comando: \texttt{maven andromdapp:generate}
 
 \item Responda as perguntas de acordo com o seu projeto. Abaixo um exemplo com respostas típicas (perguntas em negrito):
 
@@ -91,7 +91,12 @@ Para se configurar o Banco de Dados é necessário modificar o arquivo project.p
 	\end{itemize}
 \end{itemize}
 
-Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do Banco de Dados do JBoss, localizado no diretório JBOSS\_HOME/server/default/deploy/, com formação do nome terminando com -ds.xml (ex.: aplicacoes-ds.xml), que deve ter a tag <local-tx-datasource> preenchida de acordo com as informações fornecidas no arquivo <projeto>/project.properties.
+Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do
+Banco de Dados do JBoss, localizado no diretório
+\texttt{JBOSS\_HOME/server/default/deploy/}, com formação do nome terminando com
+-ds.xml (ex.: aplicacoes-ds.xml), que deve ter a tag <local-tx-datasource>
+preenchida de acordo com as informações fornecidas no arquivo
+<projeto>/project.properties.
 
 Exemplo (usando banco Postgres):
 
@@ -99,23 +104,39 @@ Exemplo (usando banco Postgres):
 	\lstinputlisting[language=xml]{files/project.properties}
 \end{framed}
 
-Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que deve ser o mesmo nome informado no arquivo project.properties da raiz do projetom ou seja `sistemaacademicoDS`.
+Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que
+deve ser o mesmo nome informado no arquivo project.properties da raiz do
+projetom ou seja `sistemaacademicoDS`.
 
-Além disso, o arquivo login-config.xml, localizado no diretório JBOSS\_HOME/server/default/conf/, deverá ser modificado, adicionando-se a ele o seguinte trecho:
+Além disso, o arquivo \texttt{login-config.xml}, localizado no diretório
+\texttt{JBOSS\_HOME/server/default/conf/}, deverá ser modificado, adicionando-se
+a ele o seguinte trecho:
 
 \begin{framed}
 	\lstinputlisting[language=xml]{files/sistemaacademico-ds.xml}
 \end{framed}
 
-As informações presentem nesse arquivo permitirão a aplicação do Sistema Acadêmico se conectar a base de dados e validar o usuário no momento de login.
+As informações presentem nesse arquivo permitirão a aplicação do Sistema
+Acadêmico se conectar a base de dados e validar o usuário no momento de login.
 
 \section{Controle de Acesso}
 
-Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém não é nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando um projeto de controle de acesso desenvolvido pela comunidade do MDArte.
+Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém
+não é nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando
+um projeto de controle de acesso desenvolvido pela comunidade do MDArte.
 
-O projeto pode ser obtido a partir do repositório Git do MDArte, pelo endereço https://github.com/MDArte/controleacesso.git . Por fim, edite também o arquivo project.properties do ControleAcesso para configurar o tipo de Banco de Dados a ser utilziado, conforme realizado com o projeto SistemaAcademico. Note que a propriedade dataSource.name está definida como ControleAcessoDS.
+O projeto pode ser obtido a partir do repositório Git do MDArte, pelo endereço
+\texttt{https://github.com/MDArte/controleacesso.git} . Por fim, edite também o
+arquivo \texttt{project.properties} do ControleAcesso para configurar o tipo de
+Banco de Dados a ser utilziado, conforme realizado com o projeto
+SistemaAcademico. Note que a propriedade dataSource.name está definida como
+ControleAcessoDS.
 
-Novamente, precisaremos criar um arquivo de configuração do Banco de Dados, localizado no diretório JBOSS\_HOME/server/default/deploy/ . O nome do arquivo deve seguir a mesma formatação mencionada, terminando em -ds.xml (ex.: aplicacoes-ds.xml), podendo estar no mesmo arquivo com as configurações do projeto SistemaAcademico.
+Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
+localizado no diretório \texttt{JBOSS\_HOME/server/default/deploy/} . O nome do
+arquivo deve seguir a mesma formatação mencionada, terminando em -ds.xml (ex.:
+aplicacoes-ds.xml), podendo estar no mesmo arquivo com as configurações do
+projeto SistemaAcademico.
 
 Exemplo:
 
@@ -123,7 +144,10 @@ Exemplo:
 	\lstinputlisting[language=xml]{files/ControleAcesso-ds.xml}
 \end{framed}
 
-Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de dados do projeto SistemaAcademico, definida pela tag <connection-url>. Agora, execute os seguinte comandos, na raiz do projeto ControleAcesso, para gerar, compilar e copiar os pacotes para o diretório JBOSS\_HOME/server/default/deploy/:
+Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de
+dados do projeto SistemaAcademico, definida pela tag <connection-url>. Agora,
+execute os seguinte comandos, na raiz do projeto ControleAcesso, para gerar,
+compilar e copiar os pacotes para o diretório \texttt{JBOSS\_HOME/server/default/deploy/}:
 
 \begin{framed}
 	\lstinputlisting[language=bash]{files/compila-ca}
@@ -201,7 +225,9 @@ na figura ~\ref{add_estereotipo_estudante}.
 	
 Para cada entidade, também podem ser atribuídos valores etiquetados para agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que determina que o atributo será o identificador do objeto (possível chave primária) e «Entity» que determina que o valor do atributo deverá ser único.
 
-Como exemplo de valores etiquetados temos @andromda.persistence.column que define o nome da coluna a ser criada no Banco de Dados e @andromda.persistence.column.lenght que define o tamanho da coluna.
+Como exemplo de valores etiquetados temos \texttt{@andromda.persistence.column}
+que define o nome da coluna a ser criada no Banco de Dados e
+\texttt{@andromda.persistence.column.lenght} que define o tamanho da coluna.
 
 \item No mesmo diagrama de classes, crie outra classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Curso”.
 	
@@ -245,7 +271,10 @@ O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}: \hf
 	
 \item No diretório da aplicação, execute o comando maven para validar o modelo e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve ser “BUILD SUCCESFULL”. 
 	
-\item Observe que dois novos arquivos xml terão sido criados no caminho <DiretorioProjeto>/mda/src/uml/ com os nomes sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com os crud default gerados pelo MDArte.
+\item Observe que dois novos arquivos xml terão sido criados no caminho
+\texttt{<DiretorioProjeto>/mda/src/uml/} com os nomes
+sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com os
+crud default gerados pelo MDArte.
 
 Para compilar e gerarmos estes módulos separados executaremos os comandos:
 	
@@ -257,11 +286,17 @@ Para compilar e gerarmos estes módulos separados executaremos os comandos:
 
 \subsection{Criando o Banco de Dados}
 
-Durante a execução do comando maven, todas as classes são criadas automaticamente. Além disso, também é gerado o código SQL de criação de tabelas do Banco de Dados. O script SQL pode ser encontrado em <DiretorioProjeto>/core/cd/target/schema-create.sql. Abrindo o arquivo é possível notar a presença de comandos de crição das tabelas ESTUDANTE e CURSO.
+Durante a execução do comando maven, todas as classes são criadas
+automaticamente. Além disso, também é gerado o código SQL de criação de tabelas
+do Banco de Dados. O script SQL pode ser encontrado em
+\texttt{<DiretorioProjeto>/core/cd/target/schema-create.sql}. Abrindo o arquivo
+é possível notar a presença de comandos de crição das tabelas ESTUDANTE e CURSO.
 
 Execute o conteúdo do arquivo no Banco de Dados utilizado.
 
-Como exemplificação dos casos de usos que serão elaborados por este documento, execute o seguinte script SQL para criar a base inicial. Note que o script foi escrito para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
+Como exemplificação dos casos de usos que serão elaborados por este documento,
+execute o seguinte script SQL para criar a base inicial. Note que o script foi
+escrito para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
 
 \begin{framed}
 	\lstinputlisting[language=sql]{files/exemplo.sql}
