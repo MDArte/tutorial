@@ -1,10 +1,15 @@
 \chapter{Desenvolvimento de Projetos com o AndroMDA}
 
-Nesta seção veremos os passos necessários ao desenvolvimento de projetos com o MDArte, utilizando os cartuchos EJB, Hibernate e BPM4Struts.
+Nesta seção veremos os passos necessários ao desenvolvimento de projetos com o
+MDArte, utilizando os cartuchos EJB, Hibernate e BPM4Struts.
 
 \section{Criação de um Novo Projeto e Configuração do ambiente}
 
-O plugin do MDArte para o Maven já possui um procedimento parametrizado para criação de projetos, que funciona como um wizard, onde o usuário deve responder a perguntas. Através das respostas fornecidas, o MDArte direcionará a criação da estrutura básica e dos artefatos básicos de configuração de projetos. O procedimento para criação de um novo projeto é:
+O plugin do MDArte para o Maven já possui um procedimento parametrizado para
+criação de projetos, que funciona como um wizard, onde o usuário deve responder
+a perguntas. Através das respostas fornecidas, o MDArte direcionará a criação da
+estrutura básica e dos artefatos básicos de configuração de projetos. O
+procedimento para criação de um novo projeto é:
 
 \begin{enumerate}
 \item Abra o terminal (command prompt) e vá para o diretório onde se deseja
@@ -14,7 +19,8 @@ C:$\backslash$Documents and Settings$\backslash$MDArte.
 
 \item Digite o comando: \texttt{maven andromdapp:generate}
 
-\item Responda as perguntas de acordo com o seu projeto. Abaixo um exemplo com respostas típicas (perguntas em negrito):
+\item Responda as perguntas de acordo com o seu projeto. Abaixo um exemplo com
+respostas típicas (perguntas em negrito):
 
 \textbf{Please enter your first and last name (i.e. Rodrigo Salvador):} \\
 MDArte\\
@@ -46,17 +52,24 @@ yes\\
 'hypersonic' or 'mysql' or 'oracle' or 'postgres')}\\
  postgres\\
  
-\item Após receber as respostas, o MDArte criará um subdiretório onde será gerada a estrutura inicial do projeto. A partir desse momento chamaremos esse diretório de <DiretorioProjeto>.
+\item Após receber as respostas, o MDArte criará um subdiretório onde será
+gerada a estrutura inicial do projeto. A partir desse momento chamaremos esse
+diretório de <DiretorioProjeto>.
 
-\item Ainda no console, vá para o diretório onde está seu projeto: <DiretorioProjeto>.
+\item Ainda no console, vá para o diretório onde está seu projeto:
+<DiretorioProjeto>.
 
-\item Digite maven. Isto obrigará o Maven a obter todos os artefatos (por exemplo, bibliotecas) de que o projeto dependerá.
+\item Digite maven. Isto obrigará o Maven a obter todos os artefatos (por
+exemplo, bibliotecas) de que o projeto dependerá.
 
 \end{enumerate}
 
 \section{Configuração do Banco}
 
-Para se configurar o Banco de Dados é necessário modificar o arquivo project.properties da raiz do projeto, onde se encontram as propriedades que devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração para cada um dos Bancos de Dados
+Para se configurar o Banco de Dados é necessário modificar o arquivo
+project.properties da raiz do projeto, onde se encontram as propriedades que
+devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração
+para cada um dos Bancos de Dados:
 
 \begin{itemize}
 	\item [Oracle] \hfill
@@ -155,16 +168,26 @@ compilar e copiar os pacotes para o diretório \texttt{JBOSS\_HOME/server/defaul
 
 \section{Modelando o nosso primeiro projeto}
 
-Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
+Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o
+quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
 
-Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto, SistemaAcademico.xml no caminho <DiretorioProjeto>/mda/src/uml/.
+Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do
+MagicDraw, clicaremos em 'Open Project' e abriremos o xml do projeto,
+SistemaAcademico.xml no caminho \texttt{<DiretorioProjeto>/mda/src/uml/}.
 
 \subsection{Modelando a camada de domínio}
-Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão entidades e estarão associadas a algum modo de persistência. Essas classes deverão conter o estereótipo «Entity» e os atributos que serão persistidos. Todas as classes de entidade devem obrigatoriamente estar no pacote <PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
+Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão
+entidades e estarão associadas a algum modo de persistência. Essas classes
+deverão conter o estereótipo «Entity» e os atributos que serão persistidos.
+Todas as classes de entidade devem obrigatoriamente estar no pacote
+<PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
 
 Atualmente, estamos utilizando framework Hibernate para esta camada. 
 
-Neste exemplo, especificamente, iremos também marcar nossas entidades com o estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o mesmo diretamente.
+Neste exemplo, especificamente, iremos também marcar nossas entidades com o
+estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja
+gerado um CRUD padrão para tais entidades, sem a necessidade de modelarmos o
+mesmo diretamente.
 
 \begin{enumerate}
 \item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
@@ -186,11 +209,17 @@ Figura~\ref{cria_diagrama_classe}.
 	\label{cria_diagrama_classe}
 \end{figure}
 	
-\item Indique o nome desejado para diagrama (ex: Entidades).
+\item Indique o nome desejado para o diagrama (ex: Entidades).
 	
-\item No diagrama de classe, crie uma nova classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Estudante”.
+\item No diagrama de classe, crie uma nova classe. Clique com o botão direto
+sobre a classe e selecione a opção Specification. Defina o nome da classe como
+“Estudante”.
 	
-\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do atributo matricula. O campo Visibility deve ser public. Não é necessário modelar o atributo id, pois ele é gerado automaticamente. Como mostra a Figura~\ref{config_parametro}.
+\item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba
+Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do
+atributo matricula. O campo Visibility deve ser public. Não é necessário modelar
+o atributo id, pois ele é gerado automaticamente. Como mostra a
+Figura~\ref{config_parametro}.
 
 \begin{figure}[!htb]
 	\centering
@@ -199,7 +228,9 @@ Figura~\ref{cria_diagrama_classe}.
 	\label{config_parametro}
 \end{figure}
 		
-A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório. Por padrão, todos os atributos são gerados como NOT NULL.
+A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
+obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório.
+Por padrão, todos os atributos são gerados como NOT NULL.
 
 \item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada
 código deve ser único, ou seja, não pode haver duas matrículas iguais. Abra a
@@ -223,21 +254,34 @@ na figura ~\ref{add_estereotipo_estudante}.
 	\label{add_estereotipo_estudante}
 \end{figure}
 	
-Para cada entidade, também podem ser atribuídos valores etiquetados para agregar ao modelo parâmetros para a geração de código. Por exemplo, o valor etiquetado @andromda.persistence.table reflete o nome da tabela a ser criada no Banco de Dados. Da mesma forma, podemos atribuir estereótipos e valores etiquetados aos atributos. Entre os estereótipos temos: «Identifier» que determina que o atributo será o identificador do objeto (possível chave primária) e «Entity» que determina que o valor do atributo deverá ser único.
+Para cada entidade, também podem ser atribuídos valores etiquetados para agregar
+ao modelo parâmetros para a geração de código. Por exemplo, o valor etiquetado
+@andromda.persistence.table reflete o nome da tabela a ser criada no Banco de
+Dados. Da mesma forma, podemos atribuir estereótipos e valores etiquetados aos
+atributos. Entre os estereótipos temos: «Identifier» que determina que o
+atributo será o identificador do objeto (possível chave primária) e «Entity» que
+determina que o valor do atributo deverá ser único.
 
 Como exemplo de valores etiquetados temos \texttt{@andromda.persistence.column}
 que define o nome da coluna a ser criada no Banco de Dados e
 \texttt{@andromda.persistence.column.lenght} que define o tamanho da coluna.
 
-\item No mesmo diagrama de classes, crie outra classe. Clique com o botão direto sobre a classe e selecione a opção Specification. Defina o nome da classe como “Curso”.
+\item No mesmo diagrama de classes, crie outra classe. Clique com o botão direto
+sobre a classe e selecione a opção Specification. Defina o nome da classe como
+“Curso”.
 	
-\item Crie os atributos na classe Curso (codigo, nome) selecionando a aba Attributes e clicando no botão Add. O campo Visibility deve ser public, assim como feito anteriormente.
+\item Crie os atributos na classe Curso (codigo, nome) selecionando a aba
+Attributes e clicando no botão Add. O campo Visibility deve ser public, assim
+como feito anteriormente.
 
-\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada código deve ser único. Abra a especificação do atributo codigo e selecione a aba Stereotypes. Nessa aba selecione o estereótipo «Unique».
+\item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
+código deve ser único. Abra a especificação do atributo codigo e selecione a aba
+Stereotypes. Nessa aba selecione o estereótipo «Unique».
 	
 \item Coloque o estereótipo «Entity» na classe.
 	
-\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e puxe uma relação Association de uma classe para outra.
+\item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
+puxe uma relação Association de uma classe para outra.
 	
 \item A associação será de 1 para muitos. Assim, clique duas vezes na associação
 e irá aparecer a tela de especificação. Edite os campos Multiplicity definindo
@@ -273,8 +317,9 @@ O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}: \hf
 	
 \item Observe que dois novos arquivos xml terão sido criados no caminho
 \texttt{<DiretorioProjeto>/mda/src/uml/} com os nomes
-sistemaacademico-geral-Curso.xml e sistemaacademico-geral-Estudante.xml , com os
-crud default gerados pelo MDArte.
+\texttt{sistemaacademico-geral-Curso.xml} e
+\texttt{sistemaacademico-geral-Estudante.xml} , com os crud default gerados pelo
+MDArte.
 
 Para compilar e gerarmos estes módulos separados executaremos os comandos:
 	
@@ -421,4 +466,5 @@ Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
 	\lstinputlisting[language=bash]{files/compile-deploy}
 \end{framed}
 
-Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então no navegador o resultado do nosso sistema.
+Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então
+no navegador o resultado do nosso sistema.
