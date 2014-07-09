@@ -1,2 +1,99 @@
 \appendix
 \chapter{Configuração do JBoss}
+\label{jboss-config}
+Neste apêndice veremos como configurar as informações de acesso ao banco de
+dados do nosso projeto, bem como demais configurações do nosso servidor de
+aplicação (JBoss).
+
+\section{Configuração das propriedades do projeto para acesso ao banco de dados}
+Para se configurar o Banco de Dados é necessário modificar o arquivo
+\texttt{project.properties} da raiz do projeto, onde se encontram as
+propriedades que devem ser alteradas. Os arquivos
+\texttt{project.properties} são arquivos onde são definidas propriedades que são
+usadas pelo MDArte durante a sua exucação, este, na raiz do projeto,
+especificamemte concentra propriedades de acesso ao banco e de deploy(?) do
+projeto.
+
+Abaixo estão as propriedades do arquivo de
+configuração para cada um dos Bancos de Dados:
+
+\begin{itemize}
+	\item [Oracle] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/ojdbc14.jar
+		\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
+		\item sql.mappings=Oracle9i
+		\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
+	\end{itemize}
+	\item [SQLServer] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/jtds-1.1.jar
+		\item dataSource.driver.class=net.sourceforge.jtds.jdbc.Driver
+		\item sql.mappings=MSSQL
+		\item hibernate.db.dialect=org.hibernate.dialect.SQLServerDialect
+	\end{itemize} 
+	\item [Postgres] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/postgresql.jar
+		\item dataSource.driver.class=org.postgresql.Driver
+		\item defaultHibernateGeneratorClass=sequence
+		\item sql.mappings=PostgreSQL
+		\item hibernate.db.dialect=PostgreSQLDialect
+	\end{itemize}
+	\item [MySQL] \hfill
+	\begin{itemize}
+		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/mysql-connector-java-5.1.6-bin.jar
+		\item dataSource.driver.class=com.mysql.jdbc.Driver
+		\item defaultHibernateGeneratorClass=native
+		\item sql.mappings=MySQL
+		\item hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+	\end{itemize}
+\end{itemize}
+
+Tais propriedades são as responsáveis por definir qual banco de dados estará
+sendo usado no projeto, bem como qual biblioteca será usada para a comunicação
+com o banco. Propriedades como a url do banco, nome de usuário, senha etc. não
+precisam ser alteradas uma vez que, mais adiante, as definiremos diretamente na
+configuração do jboss.
+
+\section{Configuração do JBoss}
+Agora veremos como configurar o servidor JBoss e qual a finalidade dos arquivos 
+utilizados para tal fim. 
+
+\subsection{Configuração dos datasources utilizados pelo JBoss}
+Para a configuração dos datasources utilizados pelo JBoss é preciso criar ou
+alterar o arquivo responsável por registrar e gerenciar tais fontes de dados.
+O arquivo que deve estar localizado no diretório
+\texttt{JBOSS\_HOME/server/default/deploy/}, com formação do nome terminando com
+\texttt{-ds.xml} (ex.: \texttt{aplicacoes-ds.xml)}, que deve ter a tag
+<local-tx-datasource> preenchida de acordo com as informações  fornecidas no
+arquivo \texttt{<projeto>/project.properties}.
+
+Exemplo (usando banco Postgres):
+
+\begin{framed}
+	\lstinputlisting[language=xml]{files/sistemaacademico-ds.xml}
+\end{framed}
+
+Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que
+deve ser o mesmo nome informado no arquivo \texttt{project.properties} no
+diretório raiz do projeto. Aqui também definimos algumas outras propriedades do
+datasource sistemaacademicoDS que haviam ficado em aberto antes como a url de
+conexão com o servidor de banco de dados, usuario e senha.
+
+\subsection{Configuração do acesso das aplicações ao banco de dados}
+Para tal, alteraremos o arquivo \texttt{login-config.xml}, localizado no
+diretório \texttt{JBOSS\_HOME/server/default/conf/}. Alteraremos o arquivo
+adicionando uma tag \texttt{<application-police name='<nomeAplicacao>'>} com
+seus campos devidamente preenchidos como no exemplo abaixo, onde temos a
+configuração para o Sistema Acadêmico deste tutorial.
+
+\begin{framed}
+	\lstinputlisting[language=xml]{files/sistemaacademico-login-config.xml}
+\end{framed}
+
+O arquivo alterado concentra as informações de login para as diversas aplicações
+sendo rodadas no servidor, informações como: datasource que contém os dados de
+usuário usados no login, query a ser rodada para buscar os dados de usuário,
+algoritmo de hash da senha etc. As informações presentes nesse arquivo
+permitirão a aplicação do Sistema Acadêmico se conectar a base de dados e validar o usuário no momento de login.

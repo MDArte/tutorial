@@ -66,74 +66,6 @@ exemplo, bibliotecas) de que o projeto dependerá.
 
 \end{enumerate}
 
-\section{Configuração do Banco}
-
-Para se configurar o Banco de Dados é necessário modificar o arquivo
-\texttt{project.properties} da raiz do projeto, onde se encontram as
-propriedades que devem ser alteradas. Abaixo estão as propriedades do arquivo de configuração
-para cada um dos Bancos de Dados:
-
-\begin{itemize}
-	\item [Oracle] \hfill
-	\begin{itemize}
-		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/ojdbc14.jar
-		\item dataSource.driver.class=oracle.jdbc.driver.OracleDriver
-		\item sql.mappings=Oracle9i
-		\item hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
-	\end{itemize}
-	\item [SQLServer] \hfill
-	\begin{itemize}
-		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/jtds-1.1.jar
-		\item dataSource.driver.class=net.sourceforge.jtds.jdbc.Driver
-		\item sql.mappings=MSSQL
-		\item hibernate.db.dialect=org.hibernate.dialect.SQLServerDialect
-	\end{itemize} 
-	\item [Postgres] \hfill
-	\begin{itemize}
-		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/postgresql-8.1-405.jdbc3.jar
-		\item dataSource.driver.class=org.postgresql.Driver
-		\item defaultHibernateGeneratorClass=sequence
-		\item sql.mappings=PostgreSQL
-		\item hibernate.db.dialect=PostgreSQLDialect
-	\end{itemize}
-	\item [MySQL] \hfill
-	\begin{itemize}
-		\item dataSource.driver.jar=\textdollar{}\{env.JBOSS\_HOME\}/server/default/lib/mysql-connector-java-5.1.6-bin.jar
-		\item dataSource.driver.class=com.mysql.jdbc.Driver
-		\item defaultHibernateGeneratorClass=native
-		\item sql.mappings=MySQL
-		\item hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
-	\end{itemize}
-\end{itemize}
-
-Outro arquivo que deve ser alterado ou criado é o arquivo de configurações do
-Banco de Dados do JBoss, localizado no diretório
-\texttt{JBOSS\_HOME/server/default/deploy/}, com formação do nome terminando com
--ds.xml (ex.: \texttt{aplicacoes-ds.xml)}, que deve ter a tag
-<local-tx-datasource> preenchida de acordo com as informações fornecidas no arquivo
-\texttt{<projeto>/project.properties}.
-
-Exemplo (usando banco Postgres):
-
-\begin{framed}
-	\lstinputlisting[language=xml]{files/project.properties}
-\end{framed}
-
-Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que
-deve ser o mesmo nome informado no arquivo \texttt{project.properties} no
-diretório raiz do projeto.
-
-Além disso, o arquivo \texttt{login-config.xml}, localizado no diretório
-\texttt{JBOSS\_HOME/server/default/conf/}, deverá ser modificado, adicionando-se
-a ele o seguinte trecho:
-
-\begin{framed}
-	\lstinputlisting[language=xml]{files/sistemaacademico-ds.xml}
-\end{framed}
-
-As informações presentem nesse arquivo permitirão a aplicação do Sistema
-Acadêmico se conectar a base de dados e validar o usuário no momento de login.
-
 \section{Controle de Acesso}
 
 Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém
@@ -148,8 +80,9 @@ SistemaAcademico. Note que a propriedade dataSource.name está definida como
 controleacessoDS.
 
 Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
-localizado no diretório \texttt{JBOSS\_HOME/server/default/deploy/} . O nome do
-arquivo deve seguir a mesma formatação mencionada, terminando em -ds.xml (ex.:
+localizado no diretório
+\texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}. O nome do arquivo deve
+seguir a mesma formatação mencionada, terminando em -ds.xml (ex.:
 \texttt{aplicacoes-ds.xml}), podendo estar no mesmo arquivo com as configurações
 do projeto SistemaAcademico.
 
@@ -162,7 +95,7 @@ Exemplo:
 Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de
 dados do projeto SistemaAcademico, definida pela tag <connection-url>. Agora,
 execute os seguinte comandos, na raiz do projeto ControleAcesso, para gerar,
-compilar e copiar os pacotes para o diretório \texttt{JBOSS\_HOME/server/default/deploy/}:
+compilar e copiar os pacotes para o diretório \texttt{\textdollar{}JBOSS\_HOMEHOME/server/default/deploy/}:
 
 \begin{framed}
 	\lstinputlisting[language=bash]{files/compila-ca}
@@ -170,22 +103,26 @@ compilar e copiar os pacotes para o diretório \texttt{JBOSS\_HOME/server/defaul
 
 \section{Modelando o nosso primeiro projeto}
 
-Nesta seção iremos modelar um exemplo de Sistema Acadêmico básico, mostrando o
-quão rápido e simples pode ser usar o MDArte e todo o seu poder de geração.
+Vamos começar agora a modelar o nosso exemplo, mostrando o quão rápido e simples
+pode ser usar o MDArte e todo o seu poder de geração.
 
 Para esta parte do tutorial usaremos o MagicDraw. Na barra de ferramentas do
-MagicDraw, clicaremos em \texttt{'Open Project'} e abriremos o xml do projeto,
+MagicDraw, clicaremos em \texttt{Open Project} e abriremos o xml do projeto,
 \texttt{SistemaAcademico.xml} no caminho
 \texttt{<DiretorioProjeto>/mda/src/uml/}.
 
 \subsection{Modelando a camada de domínio}
 Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão
-entidades e estarão associadas a algum modo de persistência. Essas classes
-deverão conter o estereótipo «Entity» e os atributos que serão persistidos.
-Todas as classes de entidade devem obrigatoriamente estar no pacote
-<PacoteProjeto>.cd, em que <PacoteProjeto> é o pacote definido para o projeto.
+entidades e estarão associadas a algum modo de persistência. Afim de
+contornar os problemas provenientes da utilização de bancos de dados relacionais
+em conjunto com o paradigma de orientação à objeto, o MDArte usa o framework
+Hibernate\footnote{\hypertarget{http://hibernate.org/orm/}{http://hibernate.org/orm/}}
+para gerenciar esta camada.
 
-O MDArte usa o framework Hibernate para esta camada. 
+As classes da camada de domínio deverão conter o estereótipo «Entity» e os
+atributos que serão persistidos. Todas as classes de entidade devem
+obrigatoriamente estar no pacote <PacoteProjeto>.cd, em que <PacoteProjeto> é o
+pacote definido para o projeto.
 
 Neste exemplo, especificamente, iremos também marcar nossas entidades com o
 estereótipo «Manageable», tal marcação diz para o MDArte que desejamos que seja
@@ -304,7 +241,9 @@ O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}: \hf
 	\label{resultado_diagrama_classe}
 \end{figure}
 	
-\item No diretório da aplicação, execute o comando maven para validar o modelo e gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve ser “BUILD SUCCESFULL”. 
+\item No diretório da aplicação, execute o comando maven para validar o modelo e
+gerar o script SQL de criação do Banco de Dados. O resultado apresentado deve
+ser “BUILD SUCCESFULL”.
 	
 \item Observe que dois novos arquivos xml terão sido criados no caminho
 \texttt{<DiretorioProjeto>/mda/src/uml/} com os nomes
@@ -340,9 +279,19 @@ escrito para PostgreSQL e deve ser adaptado para o Banco de Dados escolhido.
 
 \subsection{Modelando a camada de serviços}
 
-Na camada de serviço serão implementadas as classes responsáveis pela lógica de negócio da aplicação. As classes especificadas se tornarão os serviços (API) da aplicação. Os serviços definidos no modelo se tornarão disponíveis através de Session Beans.
+Na camada de serviço serão implementadas as classes responsáveis pela lógica de
+negócio da aplicação. As classes especificadas se tornarão os serviços (API) da
+aplicação. Os serviços definidos no modelo se tornarão disponíveis através de
+Session Beans.
 
-Os Session Beans são componentes de negócio. A lógica de negócio dos componentes EJB se encontram nestes componentes. Existem dois tipos de Componentes Session Bean, o Stateless Session Bean e o Stateful Session Beans. O Stateless é um componente de negócio que não mantém conversação com o usuário, não há garantia que chamadas sucessivas de métodos remotos vão ser feitas no mesmo objeto. O Stateful é um componente que mantêm estado, com ele temos a garantia que chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão processadas por um mesmo objeto.
+Os Session Beans são componentes de negócio. A lógica de negócio dos componentes
+EJB se encontram nestes componentes. Existem dois tipos de Componentes Session
+Bean, o Stateless Session Bean e o Stateful Session Beans. O Stateless é um
+componente de negócio que não mantém conversação com o usuário, não há garantia
+que chamadas sucessivas de métodos remotos vão ser feitas no mesmo objeto. O
+Stateful é um componente que mantêm estado, com ele temos a garantia que
+chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão
+processadas por um mesmo objeto.
 
 Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes beans precisam ter o estereótipo «Service». Todas as classes de serviço devem estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido para o projeto.
 

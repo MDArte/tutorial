@@ -1,0 +1,32 @@
+<!--
+SistemaAcademico Policy
+-->
+<application-policy name="sistemaacademico">
+	<authentication>
+		<login-module code="org.jboss.security.ClientLoginModule"
+			flag="required">
+			<module-option name="multi-threaded">
+				true
+			</module-option>
+		</login-module>
+		<login-module code="accessControl.LoginModuleImpl" 
+			flag="required">
+			<module-option name="dsJndiName">java:/controleacessoDS
+				</module-option>
+			<module-option name="unauthenticatedIdentity">guest
+				</module-option>
+			<module-option name="principalClass">
+				accessControl.PrincipalImpl</module-option> 
+			<module-option name="hashEncoding">hex</module-option> 
+			<module-option name="hashAlgorithm">md5</module-option>
+			<module-option name="principalsQuery">
+            	select SENHA from USUARIO where LOGIN=?
+            </module-option>
+            <module-option name="rolesQuery">
+            	select pf_usr.pf_FK, 'Roles'
+				from usuario, pf_usr
+				where LOGIN=? AND usuario.ID = pf_usr.usr_FK
+            </module-option>
+		</login-module>
+	</authentication>
+</application-policy>
