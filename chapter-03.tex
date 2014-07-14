@@ -301,7 +301,7 @@ Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes
 direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
  «ModuloServico» e clique em Apply. O resultado pode ser visto na imagem
  ~\ref{cria_pacote_servico}:
- \begin{figure}[!htb]
+ \begin{figure}[H]
 	\centering
 	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
 	\caption{Criação do pacote para a camada de serviço.}
@@ -312,7 +312,7 @@ direito sobre a pasta estudante, na opção Stereotype, selecione o estereótipo
 	
 \item Crie uma classe com nome EstudanteHandler e estereótipo «Service». A
 classe EstudanteHandler deve ficar como na figura ~\ref{cria_sevico_estudante}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0009.png}
 	\caption{Criação da classe de serviço EstudanteHandler.}
@@ -321,7 +321,7 @@ classe EstudanteHandler deve ficar como na figura ~\ref{cria_sevico_estudante}.
 	
 \item Crie uma classe com nome EstudanteException e estereótipo
 «ApplicationException», como na imagem ~\ref{cria_estudante_exception}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0010.png}
 	\caption{Criação da classe estudante exception.}
@@ -336,7 +336,7 @@ utilize a opção do MagicDraw ilustrada na figura abaixo. Clique na opção, de
 clique na classe, ou método, de origem e arraste a seta até a classe destino,
 como na imagem ~\ref{cria_dependencia_servico}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=110pt,height=90pt]{imgs/tutorial-mdarte-0012.png}
 	\caption{Criação da dependência entre as classes do serviço.}
@@ -345,7 +345,7 @@ como na imagem ~\ref{cria_dependencia_servico}.
 
 \item Verifique se o diagrama está como a figura
 ~\ref{resultado_diagrama_classe_servico}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=300pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
 	\caption{Diagrama de classe completo do módulo de serviço para a classe
@@ -408,4 +408,23 @@ Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
 \end{framed}
 
 Abriremos agora o eclipse, daremos Start no servidor jboss e verificaremos então
-no navegador o resultado do nosso sistema.
+no navegador o resultado do nosso sistema. Para dar \texttt{Start} no servidor
+iremos na aba \texttt{Servers} no nossa IDE, selecionaremos o
+servidor e clicaremos então no botão de \texttt{Start} (Verde), como na imagem
+\ref{server_start}:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=400pt,height=250pt]{imgs/tutorial-mdarte-0015.png}
+	\caption{Inicializando o servidor JBoss.}
+	\label{server_start}
+\end{figure}
+
+Para acessar o sistema, abriremos o navegador e acessaremos a url
+\texttt{http://localhost:8080/sistemaacademico/}. Primeiramente será aberta a
+página de login do sistema, como na imagem \ref{pagina_inicial}:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300pt,height=250pt]{imgs/tutorial-mdarte-0013.png}
+	\caption{Página incial do Sistema Acadêmico.}
+	\label{pagina_inicial}
+\end{figure}
