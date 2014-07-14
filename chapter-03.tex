@@ -156,8 +156,8 @@ sobre a classe e selecione a opção Specification. Defina o nome da classe como
 “Estudante”.
 	
 \item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba
-Attributes e clicando no botão Add. A figura abaixo exemplifica a criação do
-atributo matricula. O campo Visibility deve ser public. Não é necessário modelar
+\texttt{Attributes} e clicando no botão \texttt{Add}. A figura abaixo exemplifica a criação do
+atributo matricula. O campo \texttt{Visibility} deve ser \texttt{public}. Não é necessário modelar
 o atributo id, pois ele é gerado automaticamente. Como mostra a
 Figura~\ref{config_parametro}.
 
@@ -168,13 +168,13 @@ Figura~\ref{config_parametro}.
 	\label{config_parametro}
 \end{figure}
 		
-A multiplicidade com valor 1 (campo Multiplicity) indica que o atributo é
-obrigatório (NOT NULL), já o valor 0..1 indica que o atributo não é obrigatório.
-Por padrão, todos os atributos são gerados como NOT NULL.
+A multiplicidade com valor 1 (campo \texttt{Multiplicity}) indica que o atributo é
+obrigatório (\texttt{NOT NULL} ), já o valor \texttt{0..1} indica que o atributo não é obrigatório.
+Por padrão, todos os atributos são gerados como \texttt{NOT NULL}.
 
 \item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada
 código deve ser único, ou seja, não pode haver duas matrículas iguais. Abra a
-especificação do atributo matricula e selecione a aba Stereotypes. Nessa aba
+especificação do atributo matricula e selecione a aba \texttt{Stereotypes}. Nessa aba
 selecione o estereótipo «Unique», como na figura
 ~\ref{add_estereotipo_matricula}.
 
