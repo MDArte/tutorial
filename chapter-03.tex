@@ -133,7 +133,7 @@ mesmo diretamente.
 \item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
 Dentro da estrutura, crie o pacote “cd”. Podemos ver o resultado na imagem
 ~\ref{cria_estrutura_pacotes}. 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
 	\caption{Criação da estrutura de pacotes do projeto e do pacote cd.}
@@ -142,7 +142,7 @@ Dentro da estrutura, crie o pacote “cd”. Podemos ver o resultado na imagem
 \item Clique com o botão direito do mouse no pacote “cd” e selecione a opção New
 Diagram.Em seguida, selecione Class Diagram. Como mostra a
 Figura~\ref{cria_diagrama_classe}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=400pt,height=60pt]{imgs/tutorial-mdarte-0001.png}
 	\caption{Criação do diagrama de classes da camada de domínio.}
@@ -161,7 +161,7 @@ atributo matricula. O campo \texttt{Visibility} deve ser \texttt{public}. Não �
 o atributo id, pois ele é gerado automaticamente. Como mostra a
 Figura~\ref{config_parametro}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
 	\caption{Configuração do parâmetro matrícula da classe Estudante.}
@@ -178,7 +178,7 @@ especificação do atributo matricula e selecione a aba \texttt{Stereotypes}. Ne
 selecione o estereótipo «Unique», como na figura
 ~\ref{add_estereotipo_matricula}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
 	\caption{Adição de estereótipo no atributo matrícula.}
@@ -187,7 +187,7 @@ selecione o estereótipo «Unique», como na figura
 	
 \item Coloque os estereótipos «Entity» e «Manageable» na classe Estudante, como
 na figura ~\ref{add_estereotipo_estudante}. 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
 	\caption{Adição dos estereótipos Entiti e Manageable na classe estudante.}
@@ -215,7 +215,7 @@ puxe uma relação \texttt{Association} de uma classe para outra.
 e irá aparecer a tela de especificação. Edite os campos \texttt{Multiplicity} definindo
 valor “0..*” para a entidade Estudante e “1” para a entidade Curso, como na
 figura ~\ref{define_multiplicidade_associacao}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
 	\caption{Definindo multiplicidade da associação.}
@@ -226,7 +226,7 @@ figura ~\ref{define_multiplicidade_associacao}.
 visíveis. Dessa forma, mantenha a \texttt{checkbox} \texttt{Navigable} marcada na associação para
 as duas classes. Para isso, clique no botão “...” (reticências) da tela
 anterior, como na imagem ~\ref{config_navigable_associacao}.
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
 	\caption{Configuração da navegabilidade da associação.}
@@ -234,7 +234,8 @@ anterior, como na imagem ~\ref{config_navigable_associacao}.
 \end{figure}
 		
 O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}: \hfill
-\begin{figure}[!htb]
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
 	\caption{Resultado final da modelagem da camada de domínio.}
