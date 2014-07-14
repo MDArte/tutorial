@@ -76,8 +76,8 @@ O projeto pode ser obtido a partir do repositório Git do MDArte, pelo endereço
 \texttt{https://github.com/MDArte/controleacesso.git} . Por fim, edite também o
 arquivo \texttt{project.properties} do ControleAcesso para configurar o tipo de
 Banco de Dados a ser utilziado, conforme realizado com o projeto
-SistemaAcademico. Note que a propriedade \texttt{dataSource.name} está definida como
-\texttt{controleacessoDS}.
+SistemaAcademico. Note que a propriedade \texttt{dataSource.name} está definida
+como \texttt{controleacessoDS}.
 
 Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
 localizado no diretório
@@ -95,7 +95,8 @@ Exemplo:
 Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de
 dados do projeto SistemaAcademico, definida pela tag <connection-url>. Agora,
 execute os seguinte comandos, na raiz do projeto ControleAcesso, para gerar,
-compilar e copiar os pacotes para o diretório \texttt{\textdollar{}JBOSS\_HOMEHOME/server/default/deploy/}:
+compilar e copiar os pacotes para o diretório
+\texttt{\textdollar{}JBOSS\_HOMEHOME/server/default/deploy/}:
 
 \begin{framed}
 	\lstinputlisting[language=bash]{files/compila-ca}
@@ -156,10 +157,10 @@ sobre a classe e selecione a opção Specification. Defina o nome da classe como
 “Estudante”.
 	
 \item Crie os atributos na classe Estudante (matricula, nome) selecionando a aba
-\texttt{Attributes} e clicando no botão \texttt{Add}. A figura abaixo exemplifica a criação do
-atributo matricula. O campo \texttt{Visibility} deve ser \texttt{public}. Não é necessário modelar
-o atributo id, pois ele é gerado automaticamente. Como mostra a
-Figura~\ref{config_parametro}.
+\texttt{Attributes} e clicando no botão \texttt{Add}. A figura abaixo
+exemplifica a criação do atributo matricula. O campo \texttt{Visibility} deve
+ser \texttt{public}. Não é necessário modelar o atributo id, pois ele é gerado
+automaticamente. Como mostra a Figura~\ref{config_parametro}.
 
 \begin{figure}[H]
 	\centering
@@ -169,8 +170,9 @@ Figura~\ref{config_parametro}.
 \end{figure}
 		
 A multiplicidade com valor 1 (campo \texttt{Multiplicity}) indica que o atributo é
-obrigatório (\texttt{NOT NULL} ), já o valor \texttt{0..1} indica que o atributo não é obrigatório.
-Por padrão, todos os atributos são gerados como \texttt{NOT NULL}.
+obrigatório (\texttt{NOT NULL} ), já o valor \texttt{0..1} indica que o atributo
+não é obrigatório. Por padrão, todos os atributos são gerados como \texttt{NOT
+NULL}.
 
 \item Coloque o estereótipo «Unique» no atributo matricula para indicar que cada
 código deve ser único, ou seja, não pode haver duas matrículas iguais. Abra a
@@ -199,8 +201,8 @@ sobre a classe e selecione a opção \texttt{Specification}. Defina o nome da cl
 “Curso”.
 	
 \item Crie os atributos na classe Curso (codigo, nome) selecionando a aba
-\texttt{Attributes} e clicando no botão \texttt{Add}. O campo \texttt{Visibility} deve ser \texttt{public}, assim
-como feito anteriormente.
+\texttt{Attributes} e clicando no botão \texttt{Add}. O campo
+\texttt{Visibility} deve ser \texttt{public}, assim como feito anteriormente.
 
 \item Coloque o estereótipo «Unique» no atributo codigo para indicar que cada
 código deve ser único. Abra a especificação do atributo codigo e selecione a aba
@@ -294,7 +296,10 @@ Stateful é um componente que mantêm estado, com ele temos a garantia que
 chamadas sucessivas de métodos remotos feitas por um mesmo cliente serão
 processadas por um mesmo objeto.
 
-Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes beans precisam ter o estereótipo «Service». Todas as classes de serviço devem estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido para o projeto.
+Os beans EJB precisam ser modelados em um diagrama de classes. As classes destes
+beans precisam ter o estereótipo «Service». Todas as classes de serviço devem
+estar no pacote <PacoteProjeto>.cs, em que <PacoteProjeto> é o pacote definido
+para o projeto.
 
 \begin{enumerate}
 \item Crie um pacote <PacoteProjeto>.cs.estudante. Clique então com o botão
@@ -328,7 +333,8 @@ classe EstudanteHandler deve ficar como na figura ~\ref{cria_sevico_estudante}.
 	\label{cria_estudante_exception}
 \end{figure}
 	
-\item Arraste para o diagrama de classes recém criado no pacote estudante a classe Estudante.
+\item Arraste para o diagrama de classes recém criado no pacote estudante a
+classe Estudante.
 	
 \item Crie uma relação de dependência entre as classes EstudanteHandler e
 Estudante, assim como entre EstudanteHandler e EstudanteException. Para isso,
@@ -353,20 +359,33 @@ como na imagem ~\ref{cria_dependencia_servico}.
 	\label{resultado_diagrama_classe_servico}
 \end{figure}
 
-\item A dependência entre EstudanteHandler e EstudanteException fará com que todos os métodos de EstudanteHandler possam lançar a exceção EstudanteException. Se a dependência tivesse sido entre algum método de EstudanteHandler e não com a própria classe, somente o método com dependência poderia lançar a exceção.
+\item A dependência entre EstudanteHandler e EstudanteException fará com que
+todos os métodos de EstudanteHandler possam lançar a exceção EstudanteException.
+Se a dependência tivesse sido entre algum método de EstudanteHandler e não com a
+própria classe, somente o método com dependência poderia lançar a exceção.
 
-A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao banco na classe de serviço.
+A dependência entre EstudanteHandler e Estudante cria os métodos de acesso ao
+banco na classe de serviço.
 
 \item Agora faça o mesmo para criar um modulo de serviço para a classe Estudante.
 	
-\item No diretório da aplicação, execute o comando maven para validar o modelo e gerar as classes de serviço. O resultado apresentado deve ser “BUILD SUCCESSFULL”.
+\item No diretório da aplicação, execute o comando maven para validar o modelo e
+gerar as classes de serviço. O resultado apresentado deve ser “BUILD SUCCESSFULL”.
 \end{enumerate}
 
 \section{Implementando as classes de controle dos cruds gerados}
 
-Nessa seção vamos implementar as classes de controle dos casos de uso gerados. Para isso, abriremos os arquivos <nomeCasoDeUso>ControleImpl.java. Esses arquivos são pontos de implementação onde deve ser concentrado todo o código que se queira adicionar manualmente às classes de controle. Como tais arquivos só são gerados caso ainda não existam, o código colocado neles não será sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos arquivos <nomeCasoDeUso>Controle.java .
+Nessa seção vamos implementar as classes de controle dos casos de uso gerados.
+Para isso, abriremos os arquivos <nomeCasoDeUso>ControleImpl.java. Esses
+arquivos são pontos de implementação onde deve ser concentrado todo o código que
+se queira adicionar manualmente às classes de controle. Como tais arquivos só
+são gerados caso ainda não existam, o código colocado neles não será
+sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos
+arquivos <nomeCasoDeUso>Controle.java .
 
-De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do MDArte, iremos implementar respectivamente os seguintes código nos seguintes arquivos, que devem portanto ser abertos no Eclipse ou em outra IDE desejada:
+De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do
+MDArte, iremos implementar respectivamente os seguintes código nos seguintes
+arquivos, que devem portanto ser abertos no Eclipse ou em outra IDE desejada:
 
 \begin{enumerate}
 \item ConsultaEstudanteControleImpl.java :
