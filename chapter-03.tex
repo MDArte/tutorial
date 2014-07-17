@@ -72,12 +72,13 @@ Neste tutorial estaremos utilizando funcionalidades de controle de acesso, poré
 não é nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando
 um projeto de controle de acesso desenvolvido pela comunidade do MDArte.
 
-O projeto pode ser obtido a partir do repositório \texttt{Git} do MDArte, pelo
-endereço \texttt{https://github.com/MDArte/controleacesso.git}. Por fim, edite
-também o arquivo \texttt{project.properties} do \texttt{ControleAcesso} para
-configurar o tipo de Banco de Dados a ser utilziado, conforme realizado com o
-projeto SistemaAcademico. Note que a propriedade \texttt{dataSource.name} está
-definida como \texttt{controleacessoDS}.
+O projeto pode ser obtido a partir do
+\href{https://github.com/MDArte/controleacesso.git}{repositório} \texttt{Git} do
+MDArte. Por fim, edite também o arquivo \texttt{project.properties} do
+\texttt{ControleAcesso} para configurar o tipo de Banco de Dados a ser
+utilziado, conforme realizado com o projeto SistemaAcademico. Note que a
+propriedade \texttt{dataSource.name} está definida como
+\texttt{controleacessoDS}.
 
 Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
 localizado no diretório
@@ -127,8 +128,11 @@ obrigatoriamente estar no pacote \texttt{<PacoteProjeto>.cd}, em que
 
 Neste exemplo, especificamente, iremos também marcar nossas entidades com o
 estereótipo \texttt{«Manageable»}, tal marcação diz para o MDArte que desejamos
-que seja gerado um \texttt{CRUD} padrão para tais entidades, sem a necessidade de
-modelarmos o mesmo diretamente.
+que seja gerado um \texttt{CRUD\footnote{CRUD é um acrônimo de Create, Read,
+Update e Delete em língua Inglesa para as quatro operações básicas utilizadas em
+bancos de dados relacionais ou em interface para usuários para criação,
+consulta, atualização e destruição de dados.}} padrão para tais entidades, sem a
+necessidade de modelarmos o mesmo diretamente.
 
 \begin{enumerate}
 \item Crie a mesma estrutura de pacotes que foi definida na criação do projeto.
@@ -254,17 +258,17 @@ apresentado deve ser \texttt{“BUILD SUCCESFULL”}.
 \item Observe que dois novos arquivos \texttt{xml} terão sido criados no caminho
 \texttt{<DiretorioProjeto>/mda/src/uml/} com os nomes
 \texttt{sistemaacademico-geral-Curso.xml} e
-\texttt{sistemaacademico-geral-Estudante.xml} , com os crud \texttt{default}
-gerados pelo MDArte. Agora precisamos importar os casos de uso criados pelo
-MDArte para o \texttt{xml} geral do nosso projeto
+\texttt{sistemaacademico-geral-Estudante.xml} , com os
+\texttt{CRUD} \texttt{default} gerados pelo MDArte. Agora precisamos importar os
+casos de uso criados pelo MDArte para o \texttt{xml} geral do nosso projeto
 (\texttt{SistemaAcademico.xml}). Para isso iremos na barra de ferramentas do
 \texttt{MagicDraw} clicaremos em \texttt{file} e na lista de opções que se
 abrirá clicaremos em \texttt{import}. Na janela que se abrirá selecionaremos os
-modelos que queremos adicionar e clicaremos em \texttt{open}, como na imagem 
+modelos que queremos adicionar e clicaremos em \texttt{open}, como na imagem
 ~\ref{importa_modulo_geral}:
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
 	\caption{Criação do pacote para a camada de serviço.}
 	\label{importa_modulo_geral}
 \end{figure} 
@@ -273,8 +277,8 @@ O resultado da importação na nossa estrutura de diretórios pode ser visto na
 imagem \ref{resultado_arvore_diretórios}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0019.png}
-	\caption{Arvore de diretórios do projeto após a importação dos CRUDS gerados
+	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0019.png}
+	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
 	automaticamente.}
 	\label{resultado_arvore_diretórios}
 \end{figure} 
@@ -337,7 +341,7 @@ estereótipo \texttt{«ModuloServico»} e clique em \texttt{Apply}. O resultado
 pode ser visto na imagem ~\ref{cria_pacote_servico}:
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=200pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
 	\caption{Criação do pacote para a camada de serviço.}
 	\label{cria_pacote_servico}
 \end{figure} 
@@ -385,7 +389,7 @@ de origem e arraste a seta até a classe destino, como na imagem
 \ref{resultado_diagrama_classe_servico}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
+	\includegraphics[width=360pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
 	\caption{Diagrama de classe completo do módulo de serviço para a classe
 	Estudante.}
 	\label{resultado_diagrama_classe_servico}
@@ -408,7 +412,7 @@ gerar as classes de serviço. O resultado apresentado deve ser \texttt{“BUILD
 SUCCESSFULL”}.
 \end{enumerate}
 
-\section{Implementando as classes de controle dos cruds gerados}
+\section{Implementando as classes de controle dos \texttt{CRUD} gerados}
 
 Nessa seção vamos implementar as classes de controle dos casos de uso gerados.
 Para isso, abriremos os arquivos \texttt{<nomeCasoDeUso>ControleImpl}.java.
@@ -418,10 +422,10 @@ arquivos só são gerados caso ainda não existam, o código colocado neles não
 sobrescrito, ao contrario do que ocorre se inserirmos manualmente codigo nos
 arquivos \texttt{<nomeCasoDeUso>Controle.java}.
 
-De acordo com os casos de uso gerados automaticamente pelo gerador de cruds do
-MDArte, iremos implementar respectivamente os seguintes código nos seguintes
-arquivos, que devem portanto ser abertos no \texttt{Eclipse} ou em outra
-\texttt{IDE} desejada:
+De acordo com os casos de uso gerados automaticamente pelo gerador de
+\texttt{CRUD} do MDArte, iremos implementar respectivamente os seguintes código
+nos seguintes arquivos, que devem portanto ser abertos no \texttt{Eclipse} ou em
+outra \texttt{IDE} desejada:
 
 \begin{enumerate}
 \item ConsultaEstudanteControleImpl.java :
