@@ -43,8 +43,8 @@ abaixo.
 \end{lstlisting}
 
 O \texttt{Jboss} disponibilizado já está configurado adequadamente para os exemplos
-desenvolvidos neste tutorial, caso queira saber como configurar o \texttt{Jboss} ou
-modificar a configuração padrão visite o \texttt{apêndice \ref{jboss-config}}.
+desenvolvidos neste tutorial, caso queira saber como configurar o \texttt{JBoss}
+ou modificar a configuração padrão visite o \texttt{apêndice \ref{jboss-config}}.
 
 \section{Maven}
 O
@@ -106,15 +106,22 @@ Para evitar o acesso a servidores na Internet é possível a instalação de um
 \texttt{proxy} específico do \texttt{Maven} na rede local. Neste tutorial de
 configuração, não abordaremos a configuração desse \texttt{proxy}.
 
-Neste tutorial será considerado que o \texttt{Jboss} estará instalado na pasta abaixo.
-
-\begin{verbatim}
-/home/<user>/Work/programs/maven
-\end{verbatim}
-
 \section{Varíaveis de Ambiente}
 
-Adicionar no final do arquivo \texttt{/home/<usuario>/.bashrc} o seguinte código: 
+Variáveis de ambiente são uma forma eficiente de influenciar o comportamento das
+aplicações rodando em um sistema \texttt{Linux}. A variável \texttt{Lang}, por
+exemplo, determina qual o idioma que os programas deverão usar para se comunicar
+com o usuário.Se seu \texttt{Linux} tiver sido instalado em inglês, a variável \texttt{Lang}
+provavelmente possuirá o valor \texttt{"en_US.UTF-8" }, por exemplo.
+
+Variáveis de ambiente consistem de nomes os quais possuem valores definidos para
+si. Variáveis de ambiente não possuem restrições quanto ao seu formato, tudo o
+que for atribuido a ela será salvo como texto, sendo responsabilidade das
+aplicações que as usarão interpretar seu significado e seus dados. 
+
+O MDArte usa algumas variáveis de ambiente na sua execução e, para configurá-las
+de modo definitivo, adicionaremos no final do arquivo
+\texttt{/home/<usuario>/.bashrc} o seguinte código:
 
 \begin{lstlisting}[language=bash]
 if [ -f ~/.bashrc_mdarte ]; then
@@ -122,14 +129,21 @@ if [ -f ~/.bashrc_mdarte ]; then
 fi
 \end{lstlisting}
 
-Criar o script onde ficará todas as variáveis do ambiente. 
+O código adicionado fará com que sempre que o sistema operacional for processar
+as informações de configuração no arquivo \texttt{~/.bashrc} ele processe junto
+as nossas configurações e variáveis de ambiente, para que não precisemos
+configurá-las manualmente sempre que reiniciarmos o sistema. 
+
+Agora, precisamos criar o script que referenciamos no arquivo
+\texttt{~/.bashrc}, e onde ficarão todas as nossas variáveis do ambiente. O
+seguinte comando shell faz isso para nós:
 
 \begin{lstlisting}[language=bash]
 touch ~/.bashrc_mdarte
 \end{lstlisting}
 	
-Editar o arquivo \texttt{/home/<usuario>/.bashrc\_mdarte} adicionando os
-seguintes valores.
+Editaremos agora o arquivo \texttt{/home/<usuario>/.bashrc\_mdarte} adicionando
+os seguintes valores.
 
 \begin{lstlisting}[language=bash]
 #MDArte Configurations
@@ -151,8 +165,8 @@ if [ -d ~/Work/programs/jboss ] ; then
 fi
 \end{lstlisting}
 
-Após será necessário reiniciar a sessão do usuário para essas variáveis estarem
-no sistema ou utilizar o seguinte comando abaixo.
+Feito isto, será necessário reiniciar a sessão do usuário para essas variáveis
+estarem no sistema ou utilizar o seguinte comando abaixo.
 
 \begin{lstlisting}[language=bash]
 source ~/.bashrc
