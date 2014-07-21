@@ -1,5 +1,6 @@
 package br.mdarte.exemplo.academico.web.geral
 	.consultarEstudante;
+
 import br.mdarte.exemplo.academico
 	.ServiceLocator;
 import br.mdarte.exemplo.academico.action.FilterAction;

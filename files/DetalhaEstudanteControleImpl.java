@@ -1,5 +1,6 @@
 package br.mdarte.exemplo.academico.web.geral
 	.detalharEstudante;
+
 import br.mdarte.exemplo.academico.ServiceLocator;
 import br.mdarte.exemplo.academico.util.Constantes;
 import org.andromda.presentation.bpm4struts.ViewContainer;

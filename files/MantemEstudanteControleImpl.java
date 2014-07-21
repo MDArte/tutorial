@@ -1,6 +1,5 @@
-
-// license-header java merge-point
 package br.mdarte.exemplo.academico.web.geral.manterEstudante;
+
 import br.mdarte.exemplo.academico.ServiceLocator;
 import br.mdarte.exemplo.academico.cd.Estudante;
 import br.mdarte.exemplo.academico.cd.EstudanteImpl;
