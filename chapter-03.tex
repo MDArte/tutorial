@@ -196,7 +196,7 @@ classe \texttt{Estudante}, como na figura \ref{add_estereotipo_estudante}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
-	\caption{Adição dos estereótipos Entiti e Manageable na classe estudante.}
+	\caption{Adição dos estereótipos Entity e Manageable na classe estudante.}
 	\label{add_estereotipo_estudante}
 \end{figure}
 	
@@ -291,6 +291,9 @@ executaremos então os comandos:
 \end{framed}
 
 \end{enumerate}
+
+\textbf{* Ao fim dessa seção falar com o Glauco ou o Felipe Milepe sobre o
+modelo de CRUD gerado automaticamente.}
 
 \subsection{Criando o Banco de Dados}
 
@@ -466,11 +469,40 @@ Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
 	\lstinputlisting[language=bash]{files/compile-deploy}
 \end{framed}
 
-Abriremos agora o eclipse, daremos \texttt{Start} no servidor \texttt{Jboss} e
-verificaremos então no navegador o resultado do nosso sistema. Para dar
-\texttt{Start} no servidor iremos na aba \texttt{Servers} no nossa \texttt{IDE},
-selecionaremos o servidor e clicaremos então no botão de \texttt{Start} (Verde),
-como na imagem \ref{server_start}:
+\subsection{Inicializando o servidor e testanto a aplicação}
+
+O \texttt{eclipse} nos fornece a possibilidade de fazer o gerenciamento do
+servidor \texttt{JBoss} dentro da própria IDE. Para isso precisamos criar na IDE
+um novo servidor. 
+
+Primeiramente, certifique-se de que você está usando a perspectiva de
+desenvolvimento \texttt{Java EE}. No conjunto de abas na parte inferior da IDE,
+abaixo da parte onde fica o código, selecione a aba \texttt{servers} como na
+imagem \ref{seleciona_server_eclipse} .
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=400pt,height=250pt]{imgs/tutorial-mdarte-0021.png}
+	\caption{Inicializando o servidor JBoss.}
+	\label{seleciona_server_eclipse}
+\end{figure}
+
+Agora clique com o botão direito no espaço vazio, vá em \texttt{new > server}.
+Será aberta a janela \texttt{'New Server'}. Preencha os dados como na imagem
+\ref{cria_server_eclipse}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0022.png}
+	\caption{Inicializando o servidor JBoss.}
+	\label{cria_server_eclipse}
+\end{figure}
+
+Agora daremos \texttt{Start} no servidor \texttt{Jboss} e verificaremos então no
+navegador o resultado do nosso sistema. Para dar \texttt{Start} no servidor
+iremos na aba \texttt{Servers} no nossa \texttt{IDE}, selecionaremos o servidor
+e clicaremos então no botão de \texttt{Start} (Verde), como na imagem
+\ref{server_start}:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=400pt,height=250pt]{imgs/tutorial-mdarte-0015.png}
@@ -492,7 +524,7 @@ Feito o login, a tela inicial do sistema será aberta como na imagem
 \ref{pagina_inicial}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=250pt]{imgs/tutorial-mdarte-0017.png}
+	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0017.png}
 	\caption{Página incial do Sistema Acadêmico.}
 	\label{pagina_inicial}
 \end{figure}
@@ -502,7 +534,7 @@ página de consulta no caso de uso de mesmo nome como na imagem
 \ref{pagina_consulta_estudante}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=250pt]{imgs/tutorial-mdarte-0018.png}
+	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0018.png}
 	\caption{Página incial de Consulta Estudante.}
 	\label{pagina_consulta_estudante}
 \end{figure}
@@ -511,7 +543,17 @@ Se pesquisarmos sem nenhum filtro veremos uma lista completa dos estudantes
 registrados como na imagem \ref{resultado_busca_sem_filtro}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=250pt]{imgs/tutorial-mdarte-0019.png}
+	\includegraphics[width=500pt,height=320pt]{imgs/tutorial-mdarte-0020.png}
 	\caption{Resultado da busca sem filtro pelos estudantes.}
 	\label{resultado_busca_sem_filtro}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
