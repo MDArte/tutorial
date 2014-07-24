@@ -122,9 +122,12 @@ em conjunto com o paradigma de orientação à objeto, o MDArte usa o \texttt{fr
 para gerenciar esta camada.
 
 As classes da camada de domínio deverão conter o estereótipo \texttt{«Entity»} e
-os atributos que serão persistidos. Todas as classes de entidade devem
-obrigatoriamente estar no pacote \texttt{<PacoteProjeto>.cd}, em que
-\texttt{<PacoteProjeto>} é o pacote definido para o projeto.
+os atributos que serão persistidos. Todas as classes de entidade serão
+concentradas no pacote \texttt{<PacoteProjeto>.cd}, em que
+\texttt{<PacoteProjeto>} é o pacote definido para o projeto. Note que não é
+obrigatório que as classes da camada de domínio estejam todas no pacote
+\texttt{<PacoteProjeto>.cd}, no entanto esta é uma boa prática e um padrão
+adotado pela comunidade do MDArte.
 
 Neste exemplo, especificamente, iremos também marcar nossas entidades com o
 estereótipo \texttt{«Manageable»}, tal marcação diz para o MDArte que desejamos
