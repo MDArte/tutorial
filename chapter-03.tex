@@ -271,7 +271,7 @@ modelos que queremos adicionar e clicaremos em \texttt{open}, como na imagem
 ~\ref{importa_modulo_geral}:
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0016.png}
 	\caption{Criação do pacote para a camada de serviço.}
 	\label{importa_modulo_geral}
 \end{figure} 
@@ -317,6 +317,75 @@ escolhido.
 \begin{framed}
 	\lstinputlisting[language=sql]{files/exemplo.sql}
 \end{framed}
+
+\subsection{Criando Value Objects}
+
+Em breve, implementaremos os métodos das classes de controle dos casos de uso
+gerados, onde o usuário poderá, entre outras coisas, filtrar a consulta
+preenchendo um ou mais atributos da entidade desejada. Por exemplo, ele poderá
+realizar a consulta por um Estudante digitando sua \texttt{matrícula} (uma
+restrição), ou poderá digitar também seu \texttt{nome} (outra restrição).
+
+Precisaremos, então, de uma classe que carregue esses valores atráves das
+camadas do nosso sistema, funcionando como uma estrutura de armazenamento de
+dados, para que a consulta seja feita com as restrições corretas, a qual chamos
+\texttt{ValueObject}, ou, abreviadamente, \texttt{VO}. Os \texttt{VOs} são
+responsáveis por transportar os dados fornecidos pelo usuário, e sendo
+utilizados na criação de restrições para a consulta sobre esses dados. Ou seja,
+esta classe será preenchida no controle com os dados digitados pelo usuário,
+será passada para um método da camada de serviços e daí seguirá até o objeto de
+acesso aos dados (\texttt{DAO}) onde será executada a consulta.
+
+Para uma classe ser entendida pelo \texttt{MDArte} como um \texttt{ValueObject},
+ela precisa ser marcada com o estereótipo \texttt{«ValueObject»}. A comunidade
+do MDArte adota como padrão a prática de concentrar todas as classes
+\texttt{ValueObject} em um mesmo pacote, \texttt{<PacoteProjeto>.vo}.
+
+Para criar os \texttt{ValueObject}:
+\begin{enumerate}
+  \item Crie uma pasta \texttt{“vo”} dentro do pacote do projeto.
+  \item Crie um diagrama de classes dentro da pasta \texttt{vo}.
+  \item No diagrama, crie uma classe com nome \texttt{“EstudanteVO”}.
+  \item Para cada atributo da classe \texttt{Estudante}, crie um atributo com o
+  mesmo nome e tipo dentro da classe \texttt{EstudanteVO}. Ou seja, devem ser
+  criados os atributos, todos públicos, \texttt{id(Long[datatype])},
+  \texttt{matricula(String[datatype])} e \texttt{nome(String[datatype])}.
+  \item Adicione o estereótipo \texttt{«ValueObject»}. Assim, clique na classe o
+  botão direito, na opção \texttt{Stereotype}, selecione o estereótipo e clique
+  em \texttt{Apply}.
+  \item No mesmo diagrama de classe, crie outro \texttt{VO} com nome
+  \texttt{CursoVO} e estereótipo \texttt{«ValueObject»}.
+  \item Para cada atributo da classe \texttt{Curso}, crie um atributo com o
+  mesmo nome e tipo dentro da classe \texttt{CursoVO}. Ou seja, devem ser
+  criados os atributos, todos públicos, \texttt{id(Long[datatype])},
+  \texttt{codigo(String[datatype])} e \texttt{nome(String[datatype])}.
+\end{enumerate}
+
+O diagrama de classe resultante pode ser visto na imagem \ref{cria_value_object}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=350pt,height=170pt]{imgs/tutorial-mdarte-0023.png}
+	\caption{Criação dos ValueObject.}
+	\label{cria_value_object}
+\end{figure}
+
+Note que devido ao fato de nosso sistema ser extremamente simples, se resumindo
+a \texttt{CRUD}, só necessitaremos de \texttt{ValueObject} que representem as
+entidades da camada de domínio. No entanto, \texttt{ValueObjects} não precisam
+estar obrigatoriamente associados a uma entidade específica, podendo ser usados
+para transportar todo o tipo de dados que precisarmos. Se tivermos um serviço
+que envolva dados de mais uma entidade, por exemplo, podemos para tal criar um
+\texttt{ValueObject} que contenha os campos de ambas as entidades que se façam
+necessários.
+
+Ao final desta seção a estrutura de pacotes do sue projeto deve estar como na
+imagem \ref{pacotes_value_object}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=250pt,height=170pt]{imgs/tutorial-mdarte-0024.png}
+	\caption{Estrutura de pacotes após a criação dos ValueObject.}
+	\label{pacotes_value_object}
+\end{figure}
 
 \subsection{Modelando a camada de serviços}
 
