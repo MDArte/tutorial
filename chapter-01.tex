@@ -60,7 +60,12 @@ A versão compatível é a 1.02. O \texttt{Maven}, durante sua execução, faz a
 a repositórios remotos, de onde poderão ser obtidos diversos artefatos
 necessários às tarefas de automação. Por exemplo bibliotecas (arquivos
 \texttt{*.jar}) necessárias para compilação e execução de um projeto podem ser
-automaticamente obtidas.
+automaticamente obtidas. Esses artefatos e bibliotecas externos, depêndencias do
+projeto, a serem obtidos e incorporados pelo \texttt{Maven} no momento da
+geração e compilação, são definidos nos arquivos \texttt{project.xml}. Um mesmo
+projeto pode conter vários \texttt{project.xml}, permitindo que possamos definir
+dependências diferentes para modulos e pacotes diferentes do nosso sistema de
+forma independente, segundo as nossas necessidades.
 
 Para especificar o repositório que o \texttt{Maven} deve acessar é necessário
 criar um arquivo, chamado \texttt{build.properties}, no diretório \texttt{home}
