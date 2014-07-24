@@ -73,14 +73,14 @@ internet, e com um repositório \texttt{proxy} configurado na rede local.
 acesso à internet:
 
 \begin{lstlisting}[language=bash]
-maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven 
+maven.repo.remote=http://jabot.cos.ufrj.br/repositorio 
 \end{lstlisting}
 
 2. Repositórios remoto quando é necessário utilizar \texttt{proxy} para acesso à
 internet. No exemplo, o \texttt{IP} do \texttt{proxy} é \texttt{10.0.2.15}:
 
 \begin{lstlisting}[language=bash]
-maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven
+maven.repo.remote=http://jabot.cos.ufrj.br/repositorio
 maven.proxy.host=10.0.2.15 maven.proxy.port=8080 
 \end{lstlisting}
 
@@ -112,7 +112,7 @@ Variáveis de ambiente são uma forma eficiente de influenciar o comportamento d
 aplicações rodando em um sistema \texttt{Linux}. A variável \texttt{Lang}, por
 exemplo, determina qual o idioma que os programas deverão usar para se comunicar
 com o usuário.Se seu \texttt{Linux} tiver sido instalado em inglês, a variável \texttt{Lang}
-provavelmente possuirá o valor \texttt{"en_US.UTF-8" }, por exemplo.
+provavelmente possuirá o valor \texttt{"en\_US.UTF-8" }, por exemplo.
 
 Variáveis de ambiente consistem de nomes os quais possuem valores definidos para
 si. Variáveis de ambiente não possuem restrições quanto ao seu formato, tudo o
@@ -130,12 +130,12 @@ fi
 \end{lstlisting}
 
 O código adicionado fará com que sempre que o sistema operacional for processar
-as informações de configuração no arquivo \texttt{~/.bashrc} ele processe junto
+as informações de configuração no arquivo \texttt{.bashrc} ele processe junto
 as nossas configurações e variáveis de ambiente, para que não precisemos
 configurá-las manualmente sempre que reiniciarmos o sistema. 
 
 Agora, precisamos criar o script que referenciamos no arquivo
-\texttt{~/.bashrc}, e onde ficarão todas as nossas variáveis do ambiente. O
+\texttt{.bashrc}, e onde ficarão todas as nossas variáveis do ambiente. O
 seguinte comando shell faz isso para nós:
 
 \begin{lstlisting}[language=bash]
@@ -188,7 +188,7 @@ inclusive os hifens):
 
 \begin{lstlisting}[language=bash]
 maven plugin:download -DgroupId=andromda
--DartifactId=maven-andromdapp-plugin-coppetec -Dversion=3.1.1.3.4.19-RC2
+-DartifactId=maven-andromdapp-plugin-coppetec -Dversion=3.1.1.3.4.19-RC8
 \end{lstlisting}
 	
 Após a execução desse comando o \texttt{Maven} terá instalado o plugin do
