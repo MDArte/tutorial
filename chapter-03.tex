@@ -68,6 +68,8 @@ artefatos (por exemplo, bibliotecas) de que o projeto dependerá.
 
 \section{Controle de Acesso}
 
+\subsection{Baixando o Controle de Acesso e configurando propriedades do
+projeto}
 Neste tutorial estaremos utilizando funcionalidades de controle de acesso, porém
 não é nosso propósito explorar suas funcionalidades. Assim, estaremos utilizando
 um projeto de controle de acesso desenvolvido pela comunidade do MDArte.
@@ -79,14 +81,16 @@ MDArte. Por fim, edite também o arquivo \texttt{project.properties} do
 utilizado. O arquivo deverá ficar da seguinte maneira:
 
 \begin{framed}
-	\lstinputlisting[language=xml]{files/project.properties-controleacesso}
+	\lstinputlisting[language=bash]{files/project.properties-controleacesso}
 \end{framed}
 
 Note que a propriedade \texttt{dataSource.name} está definida como
 \texttt{controleacessoDS}.
 
-Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
-localizado no diretório
+\subsection{Adicionando configurações do Controle Acesso ao JBoss}
+
+Precisaremos criar um arquivo de configuração do Banco de Dados (ou editá-lo,
+caso ja exista um), localizado no diretório
 \texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}. O nome do arquivo deve
 seguir a mesma formatação mencionada, terminando em \texttt{-ds.xml} (ex.:
 \texttt{aplicacoes-ds.xml}), podendo estar no mesmo arquivo com as configurações
@@ -98,8 +102,28 @@ Exemplo:
 	\lstinputlisting[language=xml]{files/ControleAcesso-ds.xml}
 \end{framed}
 
-Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de
-dados do projeto SistemaAcademico, definida pela tag \texttt{<connection-url>}.
+Note que no exemplo anterior o \texttt{Controle de Acesso} estará utilizando a
+mesma base de dados do projeto \texttt{SistemaAcademico}, definida pela tag
+\texttt{<connection-url>}.
+
+Agora, adicionaremos as configurações de login para o Controle de Acesso no
+servidor \texttt{JBoss}. Para tal, editaremos o arquivo
+\texttt{login-config.xml}, no caminho \texttt{JBOSS\_HOME/server/default/conf/}.
+Adicionaremos então as seguintes configurações ao fim do arquivo, antes da tag
+\texttt{<\\policy>} :
+
+\begin{framed}
+	\lstinputlisting[language=xml]{files/login-config-controleacesso.xml}
+\end{framed}
+
+\subsection{Preparando o banco do Controle de Acesso}
+
+Nós vamos agora executar alguns \texttt{scripts} no banco de dados que usaremos
+para o \texttt{Controle de Acesso} a fim de prepará-lo para o nosso sistema.
+
+Primeiro executaremos o script \texttt{schema-create.sql}, no caminho
+\texttt{<raiz-do-projeto-controleacesso>/core/cd/target}.
+
 Agora, execute os seguinte comandos, na raiz do projeto \texttt{ControleAcesso},
 para gerar, compilar e copiar os pacotes para o diretório
 \texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
@@ -241,11 +265,11 @@ e “1” para a entidade \texttt{Curso}, como na figura
 \end{figure}
 	
 \item A associação deve ser dupla, tanto \texttt{Estudant} e quanto
-\texttt{Curso} devem ser visíveis sua \texttt{Visibility} deve ser
-\texttt{public}.
-Dessa forma, mantenha a \texttt{checkbox} \texttt{Navigable} marcada na
-associação para as duas classes. Para isso, clique no botão “...” (reticências)
-da tela anterior, como na imagem ~\ref{config_navigable_associacao}.
+\texttt{Curso} devem conseguir se enchergar, além disso sua \texttt{Visibility}
+deve ser \texttt{public}. Mantenha a \texttt{checkbox} \texttt{Navigable}
+marcada na associação para as duas classes. Para isso, clique no botão “...”
+(reticências) da tela anterior, como na imagem
+~\ref{config_navigable_associacao}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
@@ -253,7 +277,8 @@ da tela anterior, como na imagem ~\ref{config_navigable_associacao}.
 	\label{config_navigable_associacao}
 \end{figure}
 		
-O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}: \hfill
+O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}:
+\hfill
 
 \begin{figure}[H]
 	\centering

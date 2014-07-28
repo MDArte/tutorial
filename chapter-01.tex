@@ -13,7 +13,7 @@ Ferramentas necessárias:
   \item Eclipse Indigo (versão 3.7.1)
 \end{itemize}
 
-\section{JDK}
+\section{JDK - Java 6}
 
 É necessário que o \texttt{JDK} esteja instalado no computador. O
 download pode ser feito em \texttt{http://java.sun.com/} ou utilizando
@@ -25,7 +25,11 @@ sudo apt-get update
 sudo apt-get install oracle-java6-installer
 \end{lstlisting}
 
-\section{JBoss}
+Assegure-se de baixar a \texttt{jdk} para o \texttt{java 6}. Alguns dos recursos
+utilizados pelo \texttt{MDArte} ainda não são compatíveis com o \texttt{java 7}
+e você poderá ter problemas se baixar a versão errada.
+
+\section{JBoss - 4.2.3-GA}
 
 É necessário que o \texttt{JBoss} esteja instalado no computador. O
 \texttt{download} pode ser feito em
@@ -100,8 +104,9 @@ maven.repo.remote=http://<host>:<port>
 \end{verbatim}
 
 Onde \texttt{<host>} é o nome da máquina utilizada como \texttt{proxy} e
-\texttt{<port>} é o número da porta do serviço do \texttt{proxy}. Por exemplo:
-\texttt{maven.repo.remote=http://146.164.34.92/repositorio/}
+\texttt{<port>} é o número da porta do serviço do \texttt{proxy}. Neste
+tutorial usaremos a seguinte configuração:
+\texttt{maven.repo.remote=http://146.164.34.92/repositorio/} .
 
 É importante observar que o \texttt{Maven}, de acordo com as tarefas executadas,
 irá fazer o download dos artefatos necessários e guardá-los em um cache local na
