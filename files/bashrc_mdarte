@@ -1,0 +1,17 @@
+#MDArte Configurations
+
+export MAVEN_OPTS=-Xmx1024m
+
+export JAVA_HOME=/usr/lib/jvm/java-6-oracle/
+
+if [ -d ~/Work/programs/maven ] ; then
+  export MAVEN_HOME=~/Work/programs/maven
+fi
+
+if [ -d ~/Work/programs/maven ] ; then
+ export PATH=$PATH:~/Work/programs/maven/bin
+fi
+
+if [ -d ~/Work/programs/jboss ] ; then
+  export JBOSS_HOME=~/Work/programs/jboss
+fi

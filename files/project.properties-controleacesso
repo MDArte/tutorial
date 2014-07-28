@@ -1,0 +1,37 @@
+# set this to true will deploy the jboss exploded
+deployExploded=false
+
+# habilita o empacotamento dos JARs das dependencias no EAR da aplicacao
+packDependencies=true
+# habilita o empacotamento dos WARs no EAR da aplicacao
+packWar=true
+
+# The datasource for the application
+dataSource.name=controleacessoDS
+dataSource=java:/${dataSource.name}
+
+# Properties for management of the database schema, 
+# ignore if you setup/drop your schema manually
+dataSource.driver.jar=${env.JBOSS_HOME}/server/default/lib/postgresql.jar
+dataSource.driver.class=org.postgresql.Driver
+dataSource.url=jdbc:postgresql://<url-de-acesso-ao-banco>
+dataSource.user=
+dataSource.password=
+dataSource.sql.init=core/cd/target/schema-create.sql
+dataSource.sql.drop=core/cd/target/schema-drop.sql
+dataSource.sql.load=core/cd/target/db/create-dummy-load.sql
+# What schema related goals should do when an error occurs.
+dataSource.sql.onError=continue
+
+# Change this to generate to the correct MDA database mappings
+# For MySql use: MySQL
+# For Hypersonic use: HypersonicSql
+# For Oracle9i use: Oracle9i
+sql.mappings=PostgreSQL
+
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+defaultHibernateGeneratorClass=sequence

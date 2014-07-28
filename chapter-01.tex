@@ -6,7 +6,7 @@ respectivos procedimentos de instalação.
 
 Ferramentas necessárias:
 \begin{itemize}
-  \item Máquina Virtual Java - JDK
+  \item Máquina Virtual Java - JDK (Java 6)
   \item JBoss (versão 4.2.3-GA)
   \item Maven (versão 1.0.2) 
   \item Magic Draw (versão 9.5)
@@ -151,25 +151,9 @@ touch ~/.bashrc_mdarte
 Editaremos agora o arquivo \texttt{/home/<usuario>/.bashrc\_mdarte} adicionando
 os seguintes valores.
 
-\begin{lstlisting}[language=bash]
-#MDArte Configurations
-
-export MAVEN_OPTS=-Xmx1024m
-
-export JAVA_HOME=/usr/lib/jvm/java-6-oracle/
-
-if [ -d ~/Work/programs/maven ] ; then
-  export MAVEN_HOME=~/Work/programs/maven
-fi
-
-if [ -d ~/Work/programs/maven ] ; then
- export PATH=\$PATH:~/Work/programs/maven/bin
-fi
-
-if [ -d ~/Work/programs/jboss ] ; then
-  export JBOSS_HOME=~/Work/programs/jboss
-fi
-\end{lstlisting}
+\begin{framed}
+	\lstinputlisting[language=sql]{files/bashrc_mdarte}
+\end{framed}
 
 Feito isto, será necessário reiniciar a sessão do usuário para essas variáveis
 estarem no sistema ou utilizar o seguinte comando abaixo.

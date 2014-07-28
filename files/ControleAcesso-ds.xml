@@ -1,12 +1,15 @@
-<local-tx-datasource>
-	<jndi-name>controleacessoDS</jndi-name>
-	<use-java-context>true</use-java-context>
-	<connection-url>jdbc:postgresql://127.0.0.1:5432/controleacesso
+<datasources>
+	<local-tx-datasource>
+		<jndi-name>controleacessoDS</jndi-name>
+		<use-java-context>true</use-java-context>
+		<connection-url>
+			jdbc:postgresql://127.0.0.1:5432/controleacesso
 		</connection-url> 
-	<driver-class>org.postgresql.Driver</driver-class>
-	<user-name>usuario</user-name>
-	<password>senha</password>
-	<!--<exception-sorter-class-name>
-	org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
-	</exception-sorter-class-name>-->
+		<driver-class>org.postgresql.Driver</driver-class>
+		<user-name>usuario</user-name>
+		<password>senha</password>
+		<!--<exception-sorter-class-name>
+		org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter
+		</exception-sorter-class-name>-->
 </local-tx-datasource>
+</datasources>

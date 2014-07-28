@@ -76,8 +76,13 @@ O projeto pode ser obtido a partir do
 \href{https://github.com/MDArte/controleacesso.git}{repositório} \texttt{Git} do
 MDArte. Por fim, edite também o arquivo \texttt{project.properties} do
 \texttt{ControleAcesso} para configurar o tipo de Banco de Dados a ser
-utilziado, conforme realizado com o projeto SistemaAcademico. Note que a
-propriedade \texttt{dataSource.name} está definida como
+utilizado. O arquivo deverá ficar da seguinte maneira:
+
+\begin{framed}
+	\lstinputlisting[language=xml]{files/project.properties-controleacesso}
+\end{framed}
+
+Note que a propriedade \texttt{dataSource.name} está definida como
 \texttt{controleacessoDS}.
 
 Novamente, precisaremos criar um arquivo de configuração do Banco de Dados,
@@ -97,7 +102,7 @@ Note que no exemplo anterior o ControleAcesso estará utilizando a mesma base de
 dados do projeto SistemaAcademico, definida pela tag \texttt{<connection-url>}.
 Agora, execute os seguinte comandos, na raiz do projeto \texttt{ControleAcesso},
 para gerar, compilar e copiar os pacotes para o diretório
-\texttt{\textdollar{}JBOSS\_HOMEHOME/server/default/deploy/}:
+\texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
 
 \begin{framed}
 	\lstinputlisting[language=bash]{files/compila-ca}
@@ -217,15 +222,17 @@ que cada código deve ser único. Abra a especificação do atributo codigo e
 selecione a aba \texttt{Stereotypes}. Nessa aba selecione o estereótipo
 \texttt{«Unique»}.
 	
-\item Coloque o estereótipo \texttt{«Entity»} na classe.
+\item Coloque os estereótipos \texttt{«Entity»} e \texttt{«Manageable»}  na
+classe.
 	
 \item Agora, crie uma associação entre as classes. Vá no diagrama de classes e
 puxe uma relação \texttt{Association} de uma classe para outra.
 	
-\item A associação será de \texttt{1 para muitos}. Assim, clique duas vezes na associação
-e irá aparecer a tela de especificação. Edite os campos \texttt{Multiplicity} definindo
-valor “0..*” para a entidade \texttt{Estudante} e “1” para a entidade
-\texttt{Curso}, como na figura ~\ref{define_multiplicidade_associacao}.
+\item A associação será de \texttt{1 para muitos}. Assim, clique duas vezes na
+associação e irá aparecer a tela de especificação. Edite os campos
+\texttt{Multiplicity} definindo valor “0..*” para a entidade \texttt{Estudante}
+e “1” para a entidade \texttt{Curso}, como na figura
+~\ref{define_multiplicidade_associacao}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
@@ -234,10 +241,11 @@ valor “0..*” para a entidade \texttt{Estudante} e “1” para a entidade
 \end{figure}
 	
 \item A associação deve ser dupla, tanto \texttt{Estudant} e quanto
-\texttt{Curso} devem ser visíveis. Dessa forma, mantenha a \texttt{checkbox}
-\texttt{Navigable} marcada na associação para as duas classes. Para isso, clique
-no botão “...” (reticências) da tela anterior, como na imagem
-~\ref{config_navigable_associacao}.
+\texttt{Curso} devem ser visíveis sua \texttt{Visibility} deve ser
+\texttt{public}.
+Dessa forma, mantenha a \texttt{checkbox} \texttt{Navigable} marcada na
+associação para as duas classes. Para isso, clique no botão “...” (reticências)
+da tela anterior, como na imagem ~\ref{config_navigable_associacao}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
