@@ -116,6 +116,16 @@ Adicionaremos então as seguintes configurações ao fim do arquivo, antes da ta
 	\lstinputlisting[language=xml]{files/login-config-controleacesso.xml}
 \end{framed}
 
+\subsection{Compilando o Controle de Acesso}
+
+Agora, execute os seguinte comandos, na raiz do projeto \texttt{ControleAcesso},
+para gerar, compilar e copiar os pacotes para o diretório
+\texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
+
+\begin{framed}
+	\lstinputlisting[language=bash]{files/compila-ca}
+\end{framed}
+
 \subsection{Preparando o banco do Controle de Acesso}
 
 Nós vamos agora executar alguns \texttt{scripts} no banco de dados que usaremos
@@ -131,14 +141,6 @@ usuário \texttt{su} com a senha \texttt{'su'} para o \texttt{sistemaacademico}:
 	\lstinputlisting[language=sql]{files/init-bd-controleacesso.sql}
 \end{framed}
 
-\subsection{Compilando o Controle de Acesso}
-Agora, execute os seguinte comandos, na raiz do projeto \texttt{ControleAcesso},
-para gerar, compilar e copiar os pacotes para o diretório
-\texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
-
-\begin{framed}
-	\lstinputlisting[language=bash]{files/compila-ca}
-\end{framed}
 
 \section{Modelando o nosso primeiro projeto}
 
@@ -328,8 +330,34 @@ imagem \ref{resultado_arvore_diretórios}.
 	\label{resultado_arvore_diretórios}
 \end{figure} 
 
-Agora precisamos regerar o projeto, bem como os módulos separados, para isso,
-executaremos então os comandos:
+\item Agora, ainda no \texttt{MagicDraw}, alteraremos o modelo, adicionando ao
+pacote \texttt{'geral'} o estereótipo \texttt{«ModuloWebPrincipal»}, o resultado
+pode ser visto na imagem \ref{resultado_moduloweb_principal}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0025.png}
+	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
+	automaticamente.}
+	\label{resultado_moduloweb_principal}
+\end{figure}
+
+\item Dentro do módulo \texttt{'geral'}, abriremos o pacote
+\texttt{consultarEstudante} e editaremos a especificação do \texttt{usecase}
+\texttt{ConsultaEstudanteUC}, adicionando a ele o estereótipo
+\texttt{«FrontEndApplication»}, o resultado
+pode ser visto na imagem \ref{resultado_usecase_principal}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0025.png}
+	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
+	automaticamente.}
+	\label{resultado_usecase_principal}
+\end{figure}
+
+\item Agora precisamos regerar o projeto, bem como os módulos separados, para
+isso, executaremos então os comandos:
 	
 \begin{framed}
 	\lstinputlisting[language=bash]{files/compila-cruds}
