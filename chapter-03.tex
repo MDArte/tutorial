@@ -110,7 +110,7 @@ Agora, adicionaremos as configurações de login para o Controle de Acesso no
 servidor \texttt{JBoss}. Para tal, editaremos o arquivo
 \texttt{login-config.xml}, no caminho \texttt{JBOSS\_HOME/server/default/conf/}.
 Adicionaremos então as seguintes configurações ao fim do arquivo, antes da tag
-\texttt{<\\policy>} :
+\texttt{<\textbackslash{}policy>} :
 
 \begin{framed}
 	\lstinputlisting[language=xml]{files/login-config-controleacesso.xml}
@@ -124,6 +124,14 @@ para o \texttt{Controle de Acesso} a fim de prepará-lo para o nosso sistema.
 Primeiro executaremos o script \texttt{schema-create.sql}, no caminho
 \texttt{<raiz-do-projeto-controleacesso>/core/cd/target}.
 
+Em seguida, executaremos o seguinte script para iniciliazar o banco com o
+usuário \texttt{su} com a senha \texttt{'su'} para o \texttt{sistemaacademico}:
+
+\begin{framed}
+	\lstinputlisting[language=sql]{files/init-bd-controleacesso.sql}
+\end{framed}
+
+\subsection{Compilando o Controle de Acesso}
 Agora, execute os seguinte comandos, na raiz do projeto \texttt{ControleAcesso},
 para gerar, compilar e copiar os pacotes para o diretório
 \texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
@@ -146,7 +154,8 @@ abriremos o xml do projeto, \texttt{SistemaAcademico.xml} no caminho
 Na camada de domínio, estarão as classes do domínio da aplicação. Elas serão
 entidades e estarão associadas a algum modo de persistência. Afim de
 contornar os problemas provenientes da utilização de bancos de dados relacionais
-em conjunto com o paradigma de orientação à objeto, o MDArte usa o \texttt{framework}
+em conjunto com o paradigma de orientação à objeto, o MDArte usa o
+\texttt{framework}
 \texttt{Hibernate}\footnote{\hypertarget{http://hibernate.org/orm/}{http://hibernate.org/orm/}}
 para gerenciar esta camada.
 
