@@ -556,6 +556,17 @@ métodos de acesso ao banco na classe de serviço.
 \item No diretório da aplicação, execute o comando maven para validar o modelo e
 gerar as classes de serviço. O resultado apresentado deve ser \texttt{“BUILD
 SUCCESSFULL”}.
+
+\item Agora, rode no banco de dados do \texttt{Controle de Acesso} o script
+\texttt{Servicos.sql}, que se encontra no caminho
+\texttt{<raizProjeto>/core/cs/compartilhado/target/classes/br/mdarte/exemplo/academico/accessControl}.
+
+\item Rode, agora, o seguinte script no banco de dados do \texttt{Controle de
+Acesso}:
+\begin{framed}
+	\lstinputlisting[language=sql]{files/acao_pf.sql}
+\end{framed}
+
 \end{enumerate}
 
 \section{Implementando as classes de controle dos \texttt{CRUD} gerados}
