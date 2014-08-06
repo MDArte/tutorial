@@ -134,14 +134,6 @@ para o \texttt{Controle de Acesso} a fim de prepará-lo para o nosso sistema.
 Primeiro executaremos o script \texttt{schema-create.sql}, no caminho
 \texttt{<raiz-do-projeto-controleacesso>/core/cd/target}.
 
-Em seguida, executaremos o seguinte script para iniciliazar o banco com o
-usuário \texttt{su} com a senha \texttt{'su'} para o \texttt{sistemaacademico}:
-
-\begin{framed}
-	\lstinputlisting[language=sql]{files/init-bd-controleacesso.sql}
-\end{framed}
-
-
 \section{Modelando o nosso primeiro projeto}
 
 Vamos começar agora a modelar o nosso exemplo, mostrando o quão rápido e simples
@@ -560,12 +552,10 @@ SUCCESSFULL”}.
 \item Agora, rode no banco de dados do \texttt{Controle de Acesso} o script
 \texttt{Servicos.sql}, que se encontra no caminho
 \texttt{<raizProjeto>/core/cs/compartilhado/target/classes/br/mdarte/exemplo/academico/accessControl}.
-
-\item Rode, agora, o seguinte script no banco de dados do \texttt{Controle de
-Acesso}:
-\begin{framed}
-	\lstinputlisting[language=sql]{files/acao_pf.sql}
-\end{framed}
+Não se esqueça de descomentar as linhas comentadas que contem código
+\texttt{sql}, essas linhas criarão um usuário de nome \texttt{'su'} e senha
+\texttt{'su'} no banco do \texttt{Controle de Acesso}, já com todas as
+permissões necessárias para a utilização do \texttt{Sistema Acadêmico}.
 
 \end{enumerate}
 
