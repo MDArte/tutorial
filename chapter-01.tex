@@ -10,14 +10,14 @@ Ferramentas necessárias:
   \item JBoss (versão 4.2.3-GA)
   \item Maven (versão 1.0.2) 
   \item Magic Draw (versão 9.5)
-  \item Eclipse Indigo (versão 3.7.1)
+  \item Eclipse Kepler (Java EE)
 \end{itemize}
 
 \section{JDK - Java 6}
 
 É necessário que o \texttt{JDK} esteja instalado no computador. O
 download pode ser feito em \texttt{http://java.sun.com/} ou utilizando
-algum repositório, como mostra abaixo:
+algum repositório, como mostrado abaixo:
 
 \begin{lstlisting}[language=bash]
 sudo add-apt-repository ppa:webupd8team/java
@@ -29,93 +29,53 @@ Assegure-se de baixar a \texttt{jdk} para o \texttt{java 6}. Alguns dos recursos
 utilizados pelo \texttt{MDArte} ainda não são compatíveis com o \texttt{java 7}
 e você poderá ter problemas se baixar a versão errada.
 
-\section{JBoss - 4.2.3-GA}
+\section{JBoss (4.2.3-GA) e Maven}
 
-É necessário que o \texttt{JBoss} esteja instalado no computador. O
-\texttt{download} pode ser feito em
-\href{http://jbossas.jboss.org/}{http://jbossas.jboss.org/}. Após a
-instalação do \texttt{JBoss}, é necessário configurar a variável
-\texttt{JBOSS\_HOME}, a qual deve especificar o caminho de instalação do
-\texttt{JBoss}. Esse caminho para o \texttt{JBoss} é necessário para a
-instalação de aplicações (\texttt{deployment}).
+Antes de instalarmos tais ferramentas é importante que entendamos um pouco do
+que elas são e qual a finalidade dela dentro do desenvolvimento com o MDArte.
 
-Neste tutorial será considerado que o \texttt{Jboss} estará instalado na pasta
-abaixo.
+\subsetcion{Jboss}
+O JBoss AS é um servidor de aplicações baseado em Java. Um servidor de
+aplicações é um software que provê um ambiente completo para que outras
+aplicações sejam executadas dentro dele usando uma gama de serviços provida pelo
+servidor de aplicações.
 
-\begin{lstlisting}[language=bash]
-/home/<user>/Work/programs/jboss
-\end{lstlisting}
+A grande vantagem de um servidor de aplicações é que os desenvolvedores podem se
+concentrar nas necessidades de negócio. Aspectos como conexões a bancos de
+dados, autenticação e gerenciamento de recursos são gerenciados pelo servidor de
+aplicações. Além disso, o padrão Java EE define padrões abertos que aceleram o
+desenvolvimento com uso de API padronizada e pensada para computação
+distribuida.
 
 O \texttt{Jboss} disponibilizado já está configurado adequadamente para os
 exemplos desenvolvidos neste tutorial, caso queira saber como configurar o
 \texttt{JBoss} ou modificar a configuração padrão visite o \texttt{apêndice
 \ref{jboss-config}}.
 
-\section{Maven}
+\subsection{Maven}
 O
 \texttt{Maven}\footnote{\href{http://maven.apache.org/}{http://maven.apache.org/}}
-é uma ferramenta de automação e gerenciamento de projetos. O download pode ser
-feito através do endereço
-\href{http://maven.apache.org/maven-1.x/index.html}{http://maven.apache.org/maven-1.x/index.html}
-e sua instalação consiste em descompactar o arquivo obtido em um diretório
-local.
+é uma ferramenta de automação e gerenciamento de projetos, gerenciando desde as
+dependências para compilação até a compilação e \texttt{deploy} da aplicação e
+tornando muito mais fácil a integração e utilizando de diversas ferramentas
+empregadas no processo de desenvolvimento de software.
 
-A versão compatível é a 1.02. O \texttt{Maven}, durante sua execução, faz acesso
-a repositórios remotos, de onde poderão ser obtidos diversos artefatos
+A versão compatível atualmente é a 1.02. O \texttt{Maven}, durante sua execução,
+faz acesso a repositórios remotos, de onde poderão ser obtidos diversos artefatos
 necessários às tarefas de automação. Por exemplo bibliotecas (arquivos
 \texttt{*.jar}) necessárias para compilação e execução de um projeto podem ser
 automaticamente obtidas. Esses artefatos e bibliotecas externos, depêndencias do
 projeto, a serem obtidos e incorporados pelo \texttt{Maven} no momento da
 geração e compilação, são definidos nos arquivos \texttt{project.xml}. Um mesmo
 projeto pode conter vários \texttt{project.xml}, permitindo que possamos definir
-dependências diferentes para modulos e pacotes diferentes do nosso sistema de
+dependências específicas para modulos e pacotes diferentes do nosso sistema de
 forma independente, segundo as nossas necessidades.
 
-Para especificar o repositório que o \texttt{Maven} deve acessar é necessário
-criar um arquivo, chamado \texttt{build.properties}, no diretório \texttt{home}
-do usuário, por exemplo \texttt{/home/<usuario>}.
-
-Abaixo temos exemplos do arquivo build.properties para uso com repositórios
-externos, em repositório externo que possui um \texttt{proxy} para acesso à
-internet, e com um repositório \texttt{proxy} configurado na rede local.
-
-1. Repositórios remoto quando não é necessário utilizar \texttt{proxy} para
-acesso à internet:
-
-\begin{lstlisting}[language=bash]
-maven.repo.remote=http://jabot.cos.ufrj.br/repositorio 
-\end{lstlisting}
-
-2. Repositórios remoto quando é necessário utilizar \texttt{proxy} para acesso à
-internet. No exemplo, o \texttt{IP} do \texttt{proxy} é \texttt{10.0.2.15}:
-
-\begin{lstlisting}[language=bash]
-maven.repo.remote=http://jabot.cos.ufrj.br/repositorio
-maven.proxy.host=10.0.2.15 maven.proxy.port=8080 
-\end{lstlisting}
-
-3. Repositório \texttt{proxy} na rede local. O repositório \texttt{proxy} contém
-as bibliotecas \texttt{*.jar} que o \texttt{Maven} poderia requisitar no
-repositório remoto na Internet. Esse repositório deverá ser utilizado quando não
-é possível ou não é desejável o acesso ao repositório remoto:
-
-\begin{verbatim}
-maven.repo.remote=http://<host>:<port> 
-\end{verbatim}
-
-Onde \texttt{<host>} é o nome da máquina utilizada como \texttt{proxy} e
-\texttt{<port>} é o número da porta do serviço do \texttt{proxy}. Neste
-tutorial usaremos a seguinte configuração:
-\texttt{maven.repo.remote=http://146.164.34.92/repositorio/} .
-
-É importante observar que o \texttt{Maven}, de acordo com as tarefas executadas,
-irá fazer o download dos artefatos necessários e guardá-los em um cache local na
-estação de trabalho em um diretório chamado \texttt{.maven} localizado no
-diretório \texttt{home} de cada usuário da estação.
-
-Para evitar o acesso a servidores na Internet é possível a instalação de um
-\texttt{proxy} específico do \texttt{Maven} na rede local. Neste tutorial de
-configuração, não abordaremos a configuração desse \texttt{proxy}.
+O script disponibilizado pelo pacote de instalação do \texttt{MDArte} já faz
+todas as configurações necessárias para o uso do \texttt{Maven}, inclusive criação de variáveis de
+ambiente e configuração do repositório externo a ser usado. Caso queira saber
+como configurar a url do repositório ou mudar algum detalhe na configuração
+padrão visite o \texttt{apêndice\ref{maven-config}}.
 
 \section{Varíaveis de Ambiente}
 
@@ -130,38 +90,43 @@ si. Variáveis de ambiente não possuem restrições quanto ao seu formato, tudo
 que for atribuido a ela será salvo como texto, sendo responsabilidade das
 aplicações que as usarão interpretar seu significado e seus dados. 
 
-O MDArte usa algumas variáveis de ambiente na sua execução e, para configurá-las
-de modo definitivo, adicionaremos no final do arquivo
-\texttt{/home/<usuario>/.bashrc} o seguinte código:
+O MDArte usa as seguintes variáveis de ambiente durante sua execução:
+\begin{itemize}
+  \item \texttt{JAVA_HOME} - Define o caminho para a pasta onde o \texttt{Java}
+  se encontra instalado;
+  \item \texttt{MAVEN_HOME} - Define o caminho para a pasta onde o
+  \texttt{Maven} se encontra instalado;
+  \item \texttt{MAVEN_OPTS} - Parâmetros de lançamento para JVM no momento da
+  execução do \texttt{Maven};
+  \item \texttt{JBOSS_HOME} - Define o caminho para a pasta onde o
+  \texttt{JBoss} se encontra instalado;
+\end{itemize}
 
+Além disso, a variável \texttt{PATH}, responsável por definir os possíveis
+caminhos para um executável no terminal do \texttt{linux}, precisa ser alterada
+para que possamos acionar o \texttt{Maven} simplesmente digitando o comando
+\texttt{maven}.
+
+No entanto, você não precisa configurar nenhuma destas variáveis manualmente,
+uma vez que o pacote de instalação do \texttt{MDArte} também faz essa
+configuração.
+
+\subsection{Instalando ferramentas e configurando o ambiente}
+Para instalar e configurar tais ferramentas baixe o pacote de instalação do
+\texttt{MDArte} no seguinte
+\href{https://github.com/MDArte/mdarte-installer}{repositorio}.
+
+Caso tenha baixado o pacote comprimido, extraia-o em alguma pasta e então
+execute o seguinte comando, dentro da pasta do instalador:
 \begin{lstlisting}[language=bash]
-if [ -f ~/.bashrc_mdarte ]; then
- . ~/.bashrc_mdarte
-fi
+	sh install.sh
 \end{lstlisting}
 
-O código adicionado fará com que sempre que o sistema operacional for processar
-as informações de configuração no arquivo \texttt{.bashrc} ele processe junto
-as nossas configurações e variáveis de ambiente, para que não precisemos
-configurá-las manualmente sempre que reiniciarmos o sistema. 
-
-Agora, precisamos criar o script que referenciamos no arquivo
-\texttt{.bashrc}, e onde ficarão todas as nossas variáveis do ambiente. O
-seguinte comando shell faz isso para nós:
-
-\begin{lstlisting}[language=bash]
-touch ~/.bashrc_mdarte
-\end{lstlisting}
-	
-Editaremos agora o arquivo \texttt{/home/<usuario>/.bashrc\_mdarte} adicionando
-os seguintes valores.
-
-\begin{framed}
-	\lstinputlisting[language=sql]{files/bashrc_mdarte}
-\end{framed}
+O script de instalação fará uma série de perguntas, como no momento estamos
+instalando o ambiente do zero, responda a todas elas \texttt{yes(y)}.
 
 Feito isto, será necessário reiniciar a sessão do usuário para essas variáveis
-estarem no sistema ou utilizar o seguinte comando abaixo.
+serem atualizadas no sistema ou utilizar o seguinte comando abaixo.
 
 \begin{lstlisting}[language=bash]
 source ~/.bashrc
