@@ -3,16 +3,16 @@
 \label{jboss-config}
 Neste apêndice veremos como configurar as informações de acesso ao banco de
 dados do nosso projeto, bem como demais configurações do nosso servidor de
-aplicação (JBoss).
+aplicação (\texttt{JBoss}).
 
 \section{Configuração das propriedades do projeto para acesso ao banco de dados}
 Para se configurar o Banco de Dados é necessário modificar o arquivo
 \texttt{project.properties} da raiz do projeto, onde se encontram as
 propriedades que devem ser alteradas. Os arquivos
 \texttt{project.properties} são arquivos onde são definidas propriedades que são
-usadas pelo MDArte durante a sua exucação, este, na raiz do projeto,
-especificamemte concentra propriedades de acesso ao banco e de deploy(?) do
-projeto.
+usadas pelo \texttt{MDArte} durante a sua exucação, este, na raiz do projeto,
+especificamemte concentra propriedades de acesso ao banco e de \texttt{deploy}
+do projeto.
 
 Abaixo estão as propriedades do arquivo de
 configuração para cada um dos Bancos de Dados:
@@ -52,41 +52,41 @@ configuração para cada um dos Bancos de Dados:
 
 Tais propriedades são as responsáveis por definir qual banco de dados estará
 sendo usado no projeto, bem como qual biblioteca será usada para a comunicação
-com o banco. Propriedades como a url do banco, nome de usuário, senha etc. não
-precisam ser alteradas uma vez que, mais adiante, as definiremos diretamente na
-configuração do jboss.
+com o banco. Propriedades como a \texttt{url} do banco, nome de usuário, senha
+etc. não precisam ser alteradas uma vez que, a seguir, as definiremos diretamente na
+configuração do \texttt{JBoss}.
 
 \section{Configuração do JBoss}
-Agora veremos como configurar o servidor JBoss e qual a finalidade dos arquivos 
-utilizados para tal fim. 
+Agora veremos como configurar o servidor \texttt{JBoss} e qual a finalidade dos
+arquivos utilizados para tal fim. 
 
 \subsection{Configuração dos datasources utilizados pelo JBoss}
-Para a configuração dos datasources utilizados pelo JBoss é preciso criar ou
-alterar o arquivo responsável por registrar e gerenciar tais fontes de dados.
+Para a configuração dos datasources utilizados pelo \texttt{JBoss} é preciso
+criar ou alterar o arquivo responsável por registrar e gerenciar tais fontes de dados.
 O arquivo que deve estar localizado no diretório
 \texttt{JBOSS\_HOME/server/default/deploy/}, com formação do nome terminando com
-\texttt{-ds.xml} (ex.: \texttt{aplicacoes-ds.xml)}, que deve ter a tag
-<local-tx-datasource> preenchida de acordo com as informações  fornecidas no
-arquivo \texttt{<projeto>/project.properties}.
+\texttt{-ds.xml} (ex.: \texttt{aplicacoes-ds.xml)}, que deve ter a \texttt{tag}
+\texttt{<local-tx-datasource>} preenchida de acordo com as informações 
+fornecidas no arquivo \texttt{<projeto>/project.properties}.
 
-Exemplo (usando banco Postgres):
+Exemplo (usando banco \texttt{Postgres}):
 
 \begin{framed}
 	\lstinputlisting[language=xml]{files/sistemaacademico-ds.xml}
 \end{framed}
 
-Repare que no exemplo anterior, o nome do Data Source é sistemaacademicoDS, que
-deve ser o mesmo nome informado no arquivo \texttt{project.properties} no
-diretório raiz do projeto. Aqui também definimos algumas outras propriedades do
-datasource sistemaacademicoDS que haviam ficado em aberto antes como a url de
-conexão com o servidor de banco de dados, usuario e senha.
+Repare que no exemplo anterior, o nome do \texttt{Data Source} é
+\texttt{sistemaacademicoDS}, que deve ser o mesmo nome informado no arquivo
+\texttt{project.properties} no diretório raiz do projeto. Aqui também definimos algumas outras propriedades do
+datasource \texttt{sistemaacademicoDS} que haviam ficado em aberto antes como a
+\texttt{url} de conexão com o servidor de banco de dados, usuario e senha.
 
 \subsection{Configuração do acesso das aplicações ao banco de dados}
 Para tal, alteraremos o arquivo \texttt{login-config.xml}, localizado no
 diretório \texttt{JBOSS\_HOME/server/default/conf/}. Alteraremos o arquivo
 adicionando uma tag \texttt{<application-police name='<nomeAplicacao>'>} com
 seus campos devidamente preenchidos como no exemplo abaixo, onde temos a
-configuração para o Sistema Acadêmico deste tutorial.
+configuração para o \texttt{Sistema Acadêmico} deste tutorial.
 
 \begin{framed}
 	\lstinputlisting[language=xml]{files/sistemaacademico-login-config.xml}
@@ -94,6 +94,10 @@ configuração para o Sistema Acadêmico deste tutorial.
 
 O arquivo alterado concentra as informações de login para as diversas aplicações
 sendo rodadas no servidor, informações como: datasource que contém os dados de
-usuário usados no login, query a ser rodada para buscar os dados de usuário,
-algoritmo de hash da senha etc. As informações presentes nesse arquivo
-permitirão a aplicação do Sistema Acadêmico se conectar a base de dados e validar o usuário no momento de login.
+usuário usados no \texttt{login}, \texttt{query} a ser rodada para buscar os
+dados de usuário, algoritmo de \texttt{hash} da senha etc. As informações
+presentes nesse arquivo permitirão a aplicação do \texttt{Sistema Acadêmico} se
+conectar a base de dados e validar o usuário no momento de \texttt{login}.
+
+\chapter{Configurando repositório externo do Maven}
+\label{maven-config}
