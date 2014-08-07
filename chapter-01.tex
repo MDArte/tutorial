@@ -29,28 +29,27 @@ Assegure-se de baixar a \texttt{jdk} para o \texttt{java 6}. Alguns dos recursos
 utilizados pelo \texttt{MDArte} ainda não são compatíveis com o \texttt{java 7}
 e você poderá ter problemas se baixar a versão errada.
 
-\section{JBoss (4.2.3-GA) e Maven}
+\section{JBoss e Maven}
 
 Antes de instalarmos tais ferramentas é importante que entendamos um pouco do
-que elas são e qual a finalidade dela dentro do desenvolvimento com o MDArte.
+que elas são e qual a finalidade dela dentro do desenvolvimento com o
+\texttt{MDArte}.
 
 \subsection{Jboss}
-O JBoss AS é um servidor de aplicações baseado em Java. Um servidor de
-aplicações é um software que provê um ambiente completo para que outras
+O \texttt{JBoss} é um servidor de aplicações baseado em \texttt{Java}. Um
+servidor de aplicações é um software que provê um ambiente completo para que outras
 aplicações sejam executadas dentro dele usando uma gama de serviços provida pelo
-servidor de aplicações.
+servidor de aplicações. No caso das aplicações desenvolvidas neste tutorial,
+será o servidor, por exemplo, que cuidará do acesso e conexões do sistema com o
+banco de dados.
 
 A grande vantagem de um servidor de aplicações é que os desenvolvedores podem se
 concentrar nas necessidades de negócio. Aspectos como conexões a bancos de
 dados, autenticação e gerenciamento de recursos são gerenciados pelo servidor de
-aplicações. Além disso, o padrão Java EE define padrões abertos que aceleram o
-desenvolvimento com uso de API padronizada e pensada para computação
-distribuida.
+aplicações.
 
-O \texttt{Jboss} disponibilizado já está configurado adequadamente para os
-exemplos desenvolvidos neste tutorial, caso queira saber como configurar o
-\texttt{JBoss} ou modificar a configuração padrão visite o \texttt{apêndice
-\ref{jboss-config}}.
+Veremos como instalar a versão do \texttt{JBoss} compatível com o
+\texttt{MDArte} logo adiante.
 
 \subsection{Maven}
 O
@@ -72,10 +71,10 @@ dependências específicas para modulos e pacotes diferentes do nosso sistema de
 forma independente, segundo as nossas necessidades.
 
 O script disponibilizado pelo pacote de instalação do \texttt{MDArte} já faz
-todas as configurações necessárias para o uso do \texttt{Maven}, inclusive criação de variáveis de
-ambiente e configuração do repositório externo a ser usado. Caso queira saber
-como configurar a url do repositório ou mudar algum detalhe na configuração
-padrão visite o \texttt{apêndice\ref{maven-config}}.
+todas as configurações necessárias para o uso do \texttt{Maven}, inclusive
+criação de variáveis de ambiente e configuração do repositório externo a ser
+usado. Caso queira saber como configurar a url do repositório ou mudar algum
+detalhe na configuração padrão visite o \texttt{apêndice\ref{maven-config}}.
 
 \section{Varíaveis de Ambiente}
 
@@ -103,7 +102,7 @@ O MDArte usa as seguintes variáveis de ambiente durante sua execução:
 \end{itemize}
 
 Além disso, a variável \texttt{PATH}, responsável por definir os possíveis
-caminhos para um executável no terminal do \texttt{linux}, precisa ser alterada
+caminhos para um executável no terminal do \texttt{Linux}, precisa ser alterada
 para que possamos acionar o \texttt{Maven} simplesmente digitando o comando
 \texttt{maven}.
 
