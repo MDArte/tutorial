@@ -39,7 +39,7 @@ public class MantemEstudanteControleImpl
 
 		form.setMatricula(estudante.getMatricula());
 
-		form.setId(estudante.getId());
+		form.setIdEstudante(estudante.getId());
 
 	}
 

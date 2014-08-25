@@ -11,7 +11,11 @@ import br.mdarte.exemplo.academico.to.EstudanteTO;
 import br.mdarte.exemplo.academico.to.EstudanteTOImpl;
 import br.mdarte.exemplo.academico.action
 	.DefaultFilterAction;
+
 import java.util.Collection;
+import java.util.ArrayList;
+
+import br.mdarte.exemplo.academico.vo.EstudanteVO;
 
 import org.andromda.presentation.bpm4struts.ViewContainer;
 
@@ -49,7 +53,19 @@ public class ConsultaEstudanteControleImpl extends
     		new EstudanteImpl(), 
     		new DefaultFilterAction(to, paginacao));
     	
-    	form.setEstudantes(estudantes);
+    	ArrayList<EstudanteVO> listaEstudante = 
+    			new ArrayList<EstudanteVO>();
+    	
+    	for(Object object : estudantes){
+        	Estudante estudante = (Estudante)object;
+        	EstudanteVO vo = new EstudanteVO();
+        	vo.setNome(est.getNome());
+        	vo.setIdEstudante(est.getId());
+        	vo.setMatricula(est.getMatricula());
+        	listaEstudante.add(vo);
+        }
+    	
+    	form.setEstudantes(listaEstudante);
     }
 
 }
