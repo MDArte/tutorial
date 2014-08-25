@@ -3,8 +3,8 @@ package br.mdarte.exemplo.academico.web.geral
 
 import br.mdarte.exemplo.academico
 	.ServiceLocator;
-import br.mdarte.exemplo.academico.action.FilterAction;
 import br.mdarte.exemplo.academico.util.Constantes;
+import br.mdarte.exemplo.academico.util.Util;
 import br.mdarte.exemplo.academico.cd.Estudante;
 import br.mdarte.exemplo.academico.cd.EstudanteImpl;
 import br.mdarte.exemplo.academico.to.EstudanteTO;
@@ -37,35 +37,36 @@ public class ConsultaEstudanteControleImpl extends
     		br.mdarte.exemplo.academico.web.geral
     		.consultarEstudante.ConsultaEstudanteForm form,
     		ViewContainer container ) throws Exception {
-
-    	Integer paginacao = ((Double)container
-    		.getAttribute(Constantes.PARAMETRO_PAGINA))
-    		.intValue();
-        // nothing to be done for this operation, 
-    	//there are no properties that can be set
     	
-    	EstudanteTO to = new EstudanteTOImpl();
-    	to.setNome(form.getNome());
-    	to.setMatricula(form.getMatricula());
-    	    	
-    	Collection estudantes = ServiceLocator.instance()
-    		.getEstudanteHandlerBI().manipulaEstudante(
-    		new EstudanteImpl(), 
-    		new DefaultFilterAction(to, paginacao));
+    	  Integer paginacao = ((Double)container
+    			  .getAttribute(Constantes.PARAMETRO_PAGINA))
+    			  .intValue();  
     	
-    	ArrayList<EstudanteVO> listaEstudante = 
-    			new ArrayList<EstudanteVO>();
+    	  EstudanteTO estudanteTO = new EstudanteTOImpl();
+    	  
+    	  estudanteTO.setNome(form.getNome());
+    	  estudanteTO.setMatricula(form.getMatricula());
     	
-    	for(Object object : estudantes){
-        	Estudante estudante = (Estudante)object;
-        	EstudanteVO vo = new EstudanteVO();
-        	vo.setNome(est.getNome());
-        	vo.setIdEstudante(est.getId());
-        	vo.setMatricula(est.getMatricula());
-        	listaEstudante.add(vo);
-        }
-    	
-    	form.setEstudantes(listaEstudante);
+    	  Collection estudantes = ServiceLocator.instance()
+    			.getEstudanteHandlerBI().manipulaEstudante(
+    			new EstudanteImpl(), new 
+    			DefaultFilterAction(estudanteTO,paginacao));
+          
+          ArrayList<EstudanteVO> estudanteVOs = 
+        		  new ArrayList<EstudanteVO>();
+          
+          if(!Util.checkEmpty(estudantes)) {
+          	for(Estudante estudante : 
+          		(Collection<Estudante>) estudantes){
+              	EstudanteVO estudanteVO = new EstudanteVO();
+              	estudanteVO.setNome(estudante.getNome());
+              	estudanteVO.setIdEstudante(estudante.getId());
+              	estudanteVO.setMatricula(estudante.getMatricula());
+              	estudanteVOs.add(estudanteVO);
+              }
+          	
+          	form.setEstudantes(estudanteVOs);
+          }
     }
 
 }

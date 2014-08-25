@@ -28,16 +28,18 @@ public class DetalhaEstudanteControleImpl
     	
     	Estudante estudante = new EstudanteImpl();
     	
-    	estudante.setId(form.getId());
+    	estudante.setId(form.getIdEstudante());
     	
     	estudante = (Estudante) ServiceLocator.instance()
     		.getEstudanteHandlerBI().selectEstudante(estudante)
-    		.get(0);
+    		.iterator().next();
     	
-    	form.setNome(estudante.getNome());
+    	if(estudante != null){
+    		form.setNome(estudante.getNome());
     	
-    	form.setMatricula(estudante.getMatricula());
+    		form.setMatricula(estudante.getMatricula());
     	
-    	form.setIdEstudante(e.getId());
+    		form.setIdEstudante(e.getId());
+    	}
     }
 }

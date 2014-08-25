@@ -1,36 +1,72 @@
-public final void carregaCurso(
- 	br.mdarte.exemplo.academico.web.geral.manterCurso
- 	.CarregaCursoForm form, ViewContainer container) 
- 	throws Exception {
+import br.mdarte.exemplo.academico.ServiceLocator;
+import br.mdarte.exemplo.academico.util.Constantes;
+import br.mdarte.exemplo.academico.cd.CursoImpl;
+import br.mdarte.exemplo.academico.cd.Curso;
+import org.andromda.presentation.bpm4struts
+	.ViewContainer;
 
-   	Curso c = new CursoImpl();
+/**
+ * @see br.mdarte.exemplo.academico.web.geral
+ * .manterCurso.MantemCursoControle
+ */
+public class MantemCursoControleImpl 
+	extends MantemCursoControle
+{
+    /**
+     * @see br.mdarte.exemplo.academico.web.geral
+     * .manterCurso.MantemCursoControle
+     * #carregaCurso(br.mdarte.exemplo.academico
+     * .web.geral.manterCurso.CarregaCursoForm)
+     */
+    public final void carregaCurso(
+    	br.mdarte.exemplo.academico.web.geral
+    	.manterCurso.CarregaCursoForm form, 
+    	ViewContainer container) 
+    			throws Exception {
     	
-   	c.setId(form.getId());
+    	Curso curso = new CursoImpl();
+    	curso.setId(form.getIdCurso());
     	
-   	c = (Curso)ServiceLocator.instance().getCursoHandlerBI()
-   		.selectCurso(c).get(0);
+    	curso = (Curso) ServiceLocator.instance()
+    		.getCursoHandlerBI().selectCurso(curso)
+    		.iterator().next();
     	
-   	form.setNome(c.getNome());
-   	form.setId(c.getId());
-   	form.setCodigo(c.getCodigo());
-    	
-}
+    	if(curso != null) {
+	    	form.setNome(curso.getNome());
+	    	form.setMatricula(curso.getMatricula());
+	    	form.setIdCurso(curso.getId());
+    	}
+    }
 
-public final void salvaCurso(
-	br.mdarte.exemplo.academico.web.geral.manterCurso
-	.SalvaCursoForm form, ViewContainer container)
-	throws Exception {
-
-   	Curso c = new CursoImpl();
+    /**
+     * @see br.mdarte.exemplo.academico.web.geral
+     * .manterCurso.MantemCursoControle
+     * #salvaCurso(br.mdarte.exemplo.academico
+     * .web.geral.manterCurso.SalvaCursoForm)
+     */
+    public final void salvaCurso(
+    	br.mdarte.exemplo.academico
+    	.web.geral.manterCurso.SalvaCursoForm form,
+    	ViewContainer container) 
+    			throws Exception {
+    	Curso curso = new CursoImpl();
+    	curso.setId(form.getIdCurso());
     	
-   	c.setId(form.getId());
+    	curso =(Curso) ServiceLocator.instance()
+    		.getCursoHandlerBI().selectCurso(curso)
+    		.iterator().next();
     	
-   	c = (Curso)ServiceLocator.instance().getCursoHandlerBI()
-   		.selectCurso(c).get(0);
-    	
-	c.setCodigo(form.getCodigo()); 
-	c.setNome(form.getNome());
-
-	ServiceLocator.instance().getCursoHandlerBI()
-		.insertOrUpdateCurso(c);
+    	if(curso != null) {
+	    	curso.setMatricula(
+	    		form.getMatricula());
+	    	curso.setNome(form.getNome());
+	    	
+	    	ServiceLocator.instance()
+	    		.getCursoHandlerBI().insertCurso(curso);
+	    	
+	    	this.saveSuccessMessage(
+	    		"mantem.curso.inserido.sucesso",
+	    		container);
+    	}
+    }
 }
