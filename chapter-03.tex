@@ -81,7 +81,7 @@ MDArte. Por fim, edite também o arquivo \texttt{project.properties} do
 utilizado. O arquivo deverá ficar da seguinte maneira:
 
 \begin{framed}
-	\lstinputlisting[language=bash]{files/project.properties-controleacesso}
+	\lstinputlisting[language=bash]{files/.properties/project.properties-controleacesso}
 \end{framed}
 
 Note que a propriedade \texttt{dataSource.name} está definida como
@@ -99,7 +99,7 @@ do projeto SistemaAcademico.
 Exemplo:
 
 \begin{framed}
-	\lstinputlisting[language=xml]{files/ControleAcesso-ds.xml}
+	\lstinputlisting[language=xml]{files/xml/ControleAcesso-ds.xml}
 \end{framed}
 
 Note que no exemplo anterior o \texttt{Controle de Acesso} estará utilizando a
@@ -113,7 +113,7 @@ Adicionaremos então as seguintes configurações ao fim do arquivo, antes da ta
 \texttt{<\textbackslash{}policy>} :
 
 \begin{framed}
-	\lstinputlisting[language=xml]{files/login-config-controleacesso.xml}
+	\lstinputlisting[language=xml]{files/xml/login-config-controleacesso.xml}
 \end{framed}
 
 \subsection{Compilando o Controle de Acesso}
@@ -123,7 +123,7 @@ para gerar, compilar e copiar os pacotes para o diretório
 \texttt{\textdollar{}JBOSS\_HOME/server/default/deploy/}:
 
 \begin{framed}
-	\lstinputlisting[language=bash]{files/compila-ca}
+	\lstinputlisting[language=bash]{files/bash/compila-ca}
 \end{framed}
 
 \subsection{Preparando o banco do Controle de Acesso}
@@ -175,7 +175,7 @@ Dentro da estrutura, crie o pacote “cd”. Podemos ver o resultado na imagem
 ~\ref{cria_estrutura_pacotes}. 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=250pt,height=100pt]{imgs/tutorial-mdarte-0000.png}
+	\includegraphics[width=250pt,height=100pt]{files/imgs/tutorial-mdarte-0000.png}
 	\caption{Criação da estrutura de pacotes do projeto e do pacote cd.}
 	\label{cria_estrutura_pacotes}
 \end{figure}
@@ -184,7 +184,7 @@ Dentro da estrutura, crie o pacote “cd”. Podemos ver o resultado na imagem
 a Figura \ref{cria_diagrama_classe}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=60pt]{imgs/tutorial-mdarte-0001.png}
+	\includegraphics[width=400pt,height=60pt]{files/imgs/tutorial-mdarte-0001.png}
 	\caption{Criação do diagrama de classes da camada de domínio.}
 	\label{cria_diagrama_classe}
 \end{figure}
@@ -203,7 +203,7 @@ gerado automaticamente. Como mostra a Figura \ref{config_parametro}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0002.png}
+	\includegraphics[width=350pt,height=400pt]{files/imgs/tutorial-mdarte-0002.png}
 	\caption{Configuração do parâmetro matrícula da classe Estudante.}
 	\label{config_parametro}
 \end{figure}
@@ -221,7 +221,7 @@ selecione a aba \texttt{Stereotypes}. Nessa aba selecione o estereótipo
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0003.png}
+	\includegraphics[width=350pt,height=400pt]{files/imgs/tutorial-mdarte-0003.png}
 	\caption{Adição de estereótipo no atributo matrícula.}
 	\label{add_estereotipo_matricula}
 \end{figure}
@@ -230,7 +230,7 @@ selecione a aba \texttt{Stereotypes}. Nessa aba selecione o estereótipo
 classe \texttt{Estudante}, como na figura \ref{add_estereotipo_estudante}. 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=300pt]{imgs/tutorial-mdarte-0004.png}
+	\includegraphics[width=400pt,height=300pt]{files/imgs/tutorial-mdarte-0004.png}
 	\caption{Adição dos estereótipos Entity e Manageable na classe estudante.}
 	\label{add_estereotipo_estudante}
 \end{figure}
@@ -262,7 +262,7 @@ e “1” para a entidade \texttt{Curso}, como na figura
 ~\ref{define_multiplicidade_associacao}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0005.png}
+	\includegraphics[width=350pt,height=400pt]{files/imgs/tutorial-mdarte-0005.png}
 	\caption{Definindo multiplicidade da associação.}
 	\label{define_multiplicidade_associacao}
 \end{figure}
@@ -275,7 +275,7 @@ marcada na associação para as duas classes. Para isso, clique no botão “...
 ~\ref{config_navigable_associacao}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=350pt,height=400pt]{imgs/tutorial-mdarte-0006.png}
+	\includegraphics[width=350pt,height=400pt]{files/imgs/tutorial-mdarte-0006.png}
 	\caption{Configuração da navegabilidade da associação.}
 	\label{config_navigable_associacao}
 \end{figure}
@@ -285,7 +285,7 @@ O resultado final pode ser visto na imagem ~\ref{resultado_diagrama_classe}:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=500pt,height=200pt]{imgs/tutorial-mdarte-0007.png}
+	\includegraphics[width=500pt,height=200pt]{files/imgs/tutorial-mdarte-0007.png}
 	\caption{Resultado final da modelagem da camada de domínio.}
 	\label{resultado_diagrama_classe}
 \end{figure}
@@ -307,7 +307,7 @@ modelos que queremos adicionar e clicaremos em \texttt{open}, como na imagem
 ~\ref{importa_modulo_geral}:
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0016.png}
+	\includegraphics[width=240pt,height=200pt]{files/imgs/tutorial-mdarte-0016.png}
 	\caption{Criação do pacote para a camada de serviço.}
 	\label{importa_modulo_geral}
 \end{figure} 
@@ -316,7 +316,7 @@ O resultado da importação na nossa estrutura de diretórios pode ser visto na
 imagem \ref{resultado_arvore_diretórios}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0019.png}
+	\includegraphics[width=300pt,height=300pt]{files/imgs/tutorial-mdarte-0019.png}
 	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
 	automaticamente.}
 	\label{resultado_arvore_diretórios}
@@ -328,7 +328,7 @@ pode ser visto na imagem \ref{resultado_moduloweb_principal}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0025.png}
+	\includegraphics[width=300pt,height=300pt]{files/imgs/tutorial-mdarte-0025.png}
 	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
 	automaticamente.}
 	\label{resultado_moduloweb_principal}
@@ -342,7 +342,7 @@ pode ser visto na imagem \ref{resultado_usecase_principal}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=300pt]{imgs/tutorial-mdarte-0025.png}
+	\includegraphics[width=300pt,height=300pt]{files/imgs/tutorial-mdarte-0025.png}
 	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
 	automaticamente.}
 	\label{resultado_usecase_principal}
@@ -352,7 +352,7 @@ pode ser visto na imagem \ref{resultado_usecase_principal}.
 isso, executaremos então os comandos:
 	
 \begin{framed}
-	\lstinputlisting[language=bash]{files/compila-cruds}
+	\lstinputlisting[language=bash]{files/bash/compila-cruds}
 \end{framed}
 
 \end{enumerate}
@@ -374,7 +374,7 @@ execute o seguinte script \texttt{SQL} para criar a base inicial. Note que o
 Banco de Dados escolhido.
 
 \begin{framed}
-	\lstinputlisting[language=sql]{files/exemplo.sql}
+	\lstinputlisting[language=sql]{files/sql/exemplo.sql}
 \end{framed}
 
 \subsection{Criando Value Objects}
@@ -423,7 +423,7 @@ Para criar os \texttt{ValueObject}:
 O diagrama de classe resultante pode ser visto na imagem \ref{cria_value_object}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=350pt,height=170pt]{imgs/tutorial-mdarte-0023.png}
+	\includegraphics[width=350pt,height=170pt]{files/imgs/tutorial-mdarte-0023.png}
 	\caption{Criação dos ValueObject.}
 	\label{cria_value_object}
 \end{figure}
@@ -441,7 +441,7 @@ Ao final desta seção a estrutura de pacotes do sue projeto deve estar como na
 imagem \ref{pacotes_value_object}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=220pt,height=300pt]{imgs/tutorial-mdarte-0024.png}
+	\includegraphics[width=220pt,height=300pt]{files/imgs/tutorial-mdarte-0024.png}
 	\caption{Estrutura de pacotes após a criação dos ValueObject.}
 	\label{pacotes_value_object}
 \end{figure}
@@ -475,7 +475,7 @@ estereótipo \texttt{«ModuloServico»} e clique em \texttt{Apply}. O resultado
 pode ser visto na imagem ~\ref{cria_pacote_servico}:
  \begin{figure}[H]
 	\centering
-	\includegraphics[width=240pt,height=200pt]{imgs/tutorial-mdarte-0008.png}
+	\includegraphics[width=240pt,height=200pt]{files/imgs/tutorial-mdarte-0008.png}
 	\caption{Criação do pacote para a camada de serviço.}
 	\label{cria_pacote_servico}
 \end{figure} 
@@ -488,7 +488,7 @@ que desejar.
 \ref{cria_sevico_estudante}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0009.png}
+	\includegraphics[width=150pt,height=120pt]{files/imgs/tutorial-mdarte-0009.png}
 	\caption{Criação da classe de serviço EstudanteHandler.}
 	\label{cria_sevico_estudante}
 \end{figure} 
@@ -497,7 +497,7 @@ que desejar.
 \texttt{«ApplicationException»}, como na imagem ~\ref{cria_estudante_exception}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=150pt,height=120pt]{imgs/tutorial-mdarte-0010.png}
+	\includegraphics[width=150pt,height=120pt]{files/imgs/tutorial-mdarte-0010.png}
 	\caption{Criação da classe estudante exception.}
 	\label{cria_estudante_exception}
 \end{figure}
@@ -514,7 +514,7 @@ de origem e arraste a seta até a classe destino, como na imagem
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=110pt,height=90pt]{imgs/tutorial-mdarte-0012.png}
+	\includegraphics[width=110pt,height=90pt]{files/imgs/tutorial-mdarte-0012.png}
 	\caption{Criação da dependência entre as classes do serviço.}
 	\label{cria_dependencia_servico}
 \end{figure}
@@ -523,7 +523,7 @@ de origem e arraste a seta até a classe destino, como na imagem
 \ref{resultado_diagrama_classe_servico}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=360pt,height=350pt]{imgs/tutorial-mdarte-0011.png}
+	\includegraphics[width=360pt,height=350pt]{files/imgs/tutorial-mdarte-0011.png}
 	\caption{Diagrama de classe completo do módulo de serviço para a classe
 	Estudante.}
 	\label{resultado_diagrama_classe_servico}
@@ -574,32 +574,32 @@ outra \texttt{IDE} desejada:
 \begin{enumerate}
 \item ConsultaEstudanteControleImpl.java :
 \begin{framed}
-	\lstinputlisting[language=java]{files/ConsultaEstudanteControleImpl.java}
+	\lstinputlisting[language=java]{files/java/ConsultaEstudanteControleImpl.java}
 \end{framed}
 		
 \item MantemEstudanteControleImpl.java :
 \begin{framed}
-	\lstinputlisting[language=java]{files/MantemEstudanteControleImpl.java}
+	\lstinputlisting[language=java]{files/java/MantemEstudanteControleImpl.java}
 \end{framed}
 
 \item DetalhaEstudanteControleImpl.java:
 \begin{framed}
-	\lstinputlisting[language=java]{files/DetalhaEstudanteControleImpl.java}
+	\lstinputlisting[language=java]{files/java/DetalhaEstudanteControleImpl.java}
 \end{framed}
 
 \item ConsultaCursoControleImpl.java :
 \begin{framed}
-	\lstinputlisting[language=java]{files/ConsultaCursoControleImpl.java}
+	\lstinputlisting[language=java]{files/java/ConsultaCursoControleImpl.java}
 \end{framed}
 
 \item MantemCursoControleImpl.java :
 \begin{framed}
-	\lstinputlisting[language=java]{files/MantemCursoControleImpl.java}
+	\lstinputlisting[language=java]{files/java/MantemCursoControleImpl.java}
 \end{framed}
 
 \item DetalhaCursoControleImpl.java :
 \begin{framed}
-	\lstinputlisting[language=java]{files/DetalhaCursoControleImpl.java}
+	\lstinputlisting[language=java]{files/java/DetalhaCursoControleImpl.java}
 \end{framed}
 
 \end{enumerate}
@@ -607,7 +607,7 @@ outra \texttt{IDE} desejada:
 Agora, no terminal, no <DiretorioProjeto> executaremos o seguinte comando :
 
 \begin{framed}
-	\lstinputlisting[language=bash]{files/compile-deploy}
+	\lstinputlisting[language=bash]{files/bash/compile-deploy}
 \end{framed}
 
 \subsection{Inicializando o servidor e testanto a aplicação}
@@ -623,7 +623,7 @@ inferior da IDE, abaixo da parte onde fica o código, selecione a aba
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=250pt]{imgs/tutorial-mdarte-0021.png}
+	\includegraphics[width=400pt,height=250pt]{files/imgs/tutorial-mdarte-0021.png}
 	\caption{Inicializando o servidor JBoss.}
 	\label{seleciona_server_eclipse}
 \end{figure}
@@ -634,7 +634,7 @@ Será aberta a janela \texttt{'New Server'}. Preencha os dados como na imagem
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0022.png}
+	\includegraphics[width=400pt,height=320pt]{files/imgs/tutorial-mdarte-0022.png}
 	\caption{Inicializando o servidor JBoss.}
 	\label{cria_server_eclipse}
 \end{figure}
@@ -646,7 +646,7 @@ e clicaremos então no botão de \texttt{Start} (Verde), como na imagem
 \ref{server_start}:
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=250pt]{imgs/tutorial-mdarte-0015.png}
+	\includegraphics[width=400pt,height=250pt]{files/imgs/tutorial-mdarte-0015.png}
 	\caption{Inicializando o servidor JBoss.}
 	\label{server_start}
 \end{figure}
@@ -656,7 +656,7 @@ Para acessar o sistema, abriremos o navegador e acessaremos a url
 página de login do sistema, como na imagem \ref{pagina_login}:
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=300pt,height=250pt]{imgs/tutorial-mdarte-0013.png}
+	\includegraphics[width=300pt,height=250pt]{files/imgs/tutorial-mdarte-0013.png}
 	\caption{Página de login do Sistema Acadêmico.}
 	\label{pagina_login}
 \end{figure}
@@ -665,7 +665,7 @@ Feito o login, a tela inicial do sistema será aberta como na imagem
 \ref{pagina_inicial}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0017.png}
+	\includegraphics[width=400pt,height=320pt]{files/imgs/tutorial-mdarte-0017.png}
 	\caption{Página incial do Sistema Acadêmico.}
 	\label{pagina_inicial}
 \end{figure}
@@ -675,7 +675,7 @@ página de consulta no caso de uso de mesmo nome como na imagem
 \ref{pagina_consulta_estudante}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=400pt,height=320pt]{imgs/tutorial-mdarte-0018.png}
+	\includegraphics[width=400pt,height=320pt]{files/imgs/tutorial-mdarte-0018.png}
 	\caption{Página incial de Consulta Estudante.}
 	\label{pagina_consulta_estudante}
 \end{figure}
@@ -684,7 +684,7 @@ Se pesquisarmos sem nenhum filtro veremos uma lista completa dos estudantes
 registrados como na imagem \ref{resultado_busca_sem_filtro}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=500pt,height=320pt]{imgs/tutorial-mdarte-0020.png}
+	\includegraphics[width=500pt,height=320pt]{files/imgs/tutorial-mdarte-0020.png}
 	\caption{Resultado da busca sem filtro pelos estudantes.}
 	\label{resultado_busca_sem_filtro}
 \end{figure}
