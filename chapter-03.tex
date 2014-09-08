@@ -3,7 +3,7 @@
 Neste capítulo iremos construir um projeto básico usando o MDArte. O projeto
 consistirá de um sistema web simples para administrar um ambiente acadêmico,
 onde poderemos cadastrar cursos e gerenciar suas informações, bem como inserir
-alunos, inscrevê-los nos e gerenciar suas informações.
+alunos, inscrevê-los nos cursos e gerenciar suas informações.
 
 \section{Criação de um Novo Projeto}
 
@@ -101,10 +101,6 @@ Exemplo:
 \begin{framed}
 	\lstinputlisting[language=xml]{files/xml/ControleAcesso-ds.xml}
 \end{framed}
-
-Note que no exemplo anterior o \texttt{Controle de Acesso} estará utilizando a
-mesma base de dados do projeto \texttt{SistemaAcademico}, definida pela tag
-\texttt{<connection-url>}.
 
 Agora, adicionaremos as configurações de login para o Controle de Acesso no
 servidor \texttt{JBoss}. Para tal, editaremos o arquivo
@@ -268,7 +264,7 @@ e “1” para a entidade \texttt{Curso}, como na figura
 \end{figure}
 	
 \item A associação deve ser dupla, tanto \texttt{Estudant} e quanto
-\texttt{Curso} devem conseguir se enchergar, além disso sua \texttt{Visibility}
+\texttt{Curso} devem conseguir se enxergar, além disso sua \texttt{Visibility}
 deve ser \texttt{public}. Mantenha a \texttt{checkbox} \texttt{Navigable}
 marcada na associação para as duas classes. Para isso, clique no botão “...”
 (reticências) da tela anterior, como na imagem
@@ -337,16 +333,7 @@ pode ser visto na imagem \ref{resultado_moduloweb_principal}.
 \item Dentro do módulo \texttt{'geral'}, abriremos o pacote
 \texttt{consultarEstudante} e editaremos a especificação do \texttt{usecase}
 \texttt{ConsultaEstudanteUC}, adicionando a ele o estereótipo
-\texttt{«FrontEndApplication»}, o resultado
-pode ser visto na imagem \ref{resultado_usecase_principal}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=300pt,height=300pt]{files/imgs/tutorial-mdarte-0025.png}
-	\caption{Arvore de diretórios do projeto após a importação dos CRUD gerados
-	automaticamente.}
-	\label{resultado_usecase_principal}
-\end{figure}
+\texttt{«FrontEndApplication»}.
 
 \item Agora precisamos regerar o projeto, bem como os módulos separados, para
 isso, executaremos então os comandos:
@@ -523,7 +510,7 @@ de origem e arraste a seta até a classe destino, como na imagem
 \ref{resultado_diagrama_classe_servico}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=360pt,height=350pt]{files/imgs/tutorial-mdarte-0011.png}
+	\includegraphics[width=300pt,height=230pt]{files/imgs/tutorial-mdarte-0011.png}
 	\caption{Diagrama de classe completo do módulo de serviço para a classe
 	Estudante.}
 	\label{resultado_diagrama_classe_servico}
@@ -653,7 +640,9 @@ e clicaremos então no botão de \texttt{Start} (Verde), como na imagem
 
 Para acessar o sistema, abriremos o navegador e acessaremos a url
 \texttt{http://localhost:8080/sistemaacademico/}. Primeiramente será aberta a
-página de login do sistema, como na imagem \ref{pagina_login}:
+página de login do sistema, como na imagem \ref{pagina_login}.
+
+O usuário padrão criado pelo script rodado é 'su' e a senha 'su'.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=300pt,height=250pt]{files/imgs/tutorial-mdarte-0013.png}
@@ -662,13 +651,6 @@ página de login do sistema, como na imagem \ref{pagina_login}:
 \end{figure}
 
 Feito o login, a tela inicial do sistema será aberta como na imagem
-\ref{pagina_inicial}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=400pt,height=320pt]{files/imgs/tutorial-mdarte-0017.png}
-	\caption{Página incial do Sistema Acadêmico.}
-	\label{pagina_inicial}
-\end{figure}
 
 Ao clicar no botão \texttt{Consulta Estudante} seremos redirecionados para a
 página de consulta no caso de uso de mesmo nome como na imagem
