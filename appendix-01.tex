@@ -105,4 +105,362 @@ conectar a base de dados e validar o usuário no momento de \texttt{login}.
 \chapter{Alterações e cuidados a serem feitos ao migrar uma aplicação que
 utiliza a versão 17-RC9 para 19-RC9}
 
+\section{Correção dos imports de classes do util}
+Essa alteração se deve ao surgimento de conflito entre pacotes do jar do
+controle de acesso que tem um pacote util próprio e o pacote util do projeto. Portanto, invés do pacote ser util, ele será <pacote do projeto>.util . Por exemplo:
+
+\begin{framed}
+\begin{lstlisting}[language=java]
+import util.Constantes; //errado
+import br.mdarte.exemplo.academico.util.Constantes; //correto
+\end{lstlisting}
+\end{framed}
+
+\section{Remoção do pacote util antigo}
+Remover o pacote util antigo para evitar conflitos na compilação já que ele não
+é removido pelo maven.
+
+\section{Atualizar o Constantes.java}
+Adicionar as seguintes linhas no seu Constantes.java:
+
+\begin{framed}
+\begin{lstlisting}[language=java]
+static public final String SISTEMA = SistemaAcademico; //aqui voce poe o valor
+do atributo application.id do build.properties do projeto static public final
+Integer TABLE\_LINES = 20; static public final Integer TABLE_PAGES = 10;
+\end{lstlisting}
+\end{framed}
+
+\section{Cuidados com uso de select e double select}
+Na versão 17-RC9 parâmetros web, sem ter o valor etiquetado
+@andromda.presentation.web.view.field.type setado, eram gerados com variáveis extras no forms. Por exemplo:
+
+\begin{framed}
+\begin{lstlisting}[language=java]
+private java.lang.Object[] mostrarAteValueList;
+private java.lang.Object[] mostrarAteLabelList;
+private java.lang.Object[] mostrarAteLabelListDouble;
+private java.lang.Object[] mostrarAteLabelListHints;
+private java.lang.Object[] mostrarAteLabelListDestination;
+\end{lstlisting}
+\end{framed}
+
+Estas variáveis são utilizadas para implementação do campo select ou dobleselect
+do Struts 1. Na versão 19-RC9 eles só serão gerados caso @andromda.presentation.web.view.field.type esteja setado como select ou doubleselect. 
+
+\section{Adição do PaginationStrategy}
+Na versão 19-RC9 adicionamos a classe abstrata PaginationStrategy com o intuito
+de dar suporte a diferentes tipos de paginação, já que a paginação para um tipo de tabela pode não servir para outro tipo. Foram adicionados PaginationDisplaytag para tabelas normais, PaginationSimple para tabelas Ajax e NoPagination para caso uma paginação não seja especificada. Estas classes estão localizadas no pacote util do projeto.
+
+Na versão 19-RC9, métodos de serviços que retornam Collection recebem como
+parâmetro PaginationStrategy. Na versão 17-RC9,  recebiam como parâmetro um Integer. Por exemplo:
+
+\begin{framed}
+\begin{lstlisting}[language=java]
+import br.mdarte.exemplo.academico.util.PaginationStrategy; //correto
+
+public Collection handleExemplo(Integer paginacao) //errado
+public Collection handleExemplo(PaginationStrategy paginacao) //correto
+\end{lstlisting}
+\end{framed}
+
+Em projetos que estão fazendo migração, verificar essas funções e os lugares em
+que elas são chamadas para evitar erros de compilação.
+
+\section{Adicionar novos valores no <projeto>/mda/project.properties}
+Adicionar as seguintes linhas no arquivo, já que ele e gerado apenas na criação
+do projeto:
+
+\begin{framed}
+\begin{lstlisting}[language=xml]
+maven.andromda.web.modulo.manual.jsp.dir=${maven.src.dir}/../../web/${maven.andromda.module.name.outlet.replace}/src/jsp
+
+maven.andromda.web.custom.jsp.dir=${maven.src.dir}/../../web/src/jsp
+\end{lstlisting}
+\end{framed}
+
+\section{Adição de propriedades no <projeto>/mda/conf/andromda.xml}
+Adicionar a seguinte propriedade nos namespaces ejb e bpm4struts:
+
+\begin{framed}
+\begin{lstlisting}[language=xml]
+<property name="controleAcessoImplJava"> {maven.andromda.web.manual.java.dir}</property>
+\end{lstlisting}
+\end{framed}
+
+\section{Alterar build.properties}
+Adicionar ou alterar os seguintes atributos:
+
+\begin{framed}
+\begin{lstlisting}[language=xml]
+cartridge.version=3.1.1.3.4.19-RC9
+security.version=1.1.3-RC1
+commons.codec.version=1.4
+json.simple.version=1.1
+\end{lstlisting}
+\end{framed}
+
+Não se esquecer de adicionar json-simple-1.1 e common-codec-1.4 no
+\textdollar{}JBOSS\_HOME/server/default/lib.
+
+\section{Adição de depêndencias para o maven}
+Alterar <projeto>/common/project.xml, adicionado a seguinte dependência:
+
+\begin{framed}
+\begin{lstlisting}[language=xml]
+<dependency>
+	<groupId>hibernate</groupId>
+	<artifactId>hibernate</artifactId>
+	<version>${hibernate.version}</version>
+	<type>jar</type>
+	<properties>
+		<application.dependency>true</application.dependency>
+	</properties>
+</dependency>
+\end{lstlisting}
+\end{framed}
+
+\section{Atualizar profiles da pasta <projeto>/mda/src/uml/xml.zips}
+Para utilizar os novos valores etiquetados, atualize os profiles substituindo-os
+pelos arquivos com os xml.zips gerados quando o comando maven foi executado no projeto. Eles estão localizados no repositório do maven que tem caminho <HOME>/.maven/repository/andromda/xml.zips.
+
+\section{Adição do LoginControllerImpl}
+Adicionamos LoginControllerImpl com função handlePosLogin(Operador operador,
+HttpServletRequest request). Ele substitui a função posLogin do ControleAcessoImpl, retire esta função do ControleAcessoImpl.
+
+Local é <projeto>/web/modelo/compartilhado/src/java/<pacote do projeto setado na
+geração>/accessControl/LoginControllerImpl.java.
+
+
 \chapter{Changelog}
+
+\section{19-RC1}
+
+\begin{itemize}
+  \item Identação corrigida de vários arquivos
+  \item Correção de vários bugs.
+  \item Remoção de código inútil
+  \item Alteração de nomes de macros dos templates.
+  \item Retirada de constantes em alguns templates.
+  \item Adição do campo AutoComplete.
+  \item Adição de novs arquivos de JavaScript.
+  \item Adição do BootStrap para páginas web.
+  \item Adicionada a opção  autocomplete, no WebFieldType do
+  andromda-profile-presentation.
+  \item Adicionado o atributo autocomplete no CoppetecStrutsParameter no
+BPM4StrutsMetafacadeModel Redirecionameno de módulos do struts 2 funcionando.
+  \item Profile do bpm4Struts alterado, antes a opção web.view.technology.other
+estava vindo com valor default "true", mudado para "false".
+  \item Adicionada dependência pro json simple.
+  \item Corrigido bug em que actions que transicionavam para casos de uso de
+outro módulo não estavam tendo seu JavaScript gerado.
+  \item Corrigido bug no redirecionamento entre casos de uso de versões
+diferentes do struts.
+  \item Correção da geração do caminho da transição entre casos de usos.
+  \item Corrigido a transição de struts 2 para struts 1.
+  \item Adição do DefaultFilter
+  \item Templates que geram páginas web para cada tipo de Struts.
+  \item Arquivos gerados com nome Action2 tem o mesmo nome de Action de Struts
+1.
+  \item Obter o request e o response do ViewContainer é possível
+  \item Corrigido bug que impedia a produção do page-actions se o caso de uso só
+tiver ações como tablelinks.
+  \item Adição do custom component
+\end{itemize}
+
+\section{19-RC2}
+
+\begin{itemize}
+  \item Correções de formatação de código.
+  \item Adicionando propriedade controleAcessoImplJava no andromda.xml.
+  \item Adicionando dependências que faltam ao cartucho hibernate.
+  \item Retirando a geração de dummys nos pontos de implementação.
+  \item Corrigido bug de geração de tabelas repetidas.
+  \item Corrigido erro no setter de campos do tipo hidden.
+  \item Aprimorando geração do classpath do eclipse.
+  \item Organizando a geração de projetos renomeando-os com extensão vsl.
+  \item Geração de projetos tem uma nova pergunta para especificar o banco de
+dados a ser usado.
+  \item Corrigido bug do hidden parameter.
+  \item Adicionando pergunta para oAuth e corrigindo dependências e imports
+relacionados.
+  \item Correção do destino da geração dos arquivos OAuth.
+  \item Corrigindo tela de login do Oauth.
+  \item Tabelas sendo mostradas com abas.
+  \item Corrigido bug na hora de demonstrar textfields com valor já setado
+previamente.
+  \item Protótipo do CRUD funcionando.
+  \item MArteManageableModelsLogicImpl implementado.
+  \item Nomes do arquivos gerados pelo CRUD seguem um padrão.
+  \item Adição do valor etiquetado @andromda.manageable.web.crudPackageName para
+o estereótipo Manageable Gerando xml.zips corretos na hora da geração de projetos novos.
+  \item Corrigido bug de não gerar page-fields tendo apenas tablelinks.
+  \item Corrigido bugs de geração de páginas web para o Struts 2.
+  \item Sistema de erros melhorado.
+  \item Corrigido layout do login e stacktrace.
+  \item Adicionados os campos webtype no arquivo na geração.
+  \item Corrigindo bug na hora da geração de actions por causa de controller sem
+operações.
+  \item Corrigido geração de forms ao impedir geração de código inútil. Template
+Form.java.vm criado.
+  \item Implementação do Remember Me.
+\end{itemize}
+
+\section{19-RC3}
+
+\begin{itemize}
+  \item Retirada de código inútil.
+  \item Corrigindo posicionamento de elementos de páginas web.
+  \item Consertando identação de vários templates.
+  \item Geração dos forms não gera mais bugs.
+  \item Migrando autocomplete do bootstrap para typeahead.js.
+  \item Troca de Senha atualizada para o bootstrap.
+  \item Error page adaptada para bootstrap.
+  \item Bug na passagem de parametros pelo nextPath corrigido.
+  \item Pagina de login migrada para o bootstrap 3.0.3
+  \item Migrando páginas de segurança para o bootstrap 3.
+  \item Adicionando page-javascript.jspf.vsl para o struts 2.
+  \item Atualizando formulário pro bootstrap 3.
+  \item Corrigido bug de passagem de parâmetros.
+  \item Messages migrado pro bootstrap 3.
+  \item Titulo da página de login customizável por bean message.
+  \item Nomes de tabelas customizáveis por bean messages.
+  \item Tabela já sendo carregada com a primeira aba selecionada e marcação das
+abas corrigido.
+  \item Atualizando classes das divs para bootstrap 3.
+  \item Atualizando campo de data.
+  \item Consetando layout das paginas e ajustando geração do blockquote para
+campos required para só gerar se houver um campo deste tipo.
+  \item Imports desnecessários removidos no ControllerImpl do struts 2.
+  \item Bug quando você seleciona um enumeration como atributo de uma trigger no
+modelo consertado.
+  \item Select construido automaticamente a partir de um atributo enumeration.
+  \item ControllerImpl gerando os métodos para tratar o autocomplete.
+  \item Consertando bug no taggedvalue readonly.
+  \item Geração de enumerados corrigida.
+  \item Bug do custom-resources dos enumerados corrigido.
+\end{itemize}
+
+\section{19-RC4}
+
+\begin{itemize}
+  \item Nova tag @andromda.common.enumeration.emptyValue que indica se o enumerado é gerado com um valor vazio default
+  \item Criado o valor etiquetado
+@andromda.presentation.web.view.field.enumeration.emptyValue que irá definir se o enumerado gerado automaticamente será com vazio ou não. Colocado uma constraint que essa opção só será colocada se for um select e um enumerado.
+  \item Layout personalizado (layout e o menu) para os casos de usos open access
+  \item Criação de um ControllerAbstract para agrupar os métodos comuns aos
+controles Mudança dos pacotes do Util.java para não entrar em conflito com outros projetos
+  \item Criação do UtilAbstract.java para criação de novos métodos auxiliares e
+não ter impacto nos projetos Correção de um bug no select no struts 2 onde tinha um valor vazio extra 
+  \item Criação de métodos auxiliares para o Enumerados
+  \item Criação de métodos auxiliares para recuperar o resource para o struts 2
+  \item Correção da tela de trocar-senha para o struts 2
+  \item Correção do bug que não estava guardando a senha quando o remember me é
+ativado Adicionando div para tags p
+  \item Correção de um bug de geração do tiles para struts2
+  \item Correção do bug de caracteres estranhos na tabela
+  \item Correção do estilo do typehead
+  \item Correção da geração do CRUD para enumerados 
+  \item Correção do bug no struts2 que não exibia as exceptions
+  \item Função isTrue(String) adicionada no UMLMetafacadeUtils.
+\end{itemize}
+
+\section{19-RC5}
+
+\begin{itemize}
+  \item Adicionado o componente editor wysiwyg 
+  \item Correção do bug do caminho do botão em um módulo principal
+  \item Adicionando diversos métodos para controle do modo operação no
+ControllerAbstract Correção do bug onde no Controle do Struts2 estava sendo gerado com .do 
+  \item Identação de diversos arquivos
+  \item Correção de um bug que não ia para a próxima página em uma tabela
+  \item Correção de alguns acentos no displaytag 
+\end{itemize}
+
+\section{19-RC6}
+
+\begin{itemize}
+  \item Correção da localização do pacote util
+  \item Implementação do Controle de Acesso 2.0
+  \item Correção do Servicos.sql para o novo controle de acesso
+  \item Adição do valor etiquetado @andromda.presentation.web.view.table.type
+que define o tipo da tabela gerada Adicionado no Servicos.sql as querys para criar usuario, perfil e sistema 
+  \item Aprimoramento no Servicos.sql para gerar a sequence corretamente
+  \item Correção do classpath para o novo controle de acesso
+  \item Correções no componente multibox
+  \item Correções no componente doubleselect 
+  \item Correções da tagged values readonly para alguns componentes
+  \item Correções de indentação
+  \item Correções de algumas máscaras no struts 2 (int, double, float e date)
+  \item *** Adicionando uma biblioteca jquery.mask. Deverá adicionar a
+biblioteca no includes-javascript Adicionado métodos no UtilAbstract
+  \item Correção no número fixo no project.xml
+  \item *** No project.xml da raiz no compartilhado está fixo o valor 1.0.
+Trocar para \textdollar{}\{application.version\}
+\end{itemize}
+
+\section{19-RC7}
+
+\subsection{Aprimoramentos}
+
+\begin{itemize}
+  \item Nova tabela utilizando carregamento através de AJAX através do valor etiquetado @andromda.presentation.web.action.ajax.table
+  \item Implementação de hiperlink da tabela AJAX 
+  \item Implementação de imagem com link na tabela AJAX
+  \item Adicionado nova estrutura para os métodos do DAO para passar a paginação
+*
+\end{itemize}
+
+\subsection{Correções}
+
+\begin{itemize}
+  \item Correções de dependências de JS 
+  \item Correções de CSS **
+  \item Correções do LookUpGrid para o Struts 2
+  \item Correções do popup para o Struts 2
+  \item Correções na geração do Servicos.sql
+  \item Correções de validação do campo money, float e outros 
+  \item Correção do bug no carregar de um caso de uso não exibir a exception
+correta (Struts 1 e 2) Correção da validação por e-mail, cartão e range para o Struts 2.
+  \item Correção do ControleAcessoImpl de não pegar os perfis filhos 
+  \item Atualizando jquery para versão 1.9, pois a 1.7 é incompatível com o
+jquery.jtable Removendo dependências desnecessárias (jquery-hashchange)
+  \item Correções de multibox e double select
+  \item Remoções de códigos não utilizados
+  \item Correções feitas na geração de funções com o valor etiquetado
+@andromda.persistence.DAOMethod Correções de alguns bugs dos enumerados para serem preenchidos automaticamente na tela
+\end{itemize}
+
+* - Terá que adicionar os campos novos nos métodos do DAOImpl
+
+** - Foi removido a classe row dos fields
+
+\section{19-RC8}
+
+\begin{itemize}
+  \item Adicionando constantes TABLE\_LINES e TABLE\_PAGES
+  \item Atualizando classpath do eclipse para struts 2.
+  \item Assinatura de funções que retornam Collections tem linhas e paginas como
+parametros adicionados. (removido) Removendo imports desnecessários
+  \item Adicionando referencia utilDir ao cartucho do hibernate.
+  \item Corrigindo bug de perda de parametros durante o login.
+  \item Corrigindo bug do campo radio para struts 2
+  \item Corrigindo identação
+  \item Criando valor default para quando tiver uma opção default para o radio
+button Indicando qual o template que origina o artefato.
+  \item Corrigindo endereço do DOCTYPE dos arquivos de configuração do hibernate 
+  \item Melhorias feitas na geração do radio button.
+\end{itemize}
+
+\section{19-RC9}
+
+\begin{itemize}
+  \item Adicionando no pacote util a classe abstrata PaginationStrategy. Ela tem a função de auxiliar a paginação de tabelas. Com essa classe podemos ter diferentes estratégias de paginação para tabelas diferentes ao invés de apenas uma estratégia de paginação em releases anteriores.
+  \item Adição do método paginateList no UtilAbstract.
+  \item Corrigido bug de validação do struts 1.
+  \item Corrigido bug na geração do Controllerimpl. 
+  \item Corrigido bug da geração de arquivos de configuração do hibernate sem
+mapeamentos.
+  \item Correção de bugs na geração do CRUD.
+  \item Correção de bugs da tabela AJAX.
+\end{itemize}
