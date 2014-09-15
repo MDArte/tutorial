@@ -110,7 +110,7 @@ Essa alteração se deve ao surgimento de conflito entre pacotes do jar do
 controle de acesso que tem um pacote util próprio e o pacote util do projeto. Portanto, invés do pacote ser util, ele será <pacote do projeto>.util . Por exemplo:
 
 \begin{framed}
-\begin{lstlisting}[language=java]
+\begin{lstlisting}[language=java, breakline=true]
 import util.Constantes; //errado
 import br.mdarte.exemplo.academico.util.Constantes; //correto
 \end{lstlisting}
@@ -125,9 +125,7 @@ Adicionar as seguintes linhas no seu Constantes.java:
 
 \begin{framed}
 \begin{lstlisting}[language=java]
-static public final String SISTEMA = SistemaAcademico; //aqui voce poe o valor
-do atributo application.id do build.properties do projeto static public final
-Integer TABLE\_LINES = 20; static public final Integer TABLE_PAGES = 10;
+static public final String SISTEMA = SistemaAcademico; //aqui voce poe o valor do atributo application.id do build.properties do projeto static public final Integer TABLE\_LINES = 20; static public final Integer TABLE_PAGES = 10;
 \end{lstlisting}
 \end{framed}
 
