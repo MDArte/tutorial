@@ -71,10 +71,22 @@ Existem algumas funções que não interrompem a execução, mas possui o mesmo
 efeito do \texttt{exception}. Segue abaixo um exemplo.
 
 \begin{lstlisting}[language=java, frame=single, breaklines=true]
-	saveErrorMessage(request, "informando.erro.key");
-	saveWarningMessage(request, "informando.aviso.key");
-	saveSuccessMessage(request, "informando.sucesso.key");
+	saveErrorMessage(request, "informando.erro.key"); //Struts 1
+	saveWarningMessage(request, "informando.aviso.key"); //Struts 1
+	saveSuccessMessage(request, "informando.sucesso.key"); //Struts 1
+	saveErrorMessage("informando.erro.key", container); //Struts 2
+	saveWarningMessage("informando.aviso.key", container); //Struts 2
+	saveSuccessMessage("informando.sucesso.key", container); //Struts 2
 \end{lstlisting}
+
+A função \texttt{saveErrorMessage} gera a seguinte mensagem na página:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{files/imgs/internacionalizacao-00.png}
+	\caption{Mensagem de erro}
+	\label{mensagem_erro}
+\end{figure}
 
 \subsubsection{Passagem de Parâmetros}
 
@@ -95,11 +107,19 @@ onde será colocado o conteúdo do \texttt{array}.
 \begin{lstlisting}[language=java, frame=single, breaklines=true]
 	String[] parametro = new String[1];
 	parametro[0] = "param1";
-	saveErrorMessage(request, "label.key", parametro);
+	saveErrorMessage("label.key", parametro, container); //Struts 2
+	//saveErrorMessage(request, "label.key", parametro); //Struts 1
 \end{lstlisting}
 
-Assim será exibido a seguinte mensagem: \texttt{Mensagem com
-parametro param1}
+Assim será exibido a mensagem \texttt{Mensagem com
+parametro param1} na figura abaixo:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{files/imgs/internacionalizacao-01.png}
+	\caption{Mensagem de erro com parâmetros}
+	\label{mensagem_erro_parametro}
+\end{figure}
 
 \subsection{Arquivo de Configurações}
 
