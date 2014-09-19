@@ -1,0 +1,29 @@
+\section{Pontos de decisão}
+
+Pontos de decisão são criados quando sua aplicação precisa tomar decisões
+dependendo do resultado de uma ação prévia. Utilizamos uma forma de modelagem
+ofericida pela especificação UML.
+
+Nela você desenha uma linha de transição a partir da ação conectando-a ao ponto
+de decisão. Um ponto de decisão é desenhado como um losango em UML. Já que uma
+decisão tem pelo menos dois resultados diferentes, o ponto de decisão terá
+múltiplas transições para diferentes ações.
+
+Usaremos como exemplo o seguinte diagrama de atividade
+
+Exemplo de modelagem:
+
+
+Exemplo de código:
+
+\begin{lstlisting}[language=java, frame=single, breaklines=true]
+	public String decisionPoint(DecisionPointForm form, ViewContainer container) throws Exception
+	{
+		if (form.getIdResolucao() != null) {
+			return "COM_RESOLUCAO";
+		}
+		else {
+			return "SEM_RESOLUCAO";
+		}
+	}
+\end{lstlisting}
