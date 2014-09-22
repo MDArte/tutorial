@@ -1,0 +1,20 @@
+\section{Reformulação da View}
+Nesta seção, trataremos da nova estrutura e organização da camada de visão do
+MDArte.
+
+A base da estrutura da \texttt{view} do MDArte encontra-se nos \texttt{layouts},
+que são arquivos que definem a estrutura das páginas que definem, através da
+definição de \texttt{tags} \texttt{html} e da importação demais arquivos
+contendo partes menores da \texttt{view}.
+
+O \texttt{layout} \texttt{default} do \texttt{MDArte} é definido nos arquivos de
+nome \texttt{main-layout2.jsp}. Além disso, há também os arquivos
+\texttt{main-layout-open.jsp}, responsável por definir o \texttt{layout} das
+páginas que não estão submetidas à controle de acesso, e
+\texttt{simple-layout.jsp}, que configura o \texttt{layout} de páginas simples
+ou até mesmo de porções de hypertexto retornadas via \texttt{AJAX}.
+
+Este conjunto de arquivos de \texttt{layout} é gerado \texttt{para cada módulo
+Web} do sistema, a partir do \texttt{default} do sistema, dando liberdade ao
+desenvolvedor de, se necessário, adaptar a aparência de cada módulo
+independentemente.
