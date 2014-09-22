@@ -48,16 +48,16 @@ retornar a coleção de objetos a serem exibidos na página atual da tabela.
 A assinatura do método para o carregamento da tabela segue o seguinte padrão:
 
 \begin{lstlisting}[language=java, frame=single, breaklines=true]
-protected Collection load[nome-da-view][nome-da-tabela]Table(Integer paginacao,
-Integer linhas, String propriedade, Boolean desc, ViewContainer container) 
+protected Collection load[nome-da-view][nome-da-tabela]Table(PaginationStrategy
+paginacao, String propriedade, Boolean desc, ViewContainer container)
 \end{lstlisting}
 
 A assinatura do método que retorna o total de elementos na tabela segue o
 seguinte padrão:
 
 \begin{lstlisting}[language=java, frame=single, breaklines=true]
-protected Integer get[nome-da-view][nome-da-tabela]TableLength(Integer
-paginacao, Integer linhas, String propriedade, Boolean desc, ViewContainer
+protected Integer get[nome-da-view][nome-da-tabela]TableLength(PaginationStrategy
+paginacao, String propriedade, Boolean desc, ViewContainer
 container) throws Exception
 \end{lstlisting}
 
@@ -180,7 +180,7 @@ maven compile deploy
 \end{lstlisting}
 
 Restartando o servidor e abrindo o caso de uso \texttt{Consulta Estudante},
-veremos o seguinte formulário:
+veremos o resultado do que fizemos:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=340pt,height=300pt]{files/imgs/tutorial-mdarte-0042.png}
