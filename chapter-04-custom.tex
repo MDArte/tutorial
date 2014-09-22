@@ -84,3 +84,20 @@ Adicionaremos agora o seguinte código \texttt{JavaScript} ao arquivo
 \texttt{preencha-campos-impl.js}:
 
 \lstinputlisting[language=c, frame=single, breaklines=true]{files/js/preencha-campos-impl.js}
+
+Executaremos agora o seguinte comando para compilar e dar \texttt{deploy} no
+projeto:
+\begin{lstlisting}[language=bash, frame=single, breaklines=true]
+maven compile deploy
+\end{lstlisting}
+
+Abrindo o sistema e acessando a \texttt{view} \texttt{'Preencha Campos'} do caso
+de uso \texttt{Consulta Estudante}, podemos conferir o resultado do nosso
+componente \texttt{custom} de nome \texttt{cpf}, como na imagem
+\ref{parametro_cpf_custom_exemplo}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=280pt,height=200pt]{files/imgs/tutorial-mdarte-0035.png}
+	\caption{Resultado de componente custom de nome 'cpf'.}
+	\label{parametro_cpf_custom_exemplo}
+\end{figure}

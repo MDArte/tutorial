@@ -1,0 +1,66 @@
+\section{Reformulação da View}
+Nesta seção, trataremos da nova estrutura e organização da camada de visão do
+MDArte.
+
+A base da estrutura da \texttt{view} do MDArte encontra-se nos \texttt{layouts},
+que são arquivos que definem a estrutura das páginas que definem, através da
+definição de \texttt{tags} \texttt{html} e da importação demais arquivos
+contendo partes menores da \texttt{view}.
+
+O \texttt{layout} \texttt{default} do \texttt{MDArte} é definido nos arquivos de
+nome \texttt{main-layout2.jsp}. Além disso, há também os arquivos
+\texttt{main-layout-open.jsp}, responsável por definir o \texttt{layout} das
+páginas que não estão submetidas à controle de acesso, e
+\texttt{simple-layout.jsp}, que configura o \texttt{layout} de páginas simples
+ou até mesmo de porções de hypertexto retornadas via \texttt{AJAX}.
+
+Este conjunto de arquivos de \texttt{layout} é gerado \texttt{para cada módulo
+Web} do sistema, a partir do \texttt{default} do sistema, dando liberdade ao
+desenvolvedor de, se necessário, adaptar a aparência de cada módulo
+independentemente.
+
+\subsection{Estrutura básica dos arquivos de layout}
+O \texttt{layout} define algumas divisões e componentes da página, cada
+\texttt{view} em específico importará o seu respectivo \texttt{layout} com essas
+definições, implementando-as através da importação dos arquivos referentes a
+cada seção da página.
+
+Algumas das principais seções definidas no \texttt{layout} das páginas são as
+seguintes:
+\begin{itemize}
+  \item 'title' - Define o título da página, através de uma propriedade definida
+  no arquivo \texttt{application-resources.csv};
+  \item 'style' - Seção onde são importados as folhas de estilo da página, sendo
+  estas \texttt{[nome-da-pagina].css} (css gerado automaticamente) e
+  \texttt{[nome-da-pagina]-impl.css} (css implementado manualmente);
+  \item 'vars' - Seção onde é importado o arquivo contendo as variáveis da
+  página, de nome \texttt{[nome-da-pagina]-vars.jspf};
+  \item 'tables' - Seção onde é importado o arquivo que contém as tabelas usadas
+  nas páginas, de nome \texttt{[nome-da-pagina]-tabelas.jspf}. Neste arquivo de
+  tabelas são importadas as diversas tabelas que podem existir numa página,
+  sendo estas geradas em arquivos de nome
+  \texttt{[nome-da-pagina]-[nome-da-tabela].jspf};
+  \item 'other' - Seção onde são importados arquivos adicionais utilizados na
+  \texttt{view}, em especial os arquivos de \texttt{JavaScript} gerado
+  (\texttt{[nome-da-pagina].js}) e implementado manualmente
+  (\texttt{[nome-da-pagina]-impl.js});
+  \item 'body' - Seção onde é inserido o conteúdo principal da página, através
+  da importação dos arquivos \texttt{[nome-da-pagina]-container.jsp}, arquivo
+  que contém a estrutura do corpo da página e importa outros arquivos que
+  contém unidades menores da \texttt{view}.
+\end{itemize}
+
+\subsection{O arquivo de container e sua estrutura}
+Arquivo onde é inserido o conteúdo principal da página, através da importação
+dos arquivos \texttt{[nome-da-pagina]-container.jsp}, arquivo que contém a estrutura
+do corpo da página e importa outros arquivos que contém unidades menores da
+\texttt{view}.
+
+Este arquivo contém um formulário usado para o envio das informações das ações
+da \texttt{view} para o servidor. 
+
+Esse formulário é declarado no
+\texttt{container}, porém dentro desse elemento são importados outros dois
+arquivos, \texttt{[nome-da-view]-actions.jsp} e
+\texttt{[nome-da-view]-fields.jsp}, que agrupam, respectivamente os botões e
+campos do formulário.
