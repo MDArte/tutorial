@@ -1,0 +1,28 @@
+\section{Estratégia de paginação}
+
+Estratégias de paginação foram criadas facilitar a filtragem de coleções de objetos e podendo dar uma maior flexibilidade e facilidade ao desenvolvimento de tabelas de dados. Com as estratégias de paginação podemos utilizar qualquer tipo de tabela sem ter que alterar a estrutura dos DAOs para definir a paginação e como consequência facilita ao desenvolvedor adequar a solução para cada caso.
+
+Nesta seção demonstraremos como utilizar estratégias de paginação. Primeiro, apresentaremos a classe abstrata \texttt{PaginationStrategy}:
+
+\lstinputlisting[language=java, frame=single, breaklines=true] {files/java/PaginationStrategy.java}
+
+A classe abstrata \texttt{PaginationStrategy} é gerado no pacote util do projeto. Nele você seta a página a ser obtida,  o número de linhas por página e o número de páginas a serem retornadas pela \texttt{query} e
+\texttt{criteria}.
+
+Nela existe uma função \texttt{paginateResult} que possui duas assinaturas diferentes. O desenvolvedor tem que implementar essas funções caso deseje criar a sua própria estratégia. Esse método é chamado pelo DAO no momento da criação da \texttt{query}. Um exemplo de implementação de estratégia é o \texttt{PaginationSimple.java} que é utilizado para a paginação da tabela ajax.
+
+\lstinputlisting[language=java, frame=single, breaklines=true] {files/java/PaginationSimple.java}
+
+Além dessa estratégia, criamos outras duas: \texttt{PaginationDisplaytag} para as tabelas Struts e \texttt{NoPagination} caso não seja preciso de paginação.
+
+Existe a possibilidade de criar uma própria paginação. Essa classe deverá ser ser criada em <projeto>/common/src/java/<pacote\_do\_projeto>/util e o import a ser feito é \texttt{<pacote\_do\_projeto>.util.<nome>}. Essa classe precisará extender a classe \texttt{PaginationStrategy} e implementar os métodos abstratos.
+
+Demonstramos um simples exemplo para instanciar uma estratégia abaixo:
+
+\begin{lstlisting}[language=java, frame=single, breaklines=true]
+	import br.mdarte.exemplo.academico.util.PaginationDisplaytag;
+	import br.mdarte.exemplo.academico.util.Constantes;
+	
+	Integer pagina = ((Integer)request.getAttribute(Constantes.PARAMETRO_PAGINA)); //Struts 1
+	Collection exemplos = ServiceLocator.instance().getExemploHandlerBI().recuperaExemplos(new PaginationDisplaytag(paginacao));
+\end{lstlisting}
