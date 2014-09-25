@@ -105,6 +105,8 @@ conectar a base de dados e validar o usuário no momento de \texttt{login}.
 \chapter{Alterações e cuidados a serem feitos ao migrar uma aplicação que
 utiliza a versão 17-RC9 para 19-RC9}
 
+Segue abaixo todos os passos que deverão ser realizados para migrar uma aplicação utilizando a versão 17-RC9 para 19-RC9.
+
 \section{Correção dos imports de classes do util}
 Essa alteração se deve ao surgimento de conflito entre pacotes do jar do
 controle de acesso que tem um pacote util próprio e o pacote util do projeto. Portanto, invés do pacote ser util, ele será <pacote do projeto>.util . Por exemplo:
@@ -231,6 +233,8 @@ geração>/accessControl/LoginControllerImpl.java.
 
 
 \chapter{Changelog}
+
+Segue abaixo todas as correções dividas por \texttt{realeases} da versão 19 dos cartuchos.
 
 \section{19-RC1}
 
