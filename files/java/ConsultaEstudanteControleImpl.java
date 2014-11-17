@@ -38,10 +38,14 @@ public class ConsultaEstudanteControleImpl extends
     		.consultarEstudante.ConsultaEstudanteForm form,
     		ViewContainer container ) throws Exception {
     	
-    	  Integer paginacao = ((Double)container
+    	  Integer pagina = ((Double)container
     			  .getAttribute(Constantes.PARAMETRO_PAGINA))
-    			  .intValue();  
-    	
+    			  .intValue();
+    	  
+    	  br.mdarte.exemplo.academico.util.PaginationDisplaytag 
+    	  	paginacao = new br.mdarte.exemplo.academico.util.
+    	  	PaginationDisplaytag(pagina);
+    	  
     	  EstudanteTO estudanteTO = new EstudanteTOImpl();
     	  
     	  estudanteTO.setNome(form.getNome());

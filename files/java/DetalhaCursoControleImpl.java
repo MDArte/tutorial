@@ -5,6 +5,7 @@ import br.mdarte.exemplo.academico.cd.Curso;
 import br.mdarte.exemplo.academico.cd.CursoImpl;
 import br.mdarte.exemplo.academico.vo.CursoVO;
 
+
 /**
  * @see br.mdarte.exemplo.academico.web.geral.detalharCurso
  * 	.DetalhaCursoControle
@@ -23,6 +24,7 @@ public class DetalhaCursoControleImpl
     	.CarregaCursoForm form, ViewContainer container
     	) throws Exception {
     	
+    	
     	Curso curso = new CursoImpl();
     	
     	curso.setId(form.getIdCurso());
@@ -32,11 +34,13 @@ public class DetalhaCursoControleImpl
     		.iterator().next();
     	
     	if(curso != null){
+    		
     		form.setNome(curso.getNome());
     	
-    		form.setMatricula(curso.getCodigo());
+    		form.setCodigo(curso.getCodigo());
     	
-    		form.setIdCurso(e.getId());
+    		form.setIdCurso(curso.getId());
+    		
     	}
     }
 }

@@ -33,7 +33,7 @@ public class MantemCursoControleImpl
     	
     	if(curso != null) {
 	    	form.setNome(curso.getNome());
-	    	form.setMatricula(curso.getMatricula());
+	    	form.setCodigo(curso.getCodigo());
 	    	form.setIdCurso(curso.getId());
     	}
     }
@@ -57,8 +57,8 @@ public class MantemCursoControleImpl
     		.iterator().next();
     	
     	if(curso != null) {
-	    	curso.setMatricula(
-	    		form.getMatricula());
+	    	curso.setCodigo(
+	    		form.getCodigo());
 	    	curso.setNome(form.getNome());
 	    	
 	    	ServiceLocator.instance()

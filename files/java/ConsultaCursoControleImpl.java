@@ -32,14 +32,18 @@ public class ConsultaCursoControleImpl extends
     		.consultarCurso.ConsultaCursoForm form,
     		ViewContainer container ) throws Exception {
     	
-    	  Integer paginacao = ((Double)container
+    	  Integer pagina = ((Double)container
     			  .getAttribute(Constantes.PARAMETRO_PAGINA))
     			  .intValue();  
-    	
+    	  
+    	  br.mdarte.exemplo.academico.util.PaginationDisplaytag 
+    	  	paginacao = new br.mdarte.exemplo.academico.util
+    	  	.PaginationDisplaytag(pagina);
+    	  
     	  CursoTO cursoTO = new CursoTOImpl();
     	  
     	  cursoTO.setNome(form.getNome());
-    	  cursoTO.setMatricula(form.getMatricula());
+    	  cursoTO.setCodigo(form.getCodigo());
     	
     	  Collection cursos = ServiceLocator.instance()
     			.getCursoHandlerBI().manipulaCurso(
@@ -54,7 +58,7 @@ public class ConsultaCursoControleImpl extends
               	CursoVO cursoVO = new CursoVO();
               	cursoVO.setNome(curso.getNome());
               	cursoVO.setIdCurso(curso.getId());
-              	cursoVO.setMatricula(curso.getMatricula());
+              	cursoVO.setCodigo(curso.getCodigo());
               	cursoVOs.add(cursoVO);
               }
           	

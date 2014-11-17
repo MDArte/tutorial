@@ -9,7 +9,7 @@ protected String[] matriculaPreenchaCamposAutoComplete(
     Collection estudantes = ServiceLocator.instance()
     		.getEstudanteHandlerBI().manipulaEstudante(
     		new EstudanteImpl(), 
-    		new DefaultFilterAction(estudanteTO,0));
+    		new DefaultFilterAction(estudanteTO,new PaginationDisplaytag(0)));
     	
     String[] matriculas = new String[10];
     	
