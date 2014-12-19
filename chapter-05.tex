@@ -1,0 +1,32 @@
+\chapter{Tipos de dados Especiais}
+Neste capítulo veremos alguns tipos de dados especiais que o MDArte implementa e
+como utilizá-los, a fim de facilitar a comunicação com o banco de dados e o
+tratamento dos dados da aplicação.
+
+\section{Hstore}
+O hstore é um tipo de dados disponível no Postgres que permite, para uma mesma
+coluna de uma linha na tabela, relacionar valores de texto à chaves, que também
+são textos, tal qual um Map em Java.
+Para mais informações sobre o hstore, consulte
+http://www.postgresql.org/docs/9.4/static/hstore.html.
+Nesta seção veremos como utilizar o tipo hstore nas entitades de um sistema
+desenvolvido com o MDArte.
+
+\subsection{Criando um atributo com o tipo hstore}
+No diagrama de classes da sua camada de domínio, abra a especificação do
+atributo que deverá ser do tipo hstore. No campo type, selecione o tipo Hstore,
+como na imagem abaixo:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=220pt]{files/imgs/hstore-0000.png}
+	\caption{Configuração do parâmetro matrícula da classe Estudante.}
+	\label{config_parametro}
+\end{figure}
+
+O resultado na classe que representa a entidade, será o seguinte:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=260pt,height=180pt]{files/imgs/hstore-0001.png}
+	\caption{Entidade com o atributo nome já com o tipo hstore.}
+	\label{config_parametro}
+\end{figure}
