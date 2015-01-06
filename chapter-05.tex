@@ -31,4 +31,46 @@ O resultado na classe que representa a entidade, será o seguinte:
 	\label{config_parametro}
 \end{figure}
 
-Feito isto, vá na pasta raiz do projeto e regere o mesmo usando o comando \texttt{maven}. O \texttt{MDArte irá então regerar as classes da camada de domínio, bem como os \texttt{scripts SQL} corrspondentes aos novos atributos da entidade. Você provavelmente precisará rodar novamente o \texttt{script schema-create.sql}, ou alterar manualmente a tabela, a fim de que o atributo escolhido como \texttt{hstore} tem a tipagem correta na tabela do banco. Você provavelmente precisará também reinserir os dados da sua aplicação, caso a tabela já tenha alguma informação. 
+Feito isto, vá na pasta raiz do projeto e regere o mesmo usando o comando
+\texttt{maven}. O \texttt{MDArte} irá então regerar as classes da camada de
+domínio, bem como os \texttt{scripts SQL} corrspondentes aos novos atributos da
+entidade. Você provavelmente precisará rodar novamente o \texttt{script
+schema-create.sql}, ou alterar manualmente a tabela, a fim de que o atributo
+escolhido como \texttt{hstore} tem a tipagem correta na tabela do banco. Você
+provavelmente precisará também reinserir os dados da sua aplicação, caso a
+tabela já tenha alguma informação.
+
+\subsection{Acessando um atributo hstore}
+Quando um atributo de uma entidade é modelado como sendo do tipo
+\texttt{Hstore}, o \texttt{MDArte} o mapeará para o código da aplicação como um
+\texttt{Map}, mais especificamente um \texttt{HashMap}. Como resultado disso, o
+atributo será gerado nas classes de \texttt{<nomeDaEntidade>TO} e
+\texttt{<nomeDaEntidade>Abstract} com o tipo \texttt{Map}.
+
+Para acessar e alterar os valores do \texttt{Map} são gerados os seguintes
+métodos:
+
+\texttt{public void set<nomeDoAtributo>(String key, String value)} - Adiciona um
+novo valor no indice indicado.
+
+\texttt{public void set<nomeDoAtributo>(Map<String,String> map)} - Substitui o
+\texttt{map} da entidade por um \texttt{clone} do \texttt{map} passado por
+parâmetro.
+
+\texttt{public String get<nomeDoAtributo>(String key)} - Retorna o valor do
+\texttt{map} correspondente à chave passada por parâmetro.
+
+\texttt{public Map<String,String> get<nomeDoAtributo>()} - Retorna um
+\texttt{clone} do \texttt{map} existente na classe da entidade.
+
+\texttt{public void remove<nomeDoAtributo>(String key)} - Remove do \texttt{map}
+a chave correspondente \texttt{string} passada por parâmetro.
+
+\subsection{Hstore e persistência de dados}
+A persistência dos dados com o \texttt{Hstore} é bem parecida com a dos demais
+atributos, todas as alterações feitas nos indíces do \texttt{map} serão
+persistidas mediante o uso dos métodos \texttt{update} ou \texttt{insert} na 
+classe de serviço da entidade. No entanto, a filtragem de dados baseada no
+atributo \texttt{Hstore} não está disponível, ou seja, sempre que executada uma
+filtragem de dados em uma entidade, caso haja um atributo do tipo
+\texttt{Hstore}, os valores do mesmo serão desconsiderados na operação.
