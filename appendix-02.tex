@@ -16,13 +16,14 @@ Antes de começar, existem quatro pastas zipadas que é recomendável baixar:
 Neste tutorial, será mostrado como configurar a aplicação MDArte para habilitar a aplicação GWT a fazer login e acessar os
 serviços. Em seguida, ferramentas e conceitos utilizados no desenvolvimento da aplicação GWT serão apresentados. Também serão
 apresentadas a criação de uma aplicação EAR, realização do deploy dela no servidor JBoss e o funcionamento dela. Finalmente, os
-passos necessários para executar a aplicação GWT serão descritos. Caso você queira
+passos necessários para executar a aplicação GWT serão descritos. Como conteúdo opcional, mostramos como baixar o exemplo de
+aplicação GWT pronta para você aprender como funciona uma aplição deste tipo.
 
 \section{Configurando a aplicação MDArte}
 
 Nosso objetivo é que a aplicação GWT tenha acesso as serviços da aplicação MDArte. Não é necessária nenhuma configuração se a
 aplicação GWT apenas utilizar serviços públicos mas se tiver que utilizar algum serviço privado que requer login será necessário
-fazer alterações na classe \texttt{ControleAcessoImpl.java}. Adicione as seguintes funções:
+fazer alterações na classe \texttt{ControleAcessoImpl.java}da aplicação MDArte. Adicione as seguintes funções:
 
 \begin{framed}
 \begin{lstlisting}[language=java, breaklines=true]
@@ -162,8 +163,8 @@ EAR (Enterprise ARchive) é um JAR com extensão \texttt{.ear} usado no Java EE 
 arquivo para que o \texttt{deploy} de vários módulos em um servidor de aplicação aconteçam simultaneamente e coerentemente.
 
 Utilizamos esse tipo de arquivo para transformar a aplicação MDArte e o Controle de Acesso em módulos que a aplicação GWT possa
-acessar os serviços dessas aplicações. Vale notar que a aplicação GWT não terá acesso a funcionalidade web de seus módulos pois o
-EAR só comportar um arquivo EAR.
+acessar os serviços dessas aplicações. Vale notar que a aplicação GWT não terá acesso a funcionalidade web dos módulos referentes
+a aplicação MDArte e Controle de Acesso pois o EAR só pode comportar um arquivo WAR.
 
 \subsection{Criando uma aplicação EAR}
 
@@ -310,8 +311,9 @@ Passo 2: Se você modificou a aplicação MDArte ao modificar o modelo ou algum 
 ou \texttt{./mavex.sh -a} (caso disponível) nele.
 Vá para o passo 1.
 
-Passo 3: Execute \texttt{ant war} no Terminal em \texttt{SistemaAcademicoGWT} ou \texttt{GWT Compile} no Eclipse.
-Caso apareça um erro de compilação tipo \texttt{cannot find symbol}, é por causa que ele não acha classes do SistemaAcademico.
+Passo 3: Execute \texttt{ant war} no Terminal (linha de comando) em \texttt{SistemaAcademicoGWT} ou \texttt{GWT Compile} no
+Eclipse.
+Caso apareça um erro de compilação tipo \texttt{cannot find symbol}, é por ele não achar classes do SistemaAcademico.
 Repita o Passo 1
 
 Caso a compilação seja um sucesso, a partir deste ponto há duas formas de executar a aplicação GWT através do EAR.
@@ -370,6 +372,8 @@ gerados da aplicação MDArte e do Controle de Acesso também. Os arquivos WAR n
 
 Outro ponto importante, é que ao executar todos esses passos não será possível executar a aplicação GWT em Super Dev mode.
 
+\subsection{Super Dev Mode}
+
 
 \section{Configurando o build path (Opcional)}
 
@@ -394,3 +398,15 @@ http://www.gwtproject.org/
 https://code.google.com/p/mvp4g/
 
 http://samples.gwtproject.org/samples/Showcase/Showcase.html
+
+http://mvp4g.blogspot.com.br/2011/04/mvp-pattern-associated-with-event-bus.html (Importante)
+
+http://mvp4g.blogspot.com.br/2011/04/history-with-mvp4g.html
+
+http://mvp4g.blogspot.com.br/2011/08/custom-place-service.html
+
+http://mvp4gshowcase.appspot.com/
+
+https://code.google.com/p/project-alfa/source/browse/trunk/two/view-mvp4g/src/main/java/com/webware/view/client/app/view/ReverseCompositeView.java?r=39
+(Arquivo Importante)
+
