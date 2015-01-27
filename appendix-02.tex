@@ -3,21 +3,18 @@
 Neste apêndice veremos um exemplo de como configurar uma aplicação GWT para acessar os serviços de um projeto MDArte. É assumido
 que o leitor já tenha feito todo tutorial e que tenha dominínio da língua inglesa.
 
-Antes de começar, existem quatro pastas zipadas que é recomendável baixar:
+Antes de começar, é recomendável:
 
 \begin{itemize}
-  \item SistemaAcademico.zip (aplicação MDArte já pronta com o login entre ela
-  e a aplicação GWT já configurada)
-  \item SistemaAcademicoGWT.zip (aplicação GWT pronta para ser utilizada)
-  \item SistemaAcademicoEAR.zip (aplicação EAR já configurada)
-  \item jboss.zip (servidor JBOSS já configurado)
+  \item Utilizar o SistemaAcademico que você fez neste tutorial
+  \item Ter o seu servidor JBoss configurado corretamente
 \end{itemize}
 
 Neste tutorial, será mostrado como configurar a aplicação MDArte para habilitar a aplicação GWT a fazer login e acessar os
 serviços. Em seguida, ferramentas e conceitos utilizados no desenvolvimento da aplicação GWT serão apresentados. Também serão
 apresentadas a criação de uma aplicação EAR, realização do deploy dela no servidor JBoss e o funcionamento dela. Finalmente, os
-passos necessários para executar a aplicação GWT serão descritos. Como conteúdo opcional, mostramos como baixar o exemplo de
-aplicação GWT pronta para você aprender como funciona uma aplição deste tipo.
+passos necessários para executar a aplicação GWT serão descritos. Como conteúdo opcional, mostramos como baixar o exemplo da
+aplicação GWT pronta para você aprender como funciona uma aplicação deste tipo.
 
 \section{Configurando a aplicação MDArte}
 
@@ -268,17 +265,19 @@ Selecione o servidor que será usado, clique com o botão direito do mouse e sel
 
 Clique no projeto EAR desejado, clique \texttt{Add>} e depois \texttt{Finish}
 
-\section{Importanto os exemplos prontos}
+\section{Importando o exemplo pronto}
 
-Caso você queira usar os exemplos disponíveis em \ldots\ldots\ldots\ldots Importe os projetos no Eclipse na seguinte ordem:
+Caso você queira usar o exemplo SistemaAcademicoGWT disponível no repositório Git do MDArte em
+https://github.com/MDArte/SistemaAcademicoGWT. É necessário que você tenha feito o SistemaAcademico do tutorial!
 
-\begin{itemize}
-  \item SistemaAcademico
-  \item SistemaAcademicoGWT
-  \item SistemaAcademicoEAR
-\end{itemize}
+Para baixar o exemplo há duas maneiras:
 
-E substitua o servidor JBoss pelo da pasta jboss.zip.
+A primeira é através do Terminal (linha de comando) executar \texttt{git clone https://github.com/MDArte/SistemaAcademicoGWT.git}
+ou \texttt{git clone ssh://git@github.com:MDArte/SistemaAcademicoGWT.git} caso você tenha uma conta no GitHub. No caso de você usar SSH, você deve
+gerar uma nova chave para você. Leia https://help.github.com/articles/generating-ssh-keys/ para executar os passos necessários.
+
+A segunda é importar um proejto do Git através do Eclipse. Leia http://www.lennu.net/import-git-project-into-eclipse/ para
+executar os passos necessários.
 
 É altamente recomendável que você teste e analise o código do SistemaAcademicoGWT oferecido para você ter uma idéia de como o GWT
 e o mvp4g funcionam.
@@ -316,7 +315,7 @@ Eclipse.
 Caso apareça um erro de compilação tipo \texttt{cannot find symbol}, é por ele não achar classes do SistemaAcademico.
 Repita o Passo 1
 
-Caso a compilação seja um sucesso, a partir deste ponto há duas formas de executar a aplicação GWT através do EAR.
+Caso a compilação seja um sucesso, a partir deste ponto há duas formas de executar a aplicação GWT.
 
 \subsubsection{Executando através do Eclipse}
 
@@ -367,13 +366,9 @@ aplicações MDArte.
 
 \section{Considerações finais}
 
-A segunda forma é melhor pois você pode pegar o EAR e colocar em outro JBoss na pasta \texttt{deploy}. Você precisará dos jars
-gerados da aplicação MDArte e do Controle de Acesso também. Os arquivos WAR não são necessários para o funcionamento do EAR.
-
-Outro ponto importante, é que ao executar todos esses passos não será possível executar a aplicação GWT em Super Dev mode.
-
-\subsection{Super Dev Mode}
-
+A segunda forma é melhor pois será mais fácil utilizar o Super Dev Mode. Você precisará dos jars
+gerados da aplicação MDArte e do Controle de Acesso para que o SistemaAcademicoGWT funcione. Os arquivos WAR não são necessários
+para o funcionamento do EAR.
 
 \section{Configurando o build path (Opcional)}
 
@@ -388,6 +383,24 @@ configurada no início do tutorial.
 Para criar a variável MAVEN\_REPO e JBOSS\_HOME, clique com o botao direito em qualquer projeto Java e selecione Properties.
 
 Selecione Java Built Path -> Selecione Add Variable... -> Selecione Configure Variables... -> Selecione New... -> Ponha o nome e o path desejados.
+
+\section{Super Dev Mode (Opcional)}
+
+Super Dev Mode permite que desenvolvedores GWT recompilem rapidamente o código e vejam os resultados no \texttt{browser}.
+Ele também permite que desenvolvedores usem um \texttt{debugger} para inspecionar a aplicação GWT.
+
+Inicie o servidor onde sua aplicação GWT está localizada, em seguida você deve inicializar o Super Dev Mode. Existem duas maneiras
+de fazer isso:
+
+A primeira forma é através do Terminal na pasta raiz da aplicação GWT executar \texttt{ant superdevmode}. Quando a compilação for
+concluída podemos ir para o próximo passo.
+
+A segunda forma é através do Eclipse.
+
+Para o próximo passo
+
+
+
 
 \section{Referências}
 
@@ -409,4 +422,12 @@ http://mvp4gshowcase.appspot.com/
 
 https://code.google.com/p/project-alfa/source/browse/trunk/two/view-mvp4g/src/main/java/com/webware/view/client/app/view/ReverseCompositeView.java?r=39
 (Arquivo Importante)
+
+http://codegwt.blogspot.com.br/2013/05/running-gwt-on-superdev-mode-boost-up.html
+
+http://geekbybit.blogspot.in/2013/03/diy-working-with-gwt-codeserver-tomcat.html
+
+https://help.github.com/articles/generating-ssh-keys/
+
+http://www.lennu.net/import-git-project-into-eclipse/
 
