@@ -74,3 +74,66 @@ classe de serviço da entidade. No entanto, a filtragem de dados baseada no
 atributo \texttt{Hstore} não está disponível, ou seja, sempre que executada uma
 filtragem de dados em uma entidade, caso haja um atributo do tipo
 \texttt{Hstore}, os valores do mesmo serão desconsiderados na operação.
+
+\section{\texttt{JSONB}}
+O \texttt{JSONB} é um tipo de dados suportado pelo \texttt{Postgres} a partir da
+versão 9.4, permitindo salvar dados no formato \texttt{JSON} com diversas
+facilidades e possibilidade de filtrar dados usando os dados contidos na coluna
+de tipo \texttt{JSONB}.
+
+Nesta seção, veremos como utilizar o suporte do \texttt{MDArte} a este tipo de
+dados especial. 
+
+É importante ter em mente que no \texttt{MDArte} o \texttt{JSONB} é utilizado
+como uma forma de modelar uma \texttt{'subentidade'}, um conjunto de
+informações, em json, que só fazem sentido em conjunto, formando uma espécie de
+entidade, só que não precisando ter um \texttt{id} ou tabela próprios para si,
+podendo ser um campo de outra entidade.
+
+\subsection{Modelando uma subentidade \texttt{JSONB}}
+Agora veremos como modelar uma subentidade \texttt{JSONB} no \texttt{MDArte}.
+Usaremos como exemplo o modelo de \texttt{Camada de Domínio} do \texttt{Sistema
+Acadêmico}. O modelo começará da seguinte forma:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=240pt]{files/imgs/tutorial-mdarte-jsonb-0004.png}
+	\caption{Modelo inicial da camada de domínio.}
+	\label{camada_dominio}
+\end{figure}
+
+Começaremos criando uma nova classe no diagrama. A título de exemplo, criaremos
+uma classe de nome \texttt{Endereco}. Adicionaremos também alguns campos a ela.
+O diagrama ficará da seguinte forma:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=280pt]{files/imgs/tutorial-mdarte-jsonb-0003.png}
+	\caption{Camada de domínio já com a classe Endereco.}
+	\label{camada_dominio_endereco}
+\end{figure}
+
+Em seguida, marcaremos a classe \texttt{Endereco} com os estereótipos
+\texttt{«Entity»} e \texttt{«SubEntity»}. Esses dois estereótipos, em conjunto,
+é que determinarão para o \texttt{MDArte} que a classe é uma subentidade JSONB,
+portanto é importante não esquecer nem de uma nem de outra. O modelo ficará da
+seguinte maneira:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=280pt]{files/imgs/tutorial-mdarte-jsonb-0002.png}
+	\caption{Classe Endereco com os estereótipos para a subentidade JSONB.}
+	\label{camada_dominio_endereco_estereotipos}
+\end{figure}
+
+A maneira de expressar que uma determinada subentidade JSONB é faz parte de uma
+determinada entidade é através de uma associação. É importante lembrar que cada
+subentidade só pode ser parte de uma única entidade, por tanto deve ter um único
+relacionamento.
+
+A subentidade JSONB do MDArte permite salvar e manter tanto um único objeto JSON
+como um array destes objetos, sendo isso definido de acordo com a
+multiplicidade definida nos relacionamentos. A seguir veremos exemplos de como
+modelar ambas as situações.
+
+
