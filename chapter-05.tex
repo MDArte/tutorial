@@ -121,7 +121,7 @@ seguinte maneira:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=290pt,height=280pt]{files/imgs/tutorial-mdarte-jsonb-0002.png}
+	\includegraphics[width=290pt,height=300pt]{files/imgs/tutorial-mdarte-jsonb-0002.png}
 	\caption{Classe Endereco com os estereótipos para a subentidade JSONB.}
 	\label{camada_dominio_endereco_estereotipos}
 \end{figure}
@@ -136,4 +136,78 @@ como um array destes objetos, sendo isso definido de acordo com a
 multiplicidade definida nos relacionamentos. A seguir veremos exemplos de como
 modelar ambas as situações.
 
+Começaremos modelando o caso em que a entidade possui um campo JSONB que contém
+um único objeto da subentidade JSONB. Como já foi dito, isso é definido por meio
+de uma associação e sua multiplicidade. Modelaremos então uma associação entre a
+entidade e a nossa subentidade JSONB, neste exemplo, entre Estudante e Endereco,
+colocando multiplicidade 1 para ambas as entidades. O modelo ficará da seguinte
+forma:
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=320pt]{files/imgs/tutorial-mdarte-jsonb-0000.png}
+	\caption{Modelando o Endereco como objeto simples pertencente à classe
+	Estudante.}
+	\label{camada_dominio_endereco_estereotipos}
+\end{figure}
+
+Modelaremos agora, alternativamente, o caso em que a entidade possui em si um
+campo JSONB com um array de objetos do tipo da subentidade JSONB. Para tal,
+modelaremos também uma associação entre as classes anteriormente citadas,
+mudanddiferindo somente na multiplicidade referente à classe que mapeia a
+subentidade, que neste caso deve ser \texttt{0\ldots*} ou \texttt{*}. O modelo
+ficará como na imagem:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=290pt,height=320pt]{files/imgs/tutorial-mdarte-jsonb-0001.png}
+	\caption{Modelando o Endereco como array de objetos pertencentes à
+	classe Estudante.}
+	\label{camada_dominio_endereco_estereotipos}
+\end{figure}
+
+Feita a modelagem conveniente à implementação que se está fazendo, vá na raiz do
+projeto e rode o comando \texttt{maven}.
+
+\subsection{Código gerado para a subentidade JSONB}
+Nesta subseção veremos o código gerado para suportar o uso da subentidade JSONB
+e a sua apropriada implementação e utilização. Para cada classe marcada com os
+estereótipos \texttt{«Entity»} e \texttt{«SubEntity»}, o \texttt{MDArte} gera
+as classes \texttt{<nomeDaSubentidade>.java} e
+\texttt{<nomeDaSubentidade>Impl.java}, sendo, respectivamente, uma classe
+abstrata, contendo os métodos de acesso e modificação dos dados da subentidade,
+bem como os métodos modelados para a classe como métodos abstratos, e uma classe
+que estende a primeira, funcionando como ponto de implementação para o métodos
+modelados bem como qualquer outro código adicionado manualmente à subentidade.
+
+A classe abstrata é gerada com os seguintes métodos:
+\begin{itemize}
+  \item Construtor sem parâmetro - Retorna uma instância da classe com todos os
+  seus atributos tendo valor nulo;
+  \item Construtor recebendo Map<String,String> por parâmetro - Retorna uma
+  instância da classe inicializando seus atributos com os valores do Map
+  correspondentes a seus respectivos nomes. Por exemplo, um atributo chamado
+  `nome` receberia o valor relativo à chave 'nome' do Map. Todos os casts e
+  conversões da String retornada pelo Map para o tipo do atributo são resolvidos
+  pelo próprio construtor;
+  \item public String toJson() - Retorna um JSON referente à instância da
+  subentidade que o invoca;
+  \item public <nomeDaSubentidade> clone - Retorna um clone da instância da
+  subentidade que o invoca, ou seja, uma nova instância do objeto que no entanto
+  contém todos os campos com o valor semelhante ao da instância que invocou tal
+  método.
+  \item Getters e Setters para cada atributo - Métodos usados para acessar e
+  alterar os valores do atributos da instância da subentidade.
+\end{itemize}
+
+A classe de implementação é gerada somente com construtores que suportem a
+extensão dos construtores da superclasse, ficando todo o restante da sua
+implementação por conta do desenvolvedor.
+
+\subsection{Codigo gerado na classe que contém a subentidade JSONB}
+No caso de uma multiplicidade um para um na modelagem da associação, a classe da
+entidade que contém a subentidade JSONB, terá como atributo uma instância da
+classe referente à subentidade e métodos de get e set para acesso e alteração do
+conteúdo da classe. Vale ressaltar que o método de set aceita tanto uma
+instância da própria classe, ou um Map com os valores que seja deseja atribuir a
+cada atributo relacionado à uma chave que corresponde a seu nome.
