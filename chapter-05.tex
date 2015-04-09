@@ -211,3 +211,22 @@ classe referente à subentidade e métodos de get e set para acesso e alteraçã
 conteúdo da classe. Vale ressaltar que o método de set aceita tanto uma
 instância da própria classe, ou um Map com os valores que seja deseja atribuir a
 cada atributo relacionado à uma chave que corresponde a seu nome.
+
+Caso contrário, a classe da entidade que contém a subentidade JSONB, terá um
+ArrayList de objetos do tipo da classe que representa a subentidade. Na classe
+da entidade o campo será gerado com o tipo ArrayList, e com o nome no plural, e
+serão gerados os seguintes métodos para acessar e alterar os valores do
+ArrayList:
+
+\begin{itemize}
+  \item getter - Retorna um clone da instância do ArrayList de subentidades
+  contido na classe da entidade;
+  \item setter - Recebe uma ArrayList por parâmetro, e cria uma nova lista
+  contendo subentidades com valores semelhantes aos da ArrayList recebida;
+  \item removeFrom<nomeDoAtributo> - Recebe um valor inteiro referente ao índice
+  do ArraList que se deseja remover e retorna uma a subentidade removida da
+  lista;
+  \item addTo<nomeDoAtributo> - Método com duas assinaturas diferentes, podendo
+  receber o índice do array onde adicionar e a subentidade a ser adicionada, ou
+  somente a subentidade a ser adicionada, não tendo nenhum retorno.
+\end{itemize}
