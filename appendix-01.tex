@@ -101,6 +101,21 @@ conectar a base de dados e validar o usuário no momento de \texttt{login}.
 
 \chapter{Configurando repositório externo do Maven}
 \label{maven-config}
+Durante a sua execução, o \texttt{maven} faz acesso a diversos arquivos
+correspondentes à dependencias externas que o projeto em construção necessite, tanto para sua
+geração, quanto compilação. Para isso, o \texttt{maven} mantém um repositório
+local na máquina, no caminho \texttt{~/.maven/repository/}, onde mantém salvas todas as
+dependências já usadas, a fim de reutilizá-las no futuro, caso necessário.
+Quando determinado projeto possui uma dependência que não existe ainda no
+repositório local, o \texttt{maven} busca esses arquivos no repositório remoto
+configurado.
+No momento da configuração do ambiente, o instalador do \texttt{MDArte} já faz
+essa configuração, basta responder positivamente à pergunta 'Create Build
+Properties?'. Como se pode presumir, o repositório remoto é configurado em um
+arquivo \texttt{build.properties}, que deve estar localizado no caminho
+\texttt{~/}. O endereco do repositório é definido pela propriedade
+'maven.repo.remote', bastando alterá-lo no arquivo para ter configurado ou
+reconfigurado tal propriedade.
 
 \chapter{Alterações e cuidados a serem feitos ao migrar uma aplicação que
 utiliza a versão 17-RC9 para 19-RC9}

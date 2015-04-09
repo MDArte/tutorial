@@ -210,7 +210,7 @@ entidade que contém a subentidade JSONB, terá como atributo uma instância da
 classe referente à subentidade e métodos de get e set para acesso e alteração do
 conteúdo da classe. Vale ressaltar que o método de set aceita tanto uma
 instância da própria classe, ou um Map com os valores que seja deseja atribuir a
-cada atributo relacionado à uma chave que corresponde a seu nome.
+cada atributo relacionado à uma chave que corresponda a seu nome.
 
 Caso contrário, a classe da entidade que contém a subentidade JSONB, terá um
 ArrayList de objetos do tipo da classe que representa a subentidade. Na classe
@@ -230,3 +230,13 @@ ArrayList:
   receber o índice do array onde adicionar e a subentidade a ser adicionada, ou
   somente a subentidade a ser adicionada, não tendo nenhum retorno.
 \end{itemize}
+
+\subsection{Subentidade JSONB e persistência de dados}
+A subentidade JSONB é normalmente salva e resgatada do banco pelo
+\texttt{MDArte}, no entanto, é necessário ressaltar que o \texttt{MDArte} não dá
+suporte à filtragem de dados considerando como critério um atributo JSONB. Isso
+é possível de ser feito manualmente no \texttt{Postgres} porém, necessita de um
+cast explícito, que o \texttt{MDArte} ainda não faz automaticamente. Isso
+significa que usar o 'DefaultFilter', ou outra filtragem que use o JSONB
+como critério de filtragem, em uma tabeal que possui um campo JSONB causará um
+erro de acesso ao banco de dados, gerando assim uma exceção.
