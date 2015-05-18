@@ -1,0 +1,26 @@
+\appendix
+\chapter{Criando um novo cartucho}
+
+O \texttt{MDArte} é composto por uma série de componentes, dentre estes, temos
+os cartuchos, um dos mais essenciais e motivo de estudo neste capítulo. Os
+cartuchos são responsáveis por prover a habilidade de processar um modelo
+utilizando Templates, a fim de gerar o código-fonte. Veremos neste capítulo que
+os cartuchos são compostos por vários artefatos, tal como: arquivos XML de
+configuração; arquivos para os Templates Velocity; classes Java para as
+Metafacades; metamodelos de dados armazenados em um arquivo XMI; etc. E
+principalmente, como estes artefatos interagem entre si.
+
+O processo de criação de um cartucho para o MDArte é bastante simples.
+Basicamente sendo necessário:
+\begin{itemize}
+\item Criar uma estrutura de diretório padronizada, a fim de armazenar os
+artefatos devidamente.
+\item Criar o descritor de configuração do cartucho (andromda-cartridge.xml).
+\item Criar os Templates Velocity.
+\item Compilar o \texttt{MDArte} junto com .
+\item Instalar o cartucho desenvolvido em um repositório para o Maven.
+\end{itemize}
+
+Em alguns casos, veremos que o uso de Metafacades personalizadas será
+necessário. A criação de Metafacades será, então, abordada mais à frente,
+fazendo com que o processo de criação possuirá etapas adicionais.
