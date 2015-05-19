@@ -498,3 +498,205 @@ mapeamentos.
   \item Correção de erro no Servicos.vsl
   \item Correção de bug do import do PaginationStrategy no Controller.java.vsl
 \end{itemize}
+
+\chapter{Criando um novo cartucho}
+
+O \texttt{MDArte} é composto por uma série de componentes, dentre estes, temos
+os cartuchos, um dos mais essenciais e motivo de estudo neste capítulo. Os
+cartuchos são responsáveis por prover a habilidade de processar um modelo
+utilizando \texttt{Templates}, a fim de gerar o código-fonte. Veremos neste
+capítulo que os cartuchos são compostos por vários artefatos, tal como: arquivos
+\texttt{XML} de configuração; arquivos para os \texttt{Templates Velocity};
+classes \texttt{Java} para as \texttt{Metafacades}; metamodelos de dados
+armazenados em um arquivo \texttt{XMI}; etc. E principalmente, como estes
+artefatos interagem entre si.
+
+O processo de criação de um cartucho para o \texttt{MDArte} é bastante simples.
+Basicamente sendo necessário:
+\begin{itemize}
+\item Criar uma estrutura de diretório padronizada, a fim de armazenar os
+artefatos devidamente.
+\item Criar o descritor de configuração do cartucho
+(\texttt{andromda-cartridge.xml}).
+\item Criar os \texttt{Templates Velocity}.
+\item Compilar o \texttt{MDArte} junto com .
+\item Instalar o cartucho desenvolvido em um repositório para o \texttt{Maven}.
+\end{itemize}
+
+Em alguns casos, veremos que o uso de \texttt{Metafacades} personalizadas será
+necessário. A criação de \texttt{Metafacades} será, então, abordada mais à
+frente, fazendo com que o processo de criação possuirá etapas adicionais.
+
+\section{Criando a Estrutura de Diretórios}
+Antes de qualquer etapa, precisamos garantir que a estrutura de diretório em
+disco, onde iremos armazenar todos os artefatos para a criação de um cartucho,
+esteja correta. Para isso precisamos seguir a convenção abaixo como na imagem:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=180pt,height=155pt]{files/imgs/apendice-cartucho-novo-0000.png}
+	\caption{Estrutura de diretórios de um cartucho MDArte}
+	\label{field_type_autocomplete}
+\end{figure}
+
+\texttt{java} - Diretório com as classes \texttt{Java} para as Metafacades.
+\texttt{META-INF} - Diretório com os arquivos \texttt{XML} de configuração.
+\texttt{templates} - Diretório com os \texttt{Templates Velocity} (Arquivos
+\texttt{VSL}).
+\texttt{uml} - Diretório com o metamodelo de dados armazenado em um arquivo
+\texttt{XMI}.
+
+Em alguns casos, será necessário a criação do subdiretório resources, dentro do
+diretório \texttt{src}. Este irá conter todos os recursos que serão apenas
+copiados pelo cartucho (Veja logo a seguir o elemento \texttt{<resource/>} para
+maiores explicações).
+
+\section{Criando o Descritor de Configuração do Cartucho}
+Uma vez criada a estrutura de diretórios, o próximo passo será a criação do
+descritor de configuração do cartucho. O descritor de configuração nada mais é
+que um arquivo \texttt{XML}, com o nome \texttt{andromda-cartridge.xml}, e
+armazenado no subdiretório \texttt{META-INF},  seguindo determinadas regras de
+configuração. (Para maiores informações sobre as regras a serem seguidas veja o
+Anexo 1 - Descritor de Configuração do Cartucho (Schema).) Veremos agora cada
+elemento do descritor de configuração do cartucho em detalhes. (Veja o Anexo 2 -
+Descritor de Configuração do Cartucho (Example).) O descritor de configuração
+possuis as seguintes \texttt{tags}:
+
+\begin{enumerate}
+\item <cartridge/> - Elemento raiz para o descritor de configuração do cartucho.
+Possui os seguintes atributos:
+\begin{itemize}
+
+\item name(*) - Define o nome para o cartucho.
+
+\end{itemize}
+
+\item <macrolibrary/> - Este elemento opcional e aninhado com o elemento
+<templateEngine/>, é utilizado para definir uma biblioteca de macros a serem
+utilizados, caso necessário, pelos Templates Velocity. Possui os
+seguintes atributos:
+
+\begin{itemize}
+
+\item name(*) - Define o nome do arquivo com a biblioteca de macros (incluindo
+caminho) a serem utilizados pelos os Templates Velocity.
+
+\end{itemize}
+
+\item <templateObject/> - Define as classes utilitárias a serem utilizadas pelos
+Templates Velocity. Tais classes poderão ser acessadas por tais Templates a
+partir do nome definido neste elemento. Estas classes precisam definir um
+construtor padrão e precisam estar disponibilizadas para uso pelo cartucho.
+Possui os seguintes atributos:
+
+\begin{itemize}
+\item name(*) - Define o nome pelo qual os Templates Velocity acessarão a
+classe utilitária.
+
+\item className(*) - Nome completo da classe utilitária.
+\end{itemize}
+
+\item <property/> - Define as propriedades a serem utilizadas pelos Templates
+Velocity. Obs.: As propriedades que não possuírem o atributo default definido
+são obrigatórias. Possui os seguintes atributos:
+
+\begin{itemize}
+
+\item reference(*) - Define o nome pelo qual os Templates Velocity acessarão a
+propriedade.
+
+\item default - Define o valor padrão para a propriedade.
+
+\end{itemize}
+
+\item <resource/> -	Define os recursos a serem utilizados pelo cartucho. Os
+recursos, ou melhor, os artefatos, são simplesmente copiados de acordo com o
+valor dos atributos para este elemento <resource/>. Estes não são processados
+por nenhum Template Velocity. Possui os seguintes atributos:
+
+\begin{itemize}
+
+\item path(*) - Define o caminho, relativo à raiz do cartucho, de um
+recurso a ser copiado para o destino informado pelo atributo outlet.
+Ex.: resources/*.gif
+
+\item outputPattern(*) - Define o local dentro do caminho de destino informado
+pelo atributo outlet, onde será copiado cada arquivo de recurso. Ex.:
+pages/images/\{0\}, onde \{0\} é o nome do recurso no momento processado.
+
+\item outlet(*) - Define o caminho lógico de destino onde o recurso será copiado.
+
+\item overwrite(*) - Define se um recurso deverá ser sobrescrito, caso este já exista no caminho de destino informado pelo atributo outlet.
+
+\item required - Define se este recurso será obrigatório ou não para a aplicação
+que for utilizar tal cartucho.
+
+\end{itemize}
+
+\item <template/> - Define os Templates Velocity a serem utilizados para a
+geração do código-fonte. Possui os seguintes atributos:
+
+\begin{itemize}
+
+\item path(*) - Define o caminho, relativo à raiz do cartucho, de um Template
+Velocity a ser utilizado.
+
+\item outputPattern(*) - Define o local dentro do caminho de destino informado
+pelo atributo outlet, onde o arquivo, contendo o código-fonte produzido pelo
+Template Velocity, será gerado. Ex.: \{0\}/\{1\}Bean.java, onde \{0\} é o nome
+do pacote definido no modelo, e \{1\} é o nome para o elemento de modelo
+processado.
+Obs: Uma variável do Template Velocity pode ser informada (Ex.: \textdollar{}
+generatedName) desde que esta seja configurada no Template correspondente.
+
+\item outlet(*) - Define o caminho lógico de destino onde o arquivo, contendo o
+código-fonte produzido pelo Template Velocity, será gerado.
+
+\item overwrite(*) - Define se o arquivo, contendo o código-fonte produzido pelo
+Template Velocity, deverá ser sobrescrito, caso este já exista no caminho de
+destino informado pelo atributo outlet.
+
+\item generateEmptyFiles - Define se os arquivos deverão ser criados mesmo que
+nenhum resultado seja gerado pelo Template Velocity. Geralmente utilizado para
+gerar o arquivo baseado em alguma informação do modelo.
+
+\item outputToSingleFile - Define caso seja necessário gerar um único arquivo
+para todos os elementos de modelo agregados. Por exemplo: Bastante útil para a
+geração de scripts SQL.
+
+\item outputOnEmptyElements - Este atributo apenas terá sentido caso o atributo
+outputToSingleFile esteja com o valor true. Define se mesmo que não haja
+elementos de modelo agregados, o arquivo deverá ser gerado.
+
+\item required - Define se este recurso será obrigatório ou não para a aplicação
+que for utilizar tal cartucho.
+
+\end{itemize}
+
+<modelElements/>
+	Este elemento aninhado com o elemento <template/>, é utilizado para informar ao Template Velocity quais os elementos de modelo deverão ser processados.
+	Atributos:
+variable - Define a variável (Ex.: \textdollar{}entity) que estará disponibilizada
+para utilização no Template Velocity.
+
+<modelElement/>
+	Este elemento aninhado com o elemento <modelElements/>, é utilizado para informar ao Template Velocity qual elemento de modelo deverá ser processado.
+	Atributos:
+stereotype - Define o nome do esteriótipo que o elemento de modelo precisa ter para que este esteja disponível para uso no Template Velocity. Este campo não é obrigatório, pois o elemento aninhado <type/> pode ser utilizado, ao invés deste atributo.
+variable - Define a variável que estará disponibilizada para utilização no Template Velocity. O uso deste atributo apenas terá sentido caso o atributo outputToSingleFile esteja com o valor true, atentando ao fato de que sendo suficiente, na maioria dos casos, apenas o atributo variable para o elemento <modelElements/>.
+Em combinação com o atributo outputToSingleFile, este atributo permite agrupar elementos de modelo e torná-los disponíveis para os Templates Velocity.
+
+
+
+No exemplo acima, todos os elementos de modelo com os esteriótipos
+\texttt{<<Entity>>} e \texttt{<<Service>>} estarão disponíveis para os Templates
+Velocity sob as variáveis \textdollar{}entityEjbs e \textdollar{}sessionEjbs,
+respectivamente. Mas também haverá uma variável \textdollar{}ejbs que estará
+disponível para os Templates Velocity, contendo tanto os elementos de modelo com
+o esteriótipo \texttt{<<Entity>>}, quanto os elementos de modelo com o
+esteriótipo \texttt{<<Service>>}.
+
+
+\end{enumerate}
+
+Obs.: Atributos com o símbolo (*) são obrigatórios.
