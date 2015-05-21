@@ -361,9 +361,12 @@ modelo consertado.
 \section{19-RC4}
 
 \begin{itemize}
-  \item Nova tag @andromda.common.enumeration.emptyValue que indica se o enumerado é gerado com um valor vazio default
+  \item Nova tag @andromda.common.enumeration.emptyValue que indica se o
+  enumerado é gerado com um valor vazio default
   \item Criado o valor etiquetado
-@andromda.presentation.web.view.field.enumeration.emptyValue que irá definir se o enumerado gerado automaticamente será com vazio ou não. Colocado uma constraint que essa opção só será colocada se for um select e um enumerado.
+@andromda.presentation.web.view.field.enumeration.emptyValue que irá definir se
+o enumerado gerado automaticamente será com vazio ou não. Colocado uma
+constraint que essa opção só será colocada se for um select e um enumerado.
   \item Layout personalizado (layout e o menu) para os casos de usos open access
   \item Criação de um ControllerAbstract para agrupar os métodos comuns aos
 controles Mudança dos pacotes do Util.java para não entrar em conflito com outros projetos
@@ -421,7 +424,8 @@ Trocar para \textdollar{}\{application.version\}
 \subsection{Aprimoramentos}
 
 \begin{itemize}
-  \item Nova tabela utilizando carregamento através de AJAX através do valor etiquetado @andromda.presentation.web.action.ajax.table
+  \item Nova tabela utilizando carregamento através de AJAX através do valor
+  etiquetado @andromda.presentation.web.action.ajax.table
   \item Implementação de hiperlink da tabela AJAX 
   \item Implementação de imagem com link na tabela AJAX
   \item Adicionado nova estrutura para os métodos do DAO para passar a paginação
@@ -438,14 +442,16 @@ Trocar para \textdollar{}\{application.version\}
   \item Correções na geração do Servicos.sql
   \item Correções de validação do campo money, float e outros 
   \item Correção do bug no carregar de um caso de uso não exibir a exception
-correta (Struts 1 e 2) Correção da validação por e-mail, cartão e range para o Struts 2.
+correta (Struts 1 e 2) Correção da validação por e-mail, cartão e range para o
+Struts 2.
   \item Correção do ControleAcessoImpl de não pegar os perfis filhos 
   \item Atualizando jquery para versão 1.9, pois a 1.7 é incompatível com o
 jquery.jtable Removendo dependências desnecessárias (jquery-hashchange)
   \item Correções de multibox e double select
   \item Remoções de códigos não utilizados
   \item Correções feitas na geração de funções com o valor etiquetado
-@andromda.persistence.DAOMethod Correções de alguns bugs dos enumerados para serem preenchidos automaticamente na tela
+@andromda.persistence.DAOMethod Correções de alguns bugs dos enumerados para
+serem preenchidos automaticamente na tela
 \end{itemize}
 
 * - Terá que adicionar os campos novos nos métodos do DAOImpl
@@ -472,7 +478,10 @@ button Indicando qual o template que origina o artefato.
 \section{19-RC9}
 
 \begin{itemize}
-  \item Adicionando no pacote util a classe abstrata PaginationStrategy. Ela tem a função de auxiliar a paginação de tabelas. Com essa classe podemos ter diferentes estratégias de paginação para tabelas diferentes ao invés de apenas uma estratégia de paginação em releases anteriores.
+  \item Adicionando no pacote util a classe abstrata PaginationStrategy. Ela tem
+  a função de auxiliar a paginação de tabelas. Com essa classe podemos ter
+  diferentes estratégias de paginação para tabelas diferentes ao invés de apenas
+  uma estratégia de paginação em releases anteriores.
   \item Adição do método paginateList no UtilAbstract.
   \item Corrigido bug de validação do struts 1.
   \item Corrigido bug na geração do Controllerimpl. 
@@ -534,17 +543,21 @@ esteja correta. Para isso precisamos seguir a convenção abaixo como na imagem:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=180pt,height=155pt]{files/imgs/apendice-cartucho-novo-0000.png}
+	\includegraphics[width=180pt,height=155pt]{files/imgs/apendice-cartucho-novo-00000.png}
 	\caption{Estrutura de diretórios de um cartucho MDArte}
 	\label{field_type_autocomplete}
 \end{figure}
 
-\texttt{java} - Diretório com as classes \texttt{Java} para as Metafacades.
-\texttt{META-INF} - Diretório com os arquivos \texttt{XML} de configuração.
-\texttt{templates} - Diretório com os \texttt{Templates Velocity} (Arquivos
-\texttt{VSL}).
-\texttt{uml} - Diretório com o metamodelo de dados armazenado em um arquivo
-\texttt{XMI}.
+\begin{itemize}
+	\item \texttt{java} - Diretório com as classes \texttt{Java} para as
+Metafacades.
+	\item \texttt{META-INF} - Diretório com os arquivos \texttt{XML} de
+	configuração.
+	\item \texttt{templates} - Diretório com os \texttt{Templates Velocity}
+	(Arquivos \texttt{VSL}).
+	\item \texttt{uml} - Diretório com o metamodelo de dados armazenado em um
+	arquivo \texttt{XMI}.
+\end{itemize}
 
 Em alguns casos, será necessário a criação do subdiretório resources, dentro do
 diretório \texttt{src}. Este irá conter todos os recursos que serão apenas
@@ -646,8 +659,9 @@ pelo atributo outlet, onde o arquivo, contendo o código-fonte produzido pelo
 Template Velocity, será gerado. Ex.: \{0\}/\{1\}Bean.java, onde \{0\} é o nome
 do pacote definido no modelo, e \{1\} é o nome para o elemento de modelo
 processado.
-Obs: Uma variável do Template Velocity pode ser informada (Ex.: \textdollar{}
-generatedName) desde que esta seja configurada no Template correspondente.
+Obs: Uma variável do Template Velocity pode ser informada (Ex.:
+\textdollar{}generatedName )  esde que esta seja configurada no Template
+correspondente.
 
 \item outlet(*) - Define o caminho lógico de destino onde o arquivo, contendo o
 código-fonte produzido pelo Template Velocity, será gerado.
@@ -673,22 +687,37 @@ que for utilizar tal cartucho.
 
 \end{itemize}
 
-<modelElements/>
-	Este elemento aninhado com o elemento <template/>, é utilizado para informar ao Template Velocity quais os elementos de modelo deverão ser processados.
-	Atributos:
-variable - Define a variável (Ex.: \textdollar{}entity) que estará disponibilizada
-para utilização no Template Velocity.
+\item <modelElements/> - Este elemento aninhado com o elemento <template/>, é
+utilizado para informar ao Template Velocity quais os elementos de modelo
+deverão ser processados. Possui os seguintes atributos:
 
-<modelElement/>
-	Este elemento aninhado com o elemento <modelElements/>, é utilizado para informar ao Template Velocity qual elemento de modelo deverá ser processado.
-	Atributos:
-stereotype - Define o nome do esteriótipo que o elemento de modelo precisa ter para que este esteja disponível para uso no Template Velocity. Este campo não é obrigatório, pois o elemento aninhado <type/> pode ser utilizado, ao invés deste atributo.
-variable - Define a variável que estará disponibilizada para utilização no Template Velocity. O uso deste atributo apenas terá sentido caso o atributo outputToSingleFile esteja com o valor true, atentando ao fato de que sendo suficiente, na maioria dos casos, apenas o atributo variable para o elemento <modelElements/>.
+\begin{itemize}
+  \item variable - Define a variável (Ex.: \textdollar{}entity) que estará
+disponibilizada para utilização no Template Velocity.
+\end{itemize}
+
+\item <modelElement/> - Este elemento aninhado com o elemento <modelElements/>,
+é utilizado para informar ao Template Velocity qual elemento de modelo deverá
+ser processado. Possui os seguintes atributos:
+
+\begin{itemize}
+  \item stereotype - Define o nome do esteriótipo que o elemento de
+modelo precisa ter para que este esteja disponível para uso no Template
+Velocity. Este campo não é obrigatório, pois o elemento aninhado <type/> pode
+ser utilizado, ao invés deste atributo.
+  \item variable - Define a variável que estará disponibilizada para utilização
+no Template Velocity. O uso deste atributo apenas terá sentido caso o atributo outputToSingleFile esteja com o valor true, atentando ao fato de que sendo suficiente, na maioria dos casos, apenas o atributo variable para o elemento <modelElements/>.
 Em combinação com o atributo outputToSingleFile, este atributo permite agrupar elementos de modelo e torná-los disponíveis para os Templates Velocity.
+\end{itemize}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=380pt,height=180pt]{files/imgs/apendice-cartucho-novo-00001.png}
+	\caption{Exemplo de uso da propriedade modelElement.}
+	\label{exemplo_model_element}
+\end{figure}
 
-
-No exemplo acima, todos os elementos de modelo com os esteriótipos
+No exemplo acima, todos os elementos de modelo com os estereótipos
 \texttt{<<Entity>>} e \texttt{<<Service>>} estarão disponíveis para os Templates
 Velocity sob as variáveis \textdollar{}entityEjbs e \textdollar{}sessionEjbs,
 respectivamente. Mas também haverá uma variável \textdollar{}ejbs que estará
@@ -696,7 +725,51 @@ disponível para os Templates Velocity, contendo tanto os elementos de modelo co
 o esteriótipo \texttt{<<Entity>>}, quanto os elementos de modelo com o
 esteriótipo \texttt{<<Service>>}.
 
+\item <type/> - Este elemento opcional e aninhado com o elemento
+<modelElement/>, é utilizado para informar ao Template Velocity qual elemento de
+modelo deverá ser processado. Os elementos de modelo a serem processados serão
+aqueles que estiverem associados à Metafacade definida pelo atributo name. Não é
+necessário utilizar tal elemento caso o atributo stereotype do elemento
+<modelElement/> esteja definido. Possui os seguintes atributos:
 
-\end{enumerate}
+\begin{itemize}
+  \item name(*) - O nome completo da classe para o Metafacade.
+\end{itemize}
+
+\item <property/> - Este elemento opcional e aninhado com o elemento <type/>, é
+utilizado para informar ao Template Velocity qual elemento de modelo deverá ser
+processado. Os elementos de modelo a serem processados serão aqueles que
+estiverem associados à Metafacade definida pelo atributo name do elemento
+<type/> acima, e caso esta Metafacade associada possua uma das propriedades
+definidas por este elemento. Posui os seguintes atributos:
+
+\begin{itemize}
+  \item name(*) - O nome da propriedade para o Metafacade.
+  \item value - O valor da propriedade para o Metafacade.
+\end{itemize}
+
+É importante atentar para o fato de que não é necessário especificar uma valor
+para uma propriedade. Assim, caso o atributo value não seja especificado, a
+propriedade precisa apenas ser válida: seja não-nula, possua um ou mais
+elementos caso seja uma coleção ou seja verdadeira caso seja um tipo boolean.
 
 Obs.: Atributos com o símbolo (*) são obrigatórios.
+
+\section{Criando os Templates Velocity}
+O processo de criação dos Templates Velocity é bastante simples. Basicamente
+precisamos criar para cada elemento <template/> definido no descritor de
+configuração do cartucho (andromda-cartridge.xml), um arquivo VSL
+correspondente. (Para maiores informações sobre Templates Velocity veja o Anexo
+3 - Templates Velocity User Guide.) Veja abaixo um exemplo de arquivo VSL. Este
+Template Velocity é utilizado para gerar um arquivo de propriedades para o
+Struts Framework, definindo os nomes dos campos de formulários, assim como os
+títulos das páginas a partir dos elementos de modelo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=280pt,height=260pt]{files/imgs/apendice-cartucho-novo-00005.png}
+	\caption{Exemplo de Arquivo Velocity.}
+	\label{exemplo_velocity}
+\end{figure}
+
+\end{enumerate}
