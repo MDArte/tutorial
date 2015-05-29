@@ -796,6 +796,8 @@ possui as seguintes \texttt{tags}:
   \end{enumerate}
 \end{itemize}
 
+\subsection{Criando arquivo de Configuração dos metafacades do cartucho}
+
 \subsection{Criando o arquivo de configuração do Namespace do cartucho}
 Crie no diretório \texttt{META-INF > andromda}, o arquivo
 \texttt{namespace.xml}. Este arquivo \texttt{XML} é responsável por registrar as
@@ -823,6 +825,28 @@ seguintes tags:
 	  novo-cartuco/src/META-INF/andromda, basta definir \texttt{<path>
 	  META-INF/andromda/profile.xml}.
 	  \item <properties> - Define um conjunto de propriedades do cartucho.
+	  \item <propertyGroup>	- Define um grupo de propriedades, agrupadas
+	  logicamente de acordo com o seu intuito. Deve conter obrigatoriamente um
+	  atributo \texttt{name}, que define o nome do grupo sendo definido. Dentro
+	  desta tag, serão definidas as propriedades referentes a tal grupo e,
+	  opcionalmente, uma tag <documentation>, com alguma descrição sobre tal grupo 
+	  de propriedades. Deve ser definida dentro da tag <properties>.
+	  \item <property> - Define uma propriedade do cartucho. Cada propriedade
+	  funciona como uma variável `global` do cartucho, acessível a todos os seus
+	  templates. Uma propriedade deve ter, obrigatoriamente, o atributo `name`, que
+	  define o nome daquela propriedade, e, opcionalmente, o atributo booleano
+	  `required`, que determina se tal propriedade precisa ter um valor definido
+	  para si no arquivo \texttt{XML} de configuração do \texttt{AndroMDA}
+	  (\texttt{andromda.xml}). Caso `required` seja definido como \texttt{true}, o
+	  AndroMDA emitirá uma warning caso a tal propriedade não tenha um valor
+	  definido para si. Além disso, pode-se configurar propriedades adicionais em
+	  uma <property>, definindo dentro dela as seguintes tags (nenhuma delas
+	  obrigatória):
+	  \begin{enumerate}
+	    \item <default> - Valor default para tal propriedade.
+	    \item <documentation> - Descrição da propriedade sendo definida.
+	  \end{enumerate}
+
 	\end{itemize}
 
 \section{Criando os Templates Velocity}
