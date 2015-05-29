@@ -571,14 +571,16 @@ armazenará os arquivos de configuração para o \texttt{AndroMDA}.
 
 \section{Criando os arquivos de configuração do cartucho}
 Uma vez criada a estrutura de diretórios, o próximo passo será a criação dos
-arquivos de configuração do cartucho. O descritor de configuração
-nada mais é que um arquivo \texttt{XML}, com o nome \texttt{andromda-cartridge.xml}, e
-armazenado no subdiretório \texttt{META-INF},  seguindo determinadas regras de
-configuração. (Para maiores informações sobre as regras a serem seguidas veja o
-Anexo 1 - Descritor de Configuração do Cartucho (Schema).) Veremos agora cada
-elemento do descritor de configuração do cartucho em detalhes. (Veja o Anexo 2 -
-Descritor de Configuração do Cartucho (Example).) O descritor de configuração
-possuis as seguintes \texttt{tags}:
+arquivos de configuração do cartucho. 
+
+\subsection{Criando o descritor de configuração do cartucho}
+O descritor de configuração nada mais é que um arquivo \texttt{XML}, com o nome
+\texttt{cartridge.xml},  e armazenado no subdiretório \texttt{META-INF}, 
+seguindo determinadas regras de configuração. (Para maiores informações sobre as
+regras a serem seguidas veja o Anexo 1 - Descritor de Configuração do Cartucho
+(Schema).) Veremos agora cada elemento do descritor de configuração do cartucho
+em detalhes. (Veja o Anexo 2 - Descritor de Configuração do Cartucho (Example).)
+O descritor de configuração possuis as seguintes \texttt{tags}:
 
 \begin{enumerate}
 	\item <cartridge/> - Elemento raiz para o descritor de configuração do
@@ -711,8 +713,12 @@ possuis as seguintes \texttt{tags}:
 		Velocity. Este campo não é obrigatório, pois o elemento aninhado <type/> pode
 		ser utilizado, ao invés deste atributo.
 		\item variable - Define a variável que estará disponibilizada para utilização
-		no Template Velocity. O uso deste atributo apenas terá sentido caso o atributo outputToSingleFile esteja com o valor true, atentando ao fato de que sendo suficiente, na maioria dos casos, apenas o atributo variable para o elemento <modelElements/>.
-		Em combinação com o atributo outputToSingleFile, este atributo permite agrupar elementos de modelo e torná-los disponíveis para os Templates Velocity.
+		no Template Velocity. O uso deste atributo apenas terá sentido caso o atributo
+		outputToSingleFile esteja com o valor true, atentando ao fato de que sendo
+		suficiente, na maioria dos casos, apenas o atributo variable para o elemento
+		<modelElements/>.
+		Em combinação com o atributo outputToSingleFile, este atributo permite agrupar
+		elementos de modelo e torná-los disponíveis para os Templates Velocity.
 	\end{itemize}
 
 \begin{figure}[H]
@@ -759,6 +765,65 @@ propriedade precisa apenas ser válida: seja não-nula, possua um ou mais
 elementos caso seja uma coleção ou seja verdadeira caso seja um tipo boolean.
 
 Obs.: Atributos com o símbolo (*) são obrigatórios.
+
+\subsection{Criando o arquivo de configuração do perfil do cartucho}
+Crie no diretório \texttt{META-INF > andromda}, o arquivo \texttt{profile.xml}.
+Este arquivo \texttt{XML} é reponsável por registrar os estereótipos e valores
+etiquetados que serão usados pelo cartucho na interpretação do modelo. O arquivo
+possui as seguintes \texttt{tags}:
+
+\begin{itemize}
+  \item <profile> - Raiz da configuração, deve englobar todas as demais tags.
+  \item <documentation> - Descrição do que é o cartucho, seu intuito e demais
+  informações que se julgue necessárias.
+  \item <elements> - Tag que engloba a lista de elementos (estereótipos e
+  valores etiquetados) a serem definidos.
+  \item <elementGroup> - Devendo ser colocada dentro de <elements>, esta tag
+  nos permite criar grupos de elementos definidos dentro de si e a usaremos para
+  separar os elementos de acordo com o seu tipo. Esta tag possui uma propriedade
+  \texttt{`name`}, usada para definir o nome do grupo criado (Ex.: Stereotypes).
+  \item <element> - Devendo ser colocada dentro de um <elementGroup>, esta tag
+  define um elemento a ser usado no modelo. Tem suas propriedades definidas com
+  outras tags dentro de si. Cada elemento deve conter dentro de si as seguintes
+  tags:
+  \begin{enumerate}
+    \item <documentation> - Descrição sobre o estereótipo sendo registrado.
+    \item <value> - Valor, em texto, associado àquele estereótipo.
+    \item <appliedOnElement> - Tipo de elemento \texttt{UML} ao qual tal
+    estereótipo deve ser aplicado. Se queremos que ele só seja aplicado a
+    classes, por exemplo, definiremos 
+    `\texttt{<apliedOnElement>class<apliedOnElement/>}`.
+  \end{enumerate}
+\end{itemize}
+
+\subsection{Criando o arquivo de configuração do Namespace do cartucho}
+Crie no diretório \texttt{META-INF > andromda}, o arquivo
+\texttt{namespace.xml}. Este arquivo \texttt{XML} é responsável por registrar as
+propriedades e variáveis globais que estarão disponíveis para os templates do
+cartucho, bem como registrar os componentes do mesmo. O arquivo é composto das
+seguintes tags:
+
+	\begin{itemize}
+	  \item <namespace> - Raiz da configuração, devendo englobar todas as tags
+	  seguintes. Possui o atributo \texttt{name}, que define o nome do namespace
+	  que se está definindo.
+	  \item <components> - Define um conjunto de componentes de configuração a
+	  serem registrados como parte do cartucho. Deve englobar as tags <component>
+	  \item <component> - Registra um componente de configuração do cartucho.
+	  Usaremos esta tag para registr os outros arquivos de configuração
+	  anteriormente criados. Possui o atributo \texttt{name}, que define o nome do
+	  componente, devendo ser preenchido com o mesmo nome do arquivo, sem a
+	  extensão, ou seja, para o arquivo \texttt{cartridge.xml}, definiremos
+	  \texttt{`name`=`catridge`}.
+	  \item <path> - Define o caminho onde está localizado um componente de
+	  configuração, devendo, portanto, ser definida dentro da tag <component>. É
+	  importante notar que o caminho é definido considerando novo-cartuco/src como
+	  a raiz do projeto, não devendo este caminho ser especificado. Para definir o
+	  path para o arquivo \texttt{cartridge.xml}, que criamos no caminho,
+	  novo-cartuco/src/META-INF/andromda, basta definir \texttt{<path>
+	  META-INF/andromda/profile.xml}.
+	  \item <properties> - Define um conjunto de propriedades do cartucho.
+	\end{itemize}
 
 \section{Criando os Templates Velocity}
 O processo de criação dos Templates Velocity é bastante simples. Basicamente
