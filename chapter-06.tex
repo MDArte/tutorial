@@ -319,15 +319,68 @@ O Arquivo possui a seguinte estrutura de tags:
   metafacade que o mapeie. Possui o atributo \texttt{`class`} que define o nome
   da classe do metafacade usado para mapear os elementos. 
   \item <metafacade/> - Permite configurar um mapeamento de um elemento do
-  modelo para uma classe de metafacade. The <metafacade/> is nested directly
-  under the root <metafacades/> element. For example this <metafacade/> element
-  below tells AndroMDA to construct an instance of
-  org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl when
-  AndroMDA finds a meta model element of type
-  org.omg.uml.foundation.core.Operation\$Impl, created within the context of
-  org.andromda.cartridges.spring.metafacades.SpringEntity and having a valid
-  query property (valid meaning the property is not-null, true if boolean, or a
-  non-empty collection if a collection property).
+  modelo para uma classe de metafacade. Deve ser criada dentro da tag
+  <metafacades/>. Possui as seguintes propriedades:
+  \begin{enumerate}
+    \item class - Define o nome
+  da classe do metafacade usado para mapear os elementos do modelo.
+    \item contextRoot - Atributo booleano não obrigatório que indica se
+    um dado metafacade serve de contextRoot (`raiz de contexto`) para
+    outro metafacade, ou seja, se um outro metafacade será instanciado
+    no contexto do metafacade que se está mapeando. O mapeamento abaixo, por
+    exemplo, indica que o metafacade construído a partir de
+    org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl será
+    contextRoot, já que teremos 
+    org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl
+    usando o metafacade anterior como base para a construção de seu contexto.
+    
+    \begin{lstlisting}[language=xml]
+		...
+		<metafacade
+			class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl"
+			contextRoot="true"> 
+			<mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+				<stereotype>WEBSERVICE</stereotype> 
+			</mapping> 
+		...
+		</metafacade>
+		...
+		<metafacade
+			class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl"
+			contextRoot="true">
+			<mapping class="org.omg.uml.foundation.core.Operation$Impl">
+				<context>org.andromda.cartridges.webservice.metafacades.WebService</context> 
+			</mapping> 
+		...
+		</metafacade>
+		...
+	\end{lstlisting}
+  \end{enumerate}
+  
+  \item <property/> - Tag opcional, dentro da tag <metafacade/>, podendo cada
+  metafacade ter tantas referências a propriedades quanto necessário.
+  Similarmente às propriedades de namespace aneteriormente descritas, podemos
+  definir referências a propriedades externamente configuradas no escopo de um
+  único metafacade. Isto nos permite configurar um valor específico de
+  propriedade para um metafacade, sem precisar alterar o valor dessa propriedade
+  no escopo do cartucho.
+  \item <mapping/> - Cada metafacade deve ter uma única tag <mapping/>
+  dentro de si. A tag <mapping/> contém as informações que deixam claro pro
+  MDArte de que forma um elemento do metamodelo deve ser mapeado para um
+  metafacade específico. O mapping pode ser feito a partir da combinação dos
+  seguintes atributos, a serem detalhados posteriormente:
+
+  \begin{enumerate}
+    \item stereotypes - Cada elemento do metamodelo pode ser mapeado por
+    de um ou mais estereótipos.
+    \item context - Cada elemento do metamodelo pode ser mapeado por um único
+    contexto. Um contexto é o nome da interface associada a uma classe de
+    metafacade, devendo ser o contexto a partir do qual o metafacade é
+    construído.
+    \item properties - Cada elemento do metamodelo pode ser mapeado por uma
+    ou mais propriedades que se apliquem a ele.
+  \end{enumerate}
+
 \end{itemize}
 
 \subsection{Criando o arquivo de configuração do Namespace do cartucho}
