@@ -323,37 +323,36 @@ O Arquivo possui a seguinte estrutura de tags:
   <metafacades/>. Possui as seguintes propriedades:
   \begin{enumerate}
     \item class - Define o nome
-  da classe do metafacade usado para mapear os elementos do modelo.
+    da classe do metafacade usado para mapear os elementos do modelo.
     \item contextRoot - Atributo booleano não obrigatório que indica se
     um dado metafacade serve de contextRoot (`raiz de contexto`) para
     outro metafacade, ou seja, se um outro metafacade será instanciado
     no contexto do metafacade que se está mapeando. O mapeamento abaixo, por
     exemplo, indica que o metafacade construído a partir de
-    org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl será
-    contextRoot, já que teremos 
-    org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl
-    usando o metafacade anterior como base para a construção de seu contexto.
+    WebServiceLogicImpl será contextRoot, já que teremos
+    WebServiceOperationLogicImpl usando o metafacade anterior como base para a
+    construção de seu contexto.
     
     \begin{lstlisting}[language=xml]
-		...
-		<metafacade
-			class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl"
-			contextRoot="true"> 
-			<mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
-				<stereotype>WEBSERVICE</stereotype> 
-			</mapping> 
-		...
-		</metafacade>
-		...
-		<metafacade
-			class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl"
-			contextRoot="true">
-			<mapping class="org.omg.uml.foundation.core.Operation$Impl">
-				<context>org.andromda.cartridges.webservice.metafacades.WebService</context> 
-			</mapping> 
-		...
-		</metafacade>
-		...
+	...
+	<metafacade
+		class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl"
+		contextRoot="true"> 
+		<mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+			<stereotype>WEBSERVICE</stereotype> 
+		</mapping> 
+	...
+	</metafacade>
+	...
+	<metafacade
+		class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl"
+		contextRoot="true">
+		<mapping class="org.omg.uml.foundation.core.Operation$Impl">
+			<context>org.andromda.cartridges.webservice.metafacades.WebService</context> 
+		</mapping> 
+	...
+	</metafacade>
+	...
 	\end{lstlisting}
   \end{enumerate}
   
@@ -450,8 +449,34 @@ seguintes tags:
 	    \item <default> - Valor default para tal propriedade.
 	    \item <documentation> - Descrição da propriedade sendo definida.
 	  \end{enumerate}
-
 	\end{itemize}
+
+Obs.: Você pode notar que dependendo da forma como os mapeamentos para os
+metafacades são registrados e definidos pode acontecer de um determinado
+elemento ter mais de um mapeamento compatível. É importante ter em mente que,
+nesses casos, a ordem dos mappings no arquivo interfere diretamente no
+mapeamento dos elementos, uma vez que o MDArte aproveitará o primeiro mapeamento
+válido declarado no arquivo. Isso quer dizer que no caso de querer declarar dois
+tipos de mapeamento para um mesmo estereótipo, por exemplo, um mais geral e
+outro mais detalhado, o ideal seria declarar o mais detalhado primeiro e depois
+o menos detalhado. Nesse caso, caso um elemento não fosse mapeado pelo
+mapeamento mais restrito, ele ainda poderia ser casado com o mapeamento mais
+amplo.
+
+\section{Criando os arquivos .properties}
+Criaremos os seguintes arquivos \texttt{.properties} que serão usados pelo
+\texttt{Maven} durante a geração e compilação dos cartuchos do MDArte. Crie os
+arquivos \texttt{mda.properties} e \texttt{project.properties} dentro da pasta
+raiz do cartucho.
+
+Crie o arquivo \texttt{mda.properties} com o seguinte conteúdo:
+
+\lstinputlisting[language=bash, frame=single] {files/properties/mda.properties}
+
+Crie com o arquivo \texttt{project.properties} com o seguinte conteúdo:
+
+\lstinputlisting[language=bash, frame=single]
+{files/properties/project.properties}
 
 \section{Criando os Templates Velocity}
 O processo de criação dos Templates Velocity é bastante simples. Basicamente
