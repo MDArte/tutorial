@@ -371,16 +371,35 @@ O Arquivo possui a seguinte estrutura de tags:
   seguintes atributos, a serem detalhados posteriormente:
 
   \begin{enumerate}
-    \item stereotypes - Cada elemento do metamodelo pode ser mapeado por
-    de um ou mais estereótipos.
-    \item context - Cada elemento do metamodelo pode ser mapeado por um único
-    contexto. Um contexto é o nome da interface associada a uma classe de
-    metafacade, devendo ser o contexto a partir do qual o metafacade é
-    construído.
-    \item properties - Cada elemento do metamodelo pode ser mapeado por uma
-    ou mais propriedades que se apliquem a ele.
+    \item stereotype 
+    \item context
+    \item property
   \end{enumerate}
-
+  
+  \item <stereotype/> - Tag opcional. Cada <mapping/> pode ter uma ou mais tags
+  <stereotype/> dentro de si. Define que a marcação de determinado estereótipo
+  seja usada como forma de definir qual metafacade será usado para mapear um
+  elemento do metamodelo.
+  
+  \item <context/> - Tag opcional. Cada <mapping/> pode ter um único
+  <context/>. Cada elemento do metamodelo pode ser mapeado por um único
+  contexto. Um contexto é o nome da interface associada a uma classe de
+  metafacade, devendo ser o contexto a partir do qual o metafacade é
+  construído.
+  
+  \item <property/> - Tag opcional. Cada <mapping/> pode ter uma ou mais
+  <property/>. Propriedades podem ser definidas com um valor específico ou sem
+  um valor definido. Quando mapeada sem um valor definido, a propriedade
+  precisará ser considerada válida para que um elemento seja a associado ao
+  <mapping/> que a engloba. Uma propriedade é considerada válida nos seguintes
+  casos:
+  
+  \begin{itemize}
+    \item A propriedade tem valor não nulo.
+    \item Se um atributo é uma Collection e esta nã oestá vazia.
+    \item Se um atributo booleano não é falso.
+  \end{itemize}
+  
 \end{itemize}
 
 \subsection{Criando o arquivo de configuração do Namespace do cartucho}
