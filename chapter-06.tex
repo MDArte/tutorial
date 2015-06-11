@@ -471,12 +471,39 @@ raiz do cartucho.
 
 Crie o arquivo \texttt{mda.properties} com o seguinte conteúdo:
 
-\lstinputlisting[language=bash, frame=single] {files/properties/mda.properties}
+\lstinputlisting[language=bash, frame=single]{files/properties/mda.properties}
 
 Crie com o arquivo \texttt{project.properties} com o seguinte conteúdo:
 
-\lstinputlisting[language=bash, frame=single]
-{files/properties/project.properties}
+\lstinputlisting[language=bash, frame=single]{files/properties/project.properties}
+
+As propriedades \texttt{metafacade.model.file} e
+\texttt{maven.andromda.model.uri} definem, respectivamente, o caminho para o
+arquivo \texttt{xml.zip} que contém o modelo UML dos metafacades do cartucho e o
+caminho para o arquivo \texttt{XML} do modelo, que encontra-se empacotado no
+\texttt{xml.zip}.
+
+\section{Criando os arquivos de dependências de compilação do cartucho
+(project.xml e pom.xml)}
+O arquivo \texttt{pom.xml} é o reponsável por descrever o projeto sendo
+automatizado para o \texttt{Maven}, contendo desde informações sobre os
+desenvolvedores e a \texttt{url} onde o projeto reside, até arquivos de
+configuração e algumas dependências de projeto. Veja abaixo um exemplo de
+\texttt{pom.xml}, para ser usado no cartucho que criamos:
+
+\lstinputlisting[language=xml, frame=single]{files/xml/novo-cartucho-project.xml}
+
+Não se esqueça de mudar as propriedades \texttt{<name>} e \texttt{<artifactId>}
+para refletir os valores desejados para o projeto em questão. Mais informações
+sobre o funcionamento do arquivo \texttt{pom.xml} neste
+\href{http://maven.apache.org/pom.html}{link}\footnote{\href{http://maven.apache.org/pom.html}{http://maven.apache.org/pom.html}}.
+
+O arquivo \texttt{project.xml}, no MDArte, é o reponsável por registrar
+as dependências e outras características específicas do projeto sendo
+desenvolvido. Vale lembrar que o MDArte permite a criação de múltiplos arquivos
+\texttt{project.xml}, a fim de que cada unidade menor do projeto possa definir
+de forma local as dependências que só dizem respeito a si. Veja abaixo um
+exemplo de \texttt{project.xml}, para ser usado no cartucho que criamos:
 
 \section{Criando os Templates Velocity}
 O processo de criação dos Templates Velocity é bastante simples. Basicamente
