@@ -505,6 +505,23 @@ desenvolvido. Vale lembrar que o MDArte permite a criação de múltiplos arquiv
 de forma local as dependências que só dizem respeito a si. Veja abaixo um
 exemplo de \texttt{project.xml}, para ser usado no cartucho que criamos:
 
+\lstinputlisting[language=xml,
+frame=single]{files/xml/novo-cartucho-project.xml}
+
+Não se esqueça de mudar as propriedades \texttt{<name>}, \texttt{<artifactId>} e
+quaisquer outras que sejam necessárias para refletir os valores desejados
+para o projeto em questão. Mais informações sobre o funcionamento do arquivo
+\texttt{pom.xml} neste
+\href{http://maven.apache.org/pom.html}{link}\footnote{\href{http://maven.apache.org/pom.html}{http://maven.apache.org/pom.html}}.
+
+\subsection{Criando arquivo de ações do maven (maven.xml)}
+Este arquivo é responsável por definir quais tipos de ações o \texttt{Maven}
+executará para o cartucho. Abaixo temos um exemplo de configuração simples,
+porém suficiente para a maioria dos cartuchos.
+
+\lstinputlisting[language=xml,
+frame=single]{files/xml/novo-cartucho-maven.xml}
+
 \section{Criando os Templates Velocity}
 O processo de criação dos Templates Velocity é bastante simples. Basicamente
 precisamos criar para cada elemento <template/> definido no descritor de
