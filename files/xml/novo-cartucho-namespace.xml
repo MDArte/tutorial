@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="novocartucho">
+	<components>
+		<component name="cartridge">
+			<path>META-INF/andromda/cartridge.xml</path>
+		</component>
+		<component name="metafacades">
+			<path>META-INF/andromda/metafacades.xml</path>
+		</component>
+		<component name="profile">
+			<path>META-INF/andromda/profile.xml</path>
+		</component>
+	</components>
+	<properties>
+		<!-- namespace-propertyGroup merge-point -->
+		<propertyGroup name="Other Properties">
+			<property name="dummyProperty" required="false">
+			    <documentation>Dummy property.</documentation>
+			</property>
+			<property name="dummyOutlet" required="false">
+			    <documentation>Dummy Outlet.</documentation>
+			</property>
+			<property name="projectId" required="false">
+			    <documentation>The Id of the project.</documentation>
+			</property>
+		</propertyGroup>
+	</properties>
+</namespace>

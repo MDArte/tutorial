@@ -2,7 +2,7 @@
 
 <project>
 	<extend>../project.xml</extend>
-	<artifactId>novo-cartucho</artifactId>
+	<artifactId>andromda-novocartucho-cartridge</artifactId>
 	<name>Novo Cartucho Cartridge</name>
 	<shortDescription>
 		Testing cartridge for tutorial

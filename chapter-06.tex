@@ -463,6 +463,12 @@ o menos detalhado. Nesse caso, caso um elemento não fosse mapeado pelo
 mapeamento mais restrito, ele ainda poderia ser casado com o mapeamento mais
 amplo.
 
+Segue a abaixo um exemplo de arquivo \texttt{namespace.xml}, que será usado na
+sequnêcia do capítulo:
+
+\lstinputlisting[language=xml,
+frame=single]{files/xml/novo-cartucho-namespace.xml}
+
 \section{Criando os arquivos .properties}
 Criaremos os seguintes arquivos \texttt{.properties} que serão usados pelo
 \texttt{Maven} durante a geração e compilação dos cartuchos do MDArte. Crie os
@@ -521,6 +527,161 @@ porém suficiente para a maioria dos cartuchos.
 
 \lstinputlisting[language=xml,
 frame=single]{files/xml/novo-cartucho-maven.xml}
+
+\section{Criando uma transformação de exemplo}
+Nesta seção veremos como criar efetivamente uma transformação a partir de um
+cartucho vazio. Começaremos a partir do template de cartucho disponibilizado
+no caminho `samples/novo-cartucho`, dentro do diretório do MDArte. Copie esta
+pasta para o diretório `cartridges`.
+
+Agora, vamos ao trabalho!
+
+\subsection{`Ativando` o cartucho novo}
+Primeiramente informaremos ao MDArte que nosso cartucho deverá ser usado na
+geração de futuros novos projetos. Para isso, abriremos o arquivo
+\texttt{andromda.xml.vsl}, no caminho
+\texttt{mdarte/maven/andromdapp/plugin-resources/andromdapp/templates/j2ee-app/mda/conf}.
+Dentro da tag \texttt{<namespaces>}, criaremos um elemento \texttt{<namespace>},
+com um atributo \texttt{name} com o valor do nome do namespace do cartucho que
+estamos criando (`novo-cartucho`, no presente exemplo). Isso dirá para a
+configuração dos projetos gerados de agora em diante que eles deverão usar
+novo-cartucho e as transformações definidas nele para gerar os projetos. Note
+que neste exemplo não estamos colocaremos nenhuma condição para a inclusão do
+cartucho, mas, como você pode ver olhando o \texttt{andromda.xml.vsl} mais a
+fundo, é possível condicionar a inclusão de cartucho a variáveis de ambiente e
+demais definições feitas durante a criação de um novo projeto. Se você quiser
+aplicar esse cartucho a um projeto já criado, basta fazer o mesmo procedimento
+acima descrito, só que ao invés de editar o \texttt{andromda.xml.vsl} do
+cartucho, você deverá inserir as informações de namespace no
+\texttt{andromda.xml} do projeto, no caminho, \texttt{<raizDoProjeto>/mda/conf}.
+
+Dentro de \texttt{<namespace>}, criaremos o elemento \texttt{<properties>} e,
+dentro deste, um elemento \texttt{<property>}, com \texttt{name} igual a
+\texttt{`dummyProperty`}, apenas para que possamos criar uma propriedade do
+cartucho e referênciá-la no nosso cartucho, a título de exemplo. Criaremos
+também a propriedade \texttt{`dummyOutlet`}, que definirá o diretório onde as
+transformações serão geradas. O resultado será o seguinte:
+
+ \begin{lstlisting}[language=xml]
+	<namespace name="novocartucho">
+	    <properties>
+	        <property name = "dummyProperty">true</property>
+	        <property name = "dummyOutlet">${maven.src.dir}/../../</property>
+	    </properties>
+	</namespace>
+ \end{lstlisting}
+ 
+ Vamos referenciar agora tal propriedade na configuração do
+ \texttt{cartridge.xml} do novo-cartucho. Abriremos tal arquivo e criaremos,
+ dentro da tag \texttt{<cartridge>}, dois elementos \texttt{<property />}, um
+ com \texttt{reference} igual a \texttt{`dummyNode`} e outro com
+ \texttt{reference} igual a \texttt{`projectId`}. O resultado será o seguinte:
+ 
+ \begin{lstlisting}[language=xml]
+	<cartridge>
+		...
+	    <property reference = "dummyProperty"/>
+	    <property reference = "dummyOutlet"/>
+		<property reference = "projectId" />
+		...
+	</cartridge>
+ \end{lstlisting}
+ 
+ Por fim, abriremos o arquivo \texttt{project.xml}, na pasta raiz do projeto, e
+ adicionaremos o \texttt{`novocartucho`} na lista de dependências do projeto.
+ Adicionaremos o seguinte \texttt{xml} ao arquivo, dentro da tag
+ \texttt{<dependencies>}:
+ 
+ \begin{lstlisting}[language=xml]
+  <dependency>
+  	<groupId>andromda</groupId>
+    <artifactId>andromda-novocartucho-cartridge</artifactId>
+    <version>${cartridge.version}</version>
+    <type>jar</type>
+  </dependency>
+ \end{lstlisting}
+ 
+ 
+\subsection{Criando a primeira transformação}
+Nesta seção iremos criar duas transformações simples. Primeiro criaremos uma
+transformação que gera um arquivo de hello world sem usar nenhum metafacade,
+somente as propriedades do cartucho que definimos previamente.
+
+Primeiro, editaremos o arquivo \texttt{cartridge.xml}, e adicionaremos nele uma
+tag \texttt{<template>}, responsável por definir uma nova transformação.
+Adicionaremos o seguinte xml:
+
+\begin{lstlisting}[language=xml]
+	<template path="templates/helloCartridge.vsl"
+        outputPattern="$generatedFile"
+        outlet="$dummyOutlet"
+        overwrite="true" />
+\end{lstlisting}
+
+Iremos agora no diretório \texttt{mdarte/cartridges/novo-cartucho/src/templates}
+e criaremos o arquivo \texttt{`helloCartridge.vsl`}, com o seguinte 
+
+\begin{lstlisting}[language=bash]
+#set($generatedFile = "HelloCartridge")
+
+#if($dummyProperty)
+Hello World!!! Be Welcome to the project $projectId .
+#end
+\end{lstlisting}
+
+Rode o comando \texttt{maven}, primeiramente na raiz do \texttt{MDArte} e então
+projeto que estamos usando para testes, se nenhum erro tiver sido cometido, você
+verá o arquivo \texttt{`HelloCartridge`}, na mesma pasta, com o seguinte
+conteúdo:
+
+\texttt{Hello World!!! Be Welcome to the project "<nomeDoProjeto>".}
+
+\subsection{Criando uma transformação a partir de um metafacade}
+No ponto anterior, criamos uma transformação `estática`, sem receber informações
+de nenhum metafacade. Nesta subseção criaremos primeiramente uma transformação a
+partir das informações de um metafacade, e depois criaremos uma segunda
+transformação, para o mesmo metafacade, porém o mapeamento para esta será feito
+somente para objetos uml que contenham um dado esterótipo.
+
+Começaremos editando o arquivo \texttt{cartridge.xml} e adicionando nele o
+seguinte \texttt{xml} de mapeamento de transformação:
+
+\begin{lstlisting}[language=xml]
+	<template path="templates/EntityMetafacadeTest.vsl"
+		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
+		<modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml14.CoppetecEntityLogicImpl" />
+            </modelElement>
+        </modelElements>
+	</template>
+\end{lstlisting}
+
+Editaremos então o arquivo \texttt{metafacades.xml}, adicionando o seguinte
+\texttt{xml}:
+
+\begin{lstlisting}[language=xml]
+    <property reference="projectId" />
+	
+    <metafacade class="org.andromda.metafacades.uml14.CoppetecEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl" >
+        	<property name="tableName" />
+        </mapping>
+    </metafacade>
+\end{lstlisting}
+
+Com isso, dissemos para o MDArte associar cada elemento uml do tipo classe ao
+metafacade \texttt{CoppetecEntityLogicImpl}, o mesmo que estamos passando para o
+template \texttt{`EntityMetafacadeTest.vsl`}. Criaremos agora então tal
+template, para que possamos concluir a criação de tal transformação. Criaremos
+então, o arquivo \texttt{`EntityMetafacadeTest.vsl`}, no caminho
+\texttt{novo-cartucho/src/templates/}, com o seguinte conteúdo:
+
+\begin{lstlisting}[language=bash]
+#set($generatedFile="${entity.name}Test")
+
+Transformacao de teste gerada a partir da classe $entity.name .
+\end{lstlisting}
 
 \section{Criando os Templates Velocity}
 O processo de criação dos Templates Velocity é bastante simples. Basicamente
