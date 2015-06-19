@@ -643,6 +643,7 @@ partir das informações de um metafacade, e depois criaremos uma segunda
 transformação, para o mesmo metafacade, porém o mapeamento para esta será feito
 somente para objetos uml que contenham um dado esterótipo.
 
+\subsubsection{Criando uma tranformação a partir de um metafacade}
 Começaremos editando o arquivo \texttt{cartridge.xml} e adicionando nele o
 seguinte \texttt{xml} de mapeamento de transformação:
 
@@ -681,6 +682,38 @@ então, o arquivo \texttt{`EntityMetafacadeTest.vsl`}, no caminho
 #set($generatedFile="${entity.name}Test")
 
 Transformacao de teste gerada a partir da classe $entity.name .
+\end{lstlisting}
+
+Feito isto, rodaremos novamente o comando \texttt{`maven`} na raiz do
+\texttt{MDArte} e do projeto utilizado para testes.
+
+\subsubsection{Criando uma tranformação a partir de um metafacade e mapeamento
+por estereótipo}
+Adicionaremos agora um novo mapeamento de metafacades no arquivo
+\texttt{metafacades.xml}, com o seguinte xml:
+
+\begin{lstlisting}[language=xml]
+	<metafacade
+		class="org.andromda.cartridges.ejb.metafacades.CoppetecAbstractServiceFacadeLogicImpl">
+		<mapping class="org.omg.uml.foundation.core.UmlClass$Impl" >
+			<stereotype>SERVICE</stereotype> 
+		</mapping>
+    </metafacade>
+\end{lstlisting}
+
+
+Editaremos então o arquivo \texttt{cartridge.xml} do cartucho e criaremos a nova
+transformação usando o \texttt{xml} abaixo:
+
+\begin{lstlisting}[language=xml]
+	<template path="templates/ServiceMetafacadeTest.vsl"
+		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
+		<modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.CoppetecAbstractServiceFacadeLogicImpl" />
+            </modelElement>
+        </modelElements>
+    </template>
 \end{lstlisting}
 
 \section{Criando os Templates Velocity}
