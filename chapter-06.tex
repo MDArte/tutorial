@@ -716,19 +716,73 @@ transformação usando o \texttt{xml} abaixo:
     </template>
 \end{lstlisting}
 
-\section{Criando os Templates Velocity}
-O processo de criação dos Templates Velocity é bastante simples. Basicamente
-precisamos criar para cada elemento <template/> definido no descritor de
-configuração do cartucho (andromda-cartridge.xml), um arquivo VSL
-correspondente. (Para maiores informações sobre Templates Velocity veja o Anexo
-3 - Templates Velocity User Guide.) Veja abaixo um exemplo de arquivo VSL. Este
-Template Velocity é utilizado para gerar um arquivo de propriedades para o
-Struts Framework, definindo os nomes dos campos de formulários, assim como os
-títulos das páginas a partir dos elementos de modelo.
+\section{Modelando um metafacade personalizado}
+Iremos agora modelar um metafacade personalizado e então criar um mapeamento
+para ele. Abra o modelo UML do cartucho no MagicDraw. O arquivo possui o nome
+\texttt{NovoCartucho.xml} e se encontra no caminho
+\texttt{mdarte/cartridges/novo-cartucho/src/uml/}.
+
+O modelo disponibilizado na estrutura inicial do cartucho já possui o cartucho
+\texttt{meta} importado, caso você esteja fazendo um projeto do zero, não
+esqueça de importar o modelo de tal cartucho.
+
+Primeiramente, crie a estrutura e diretórios \texttt{org > andromda >
+cartridges > novocartucho > metafacades}. Crie, então, no pacote
+\texttt{metafacades}, um novo diagrama de classes. No diagrama, arraste para o
+mesmo, a partir da lista dos metafacades na área à esquerda, a classe
+\texttt{CoppetecEntity}. Crie uma classe de nome \texttt{MDArteTutorialEntity}.
+Modele uma \texttt{generalization} da classe \texttt{MDArteTutorialEntity} para
+a classe \texttt{CoppetecEntity}. O resultado será o seguinte:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=280pt,height=260pt]{files/imgs/apendice-cartucho-novo-00005.png}
-	\caption{Exemplo de Arquivo Velocity.}
-	\label{exemplo_velocity}
+	\includegraphics[width=290pt,height=220pt]{files/imgs/mdarte-novocartucho-metafacade-00.png}
+	\caption{Configuração do parâmetro matrícula da classe Estudante.}
+	\label{config_parametro}
 \end{figure}
+
+Vá no diretório raiz do MDArte e rode o comando \texttt{maven}. Com isso, o
+\texttt{MDArte} gerará as classes referentes ao metafacade modelado, precisamos
+agora configurar o mapeamento do metafacade e criar a transformação.
+
+Portanto, adicione ao arquivo \texttt{metafacades.xml} o seguinte xml:
+
+\begin{lstlisting}[language=xml]
+  <metafacade class="org.andromda.cartridges.novocartucho.metafacades.MDArteTutorialEntityLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl" >
+        	 <stereotype>ENTITY</stereotype>
+        </mapping>
+  </metafacade>
+\end{lstlisting}
+
+Edite também o arquivo \texttt{cartridge.xml}, adicionando o seguinte
+\texttt{xml} :
+
+\begin{lstlisting}[language=xml]
+  <template path="templates/MDArteMetafacadeTest.vsl"
+		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
+		<modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.novocartucho.metafacades.MDArteTutorialEntityLogicImpl" />
+            </modelElement>
+        </modelElements>
+  </template>
+\end{lstlisting}
+
+Crei agora o template \texttt{MDArteMetafacadeTest.vsl}, no caminho
+\texttt{mdarte > cartridges > src > templates}, com o seguinte código
+\texttt{velocity} :
+
+\begin{lstlisting}[language=bash]
+#set($generatedFile="${entity.name}MetafacadeCustomTest")
+
+Transformação feita a partir do metafacade personalizado mapeando a classe ${entity.name}.
+\end{lstlisting}
+
+Agora, rode o comando \texttt{maven} na pasta raiz do \texttt{MDArte} e então no
+diretório raiz do projeto de teste. Se tudo tiver sido feito corretamente, você
+verá os arquivos \texttt{<nomeDaEntidade>MetafacadeCustomTest} com o seguinte
+conteúdo:
+
+\texttt{Transformação feita a partir do metafacade personalizado mapeando a
+classe <nomeDaEntidade>.}
