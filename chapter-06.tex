@@ -562,7 +562,8 @@ cartucho e referênciá-la no nosso cartucho, a título de exemplo. Criaremos
 também a propriedade \texttt{`dummyOutlet`}, que definirá o diretório onde as
 transformações serão geradas. O resultado será o seguinte:
 
- \begin{lstlisting}[language=xml]
+ \begin{lstlisting}[language=xml,,
+frame=single]
 	<namespace name="novocartucho">
 	    <properties>
 	        <property name = "dummyProperty">true</property>
@@ -577,7 +578,8 @@ transformações serão geradas. O resultado será o seguinte:
  com \texttt{reference} igual a \texttt{`dummyNode`} e outro com
  \texttt{reference} igual a \texttt{`projectId`}. O resultado será o seguinte:
  
- \begin{lstlisting}[language=xml]
+ \begin{lstlisting}[language=xml,
+frame=single]
 	<cartridge>
 		...
 	    <property reference = "dummyProperty"/>
@@ -592,7 +594,8 @@ transformações serão geradas. O resultado será o seguinte:
  Adicionaremos o seguinte \texttt{xml} ao arquivo, dentro da tag
  \texttt{<dependencies>}:
  
- \begin{lstlisting}[language=xml]
+ \begin{lstlisting}[language=xml,
+frame=single]
   <dependency>
   	<groupId>andromda</groupId>
     <artifactId>andromda-novocartucho-cartridge</artifactId>
@@ -611,7 +614,8 @@ Primeiro, editaremos o arquivo \texttt{cartridge.xml}, e adicionaremos nele uma
 tag \texttt{<template>}, responsável por definir uma nova transformação.
 Adicionaremos o seguinte xml:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
 	<template path="templates/helloCartridge.vsl"
         outputPattern="$generatedFile"
         outlet="$dummyOutlet"
@@ -621,7 +625,8 @@ Adicionaremos o seguinte xml:
 Iremos agora no diretório \texttt{mdarte/cartridges/novo-cartucho/src/templates}
 e criaremos o arquivo \texttt{`helloCartridge.vsl`}, com o seguinte 
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash,
+frame=single]
 #set($generatedFile = "HelloCartridge")
 
 #if($dummyProperty)
@@ -647,7 +652,8 @@ somente para objetos uml que contenham um dado esterótipo.
 Começaremos editando o arquivo \texttt{cartridge.xml} e adicionando nele o
 seguinte \texttt{xml} de mapeamento de transformação:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
 	<template path="templates/EntityMetafacadeTest.vsl"
 		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
 		<modelElements variable="entity">
@@ -661,7 +667,8 @@ seguinte \texttt{xml} de mapeamento de transformação:
 Editaremos então o arquivo \texttt{metafacades.xml}, adicionando o seguinte
 \texttt{xml}:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
     <property reference="projectId" />
 	
     <metafacade class="org.andromda.metafacades.uml14.CoppetecEntityLogicImpl">
@@ -678,7 +685,8 @@ template, para que possamos concluir a criação de tal transformação. Criarem
 então, o arquivo \texttt{`EntityMetafacadeTest.vsl`}, no caminho
 \texttt{novo-cartucho/src/templates/}, com o seguinte conteúdo:
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash,
+frame=single]
 #set($generatedFile="${entity.name}Test")
 
 Transformacao de teste gerada a partir da classe $entity.name .
@@ -692,7 +700,8 @@ por estereótipo}
 Adicionaremos agora um novo mapeamento de metafacades no arquivo
 \texttt{metafacades.xml}, com o seguinte xml:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
 	<metafacade
 		class="org.andromda.cartridges.ejb.metafacades.CoppetecAbstractServiceFacadeLogicImpl">
 		<mapping class="org.omg.uml.foundation.core.UmlClass$Impl" >
@@ -705,7 +714,8 @@ Adicionaremos agora um novo mapeamento de metafacades no arquivo
 Editaremos então o arquivo \texttt{cartridge.xml} do cartucho e criaremos a nova
 transformação usando o \texttt{xml} abaixo:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
 	<template path="templates/ServiceMetafacadeTest.vsl"
 		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
 		<modelElements variable="service">
@@ -747,7 +757,8 @@ agora configurar o mapeamento do metafacade e criar a transformação.
 
 Portanto, adicione ao arquivo \texttt{metafacades.xml} o seguinte xml:
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
   <metafacade class="org.andromda.cartridges.novocartucho.metafacades.MDArteTutorialEntityLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlClass$Impl" >
         	 <stereotype>ENTITY</stereotype>
@@ -758,7 +769,8 @@ Portanto, adicione ao arquivo \texttt{metafacades.xml} o seguinte xml:
 Edite também o arquivo \texttt{cartridge.xml}, adicionando o seguinte
 \texttt{xml} :
 
-\begin{lstlisting}[language=xml]
+\begin{lstlisting}[language=xml,
+frame=single]
   <template path="templates/MDArteMetafacadeTest.vsl"
 		outputPattern="$generatedFile" outlet="dummyOutlet" overwrite="true">
 		<modelElements variable="entity">
@@ -773,7 +785,8 @@ Crei agora o template \texttt{MDArteMetafacadeTest.vsl}, no caminho
 \texttt{mdarte > cartridges > src > templates}, com o seguinte código
 \texttt{velocity} :
 
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[language=bash,
+frame=single]
 #set($generatedFile="${entity.name}MetafacadeCustomTest")
 
 Transformacao feita a partir do metafacade personalizado mapeando a classe
